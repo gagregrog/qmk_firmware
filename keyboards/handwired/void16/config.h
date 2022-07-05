@@ -25,7 +25,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER 0x0001
 #define MANUFACTURER Victor Lucachi
 #define PRODUCT VOID16
-#define DESCRIPTION A handwired 4x4 Macropad with a rotary encoder
+#define DESCRIPTION A handwired 4x4 Macropad
+
+// for TT() layer switching
+// holding keeps the layer active while you hold
+// double tapping activates that layer until you double tap again
+#define TAPPING_TOGGLE 2
 
 /* key matrix size */
 #define MATRIX_ROWS 4
@@ -45,35 +50,38 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DIODE_DIRECTION COL2ROW
 
 /* Rotary Encoder Support */
-#define ENCODERS_PAD_A { F5 }
-#define ENCODERS_PAD_B { F4 }
+// #define ENCODERS_PAD_A { F5 }
+// #define ENCODERS_PAD_B { F4 }
 
-#define ENCODER_RESOLUTION 4
-#define TAP_CODE_DELAY 10
+// #define ENCODER_RESOLUTION 4
+// #define TAP_CODE_DELAY 10
 
 /* Audio Support */
-#define B6_AUDIO
-#define DAC_SAMPLE_MAX 65535U
-#define NO_MUSIC_MODE
-#define AUDIO_CLICKY
+// #define B6_AUDIO
+// #define DAC_SAMPLE_MAX 65535U
+// #define NO_MUSIC_MODE
+// #define AUDIO_CLICKY
 
 /* RGB Underglow Support */
 #define RGB_DI_PIN F7
 #ifdef RGB_DI_PIN
-   #define RGBLED_NUM 11
+   #define RGBLED_NUM 7
+   // #define RGBLIGHT_LAYERS // enable to use layer mode
+
 //   #define RGBLIGHT_HUE_STEP 8
 //   #define RGBLIGHT_SAT_STEP 8
 //   #define RGBLIGHT_VAL_STEP 8
-//   #define RGBLIGHT_LIMIT_VAL 255 /* The maximum brightness level */
+  #define RGBLIGHT_LIMIT_VAL 200 /* The maximum brightness level */
    #define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
+   #define RGBLIGHT_DEFAULT_VAL 175
 // /*== all animations enable ==*/
-//   #define RGBLIGHT_ANIMATIONS
+  #define RGBLIGHT_ANIMATIONS
 // /*== or choose animations ==*/
-   #define RGBLIGHT_EFFECT_BREATHING
-   #define RGBLIGHT_EFFECT_RAINBOW_MOOD
-   #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+   // #define RGBLIGHT_EFFECT_BREATHING
+   // #define RGBLIGHT_EFFECT_RAINBOW_MOOD
+   // #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
 //   #define RGBLIGHT_EFFECT_SNAKE
-   #define RGBLIGHT_EFFECT_KNIGHT
+   // #define RGBLIGHT_EFFECT_KNIGHT
 //   #define RGBLIGHT_EFFECT_CHRISTMAS
 //   #define RGBLIGHT_EFFECT_STATIC_GRADIENT
 //   #define RGBLIGHT_EFFECT_RGB_TEST
