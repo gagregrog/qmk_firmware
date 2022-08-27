@@ -1,0 +1,18 @@
+{
+    "keyboard_name": "VOID4",
+    "url": "https://github.com/robertmcreed/qmk",
+    "maintainer": "Robert Reed",
+    "width": 2,
+    "height": 2,
+    "layouts": {
+        "LAYOUT_ortho_2x2": {
+            "key_count": 4,
+            "layout": [
+                {"x":0, "y":0},
+                {"x":1, "y":0},
+                {"x":0, "y":1},
+                {"x":1, "y":1}
+            ]
+        }
+    }
+}
