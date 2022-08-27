@@ -51,15 +51,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COL_PINS { E6, D7 }
 #define UNUSED_PINS
 
-
-#define PS2_CLOCK_PORT  PORTD
-#define PS2_CLOCK_PIN   PIND
-#define PS2_CLOCK_DDR   DDRD
-#define PS2_CLOCK_BIT   2 // RX1/D2/Pin 0
-#define PS2_DATA_PORT   PORTD
-#define PS2_DATA_PIN    PIND
-#define PS2_DATA_DDR    DDRD
-#define PS2_DATA_BIT    1 // D1/Pin 2
+#define PS2_CLOCK_PIN   D2
+#define PS2_DATA_PIN    D1
 
 #define PS2_INT_INIT()  do {    \
     EICRA |= ((1<<ISC21) |      \
