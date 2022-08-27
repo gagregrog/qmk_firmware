@@ -1,9 +1,5 @@
 #pragma once
 
-/* USB Device descriptor parameter */
-#define PRODUCT_ID      0x6060
-#define DEVICE_VER      0x0002
-
 /* key matrix size */
 #define MATRIX_ROWS 15
 #define MATRIX_COLS  7 
@@ -41,6 +37,6 @@
 
 #define IGNORE_MOD_TAP_INTERRUPT
 
-// Reduce input latency by lowering the USB polling interval
-// from its 10ms default to the 1ms minimum that USB 1.x (Full Speed) allows:
-#define USB_POLLING_INTERVAL_MS 1
+// The Teensy 2++ consumes about 60 mA of current at its full speed of 16 MHz as
+// per https://www.pjrc.com/teensy/low_power.html
+#define USB_MAX_POWER_CONSUMPTION 100

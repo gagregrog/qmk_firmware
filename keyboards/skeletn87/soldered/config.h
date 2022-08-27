@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID    0xF984
-#define PRODUCT_ID   0xB5E8
-#define DEVICE_VER   0x0001
-#define MANUFACTURER BredWorks
-#define PRODUCT      Skeletn87
-
 /* key matrix size */
 #define MATRIX_ROWS 12
 #define MATRIX_COLS 9
@@ -45,7 +38,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define BACKLIGHT_LEVELS 8
 #define BACKLIGHT_BREATHING
 
-#define RGB_DI_PIN B3
+#define RGB_DI_PIN B2
 #ifdef RGB_DI_PIN
 #define RGBLIGHT_ANIMATIONS
 #define RGBLED_NUM 10
