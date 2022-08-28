@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER 0x0001
 #define MANUFACTURER Robert Reed
 #define PRODUCT VOID4
-#define DESCRIPTION A handwired 2x2 Macropad
 
 /* key matrix size */
 #define MATRIX_ROWS 2
@@ -71,3 +70,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PS2_MOUSE_INVERT_Y
 #define PS2_MOUSE_X_MULTIPLIER 5
 #define PS2_MOUSE_Y_MULTIPLIER 5
+
+// #define PS2_MOUSE_DEBUG_HID
+// #define PS2_MOUSE_DEBUG_RAW
