@@ -48,7 +48,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #define MATRIX_ROW_PINS { B5, B4 }
 #define MATRIX_COL_PINS { E6, D7 }
-#define UNUSED_PINS
 
 #define PS2_CLOCK_PIN   D2
 #define PS2_DATA_PIN    D1
