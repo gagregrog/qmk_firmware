@@ -55,7 +55,34 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
+void rotate_mouse_report(report_mouse_t *mouse_report) {
+  // https://doubleroot.in/lessons/coordinate-geometry-basics/rotation-of-axes/
+  // theta = -pi/4
+  const double cos_theta = 0.7071067811865475;
+  const double sin_theta = -0.7071067811865475;
+  double x_cos = cos_theta * mouse_report->x;
+  double y_cos = cos_theta * mouse_report->y;
+  double x_sin = sin_theta * mouse_report->x;
+  double y_sin = sin_theta * mouse_report->y;
+  double x = x_cos - y_sin;
+  double y = x_sin + y_cos;
+  mouse_report->x = (mouse_xy_report_t) x;
+  mouse_report->y = (mouse_xy_report_t) y;
+}
+
+void disable_mouse_buttons(report_mouse_t *mouse_report) {
+  // disable the button report since we don't have buttons on our module
+  mouse_report->buttons = 0;
+  // same for scroll since we are currently only using the mouse feature
+  mouse_report->h = 0;
+  mouse_report->v = 0;
+}
+
 void ps2_mouse_moved_user(report_mouse_t *mouse_report) {
+  rotate_mouse_report(mouse_report);
+  disable_mouse_buttons(mouse_report);
+  return;
+
   // process special mouse mode whether pressed or locked
   bool mouseModeActive = mouseModePress || mouseModeLock;
 
