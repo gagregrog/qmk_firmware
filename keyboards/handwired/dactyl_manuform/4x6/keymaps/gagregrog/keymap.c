@@ -522,7 +522,7 @@ void ps2_mouse_moved_user(report_mouse_t *mouse_report) {
   mouseCount++;
 }
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
   if (!process_mouse_turbo_click(keycode, record, MS_RPT)) { return false; }
 
   switch (keycode) {
