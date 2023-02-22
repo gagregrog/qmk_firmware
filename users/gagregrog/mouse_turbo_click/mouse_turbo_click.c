@@ -20,7 +20,7 @@
  * <https://getreuer.info/posts/keyboards/mouse-turbo-click>
  */
 
-#include "features/mouse_turbo_click.h"
+#include "gagregrog.h"
 
 // This library relies on that mouse keys and the deferred execution API are
 // enabled, which we check for here. Enable them in your rules.mk by setting:

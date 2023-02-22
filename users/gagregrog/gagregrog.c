@@ -25,6 +25,10 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
 // representation of active modifiers.
 uint8_t mod_state;
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+#ifdef MOUSE_TURBO_CLICK
+  if (!process_mouse_turbo_click(keycode, record, MS_TURBO)) { return false; }
+#endif // MOUSE_TURBO_CLICK  
+
   // Store the current modifier state in the variable for later reference
   mod_state = get_mods();
 

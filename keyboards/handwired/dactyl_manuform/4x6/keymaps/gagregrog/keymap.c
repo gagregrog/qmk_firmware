@@ -1,5 +1,5 @@
 #include QMK_KEYBOARD_H
-#include "features/mouse_turbo_click.h"
+#include "gagregrog.h"
 
 // Tap Dance ----------------------------
 typedef enum {
@@ -135,16 +135,14 @@ enum layers {
 uint32_t last_light_mode;
 
 enum custom_keycodes {
-  MOUSE_SCROLL_PRESS = SAFE_RANGE,
+  MOUSE_SCROLL_PRESS = NEW_SAFE_RANGE,
   MOUSE_SCROLL_LOCK,
   MOUSE_TOGGLE,
-  MOUSE_REPEAT,
 };
 
 #define MS_SCL_P MOUSE_SCROLL_PRESS
 #define MS_SCL_L MOUSE_SCROLL_LOCK
 #define MS_TGGL  MOUSE_TOGGLE
-#define MS_RPT   MOUSE_REPEAT
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Base (colmak dh mod)
@@ -200,7 +198,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_J,    KC_A,    KC_R,    KC_S,    KC_T,    KC_G,                KC_NO,   KC_BTN1, KC_BTN3, KC_BTN2, KC_NO,   KC_NO,
         KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,                KC_NO,   KC_RSFT, KC_RGUI, KC_RALT, KC_RCTL, KC_NO,
                           KC_ESC,  KC_ESC,                                                  KC_NO,   KC_NO,
-                                            KC_SPC,  MS_RPT,              TRACKPT, KC_ENT,
+                                            KC_SPC,  MS_TURBO,            TRACKPT, KC_ENT,
                                             KC_COMM, TD_SCOPE,            KC_EQL,  KC_MINS,
                                             KC_SLSH, KC_MINS,             KC_NO,   TO_BASE
     ),
@@ -523,8 +521,6 @@ void ps2_mouse_moved_user(report_mouse_t *mouse_report) {
 }
 
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
-  if (!process_mouse_turbo_click(keycode, record, MS_RPT)) { return false; }
-
   switch (keycode) {
     case MOUSE_SCROLL_PRESS:
       msScrollPress = record->event.pressed;

@@ -5,6 +5,10 @@
 #include "oled/oled_util.h"
 #endif // OLED_ENABLE
 
+#if defined(MOUSE_TURBO_CLICK)
+#include "mouse_turbo_click/mouse_turbo_click.h"
+#endif // MOUSE_TURBO_CLICK
+
 // windowing shortcuts
 #define MV_UL     HYPR(KC_UP)
 #define MV_U      LCAG(KC_UP)
@@ -19,6 +23,19 @@
 #if defined(POINTING_DEVICE_ENABLE)
 report_mouse_t pointing_device_task_keymap(report_mouse_t mouse_report);
 #endif // POINTING_DEVICE_ENABLE
+
+enum gagregrog_keycodes {
+#if defined(DILEMMA_SAFE_RANGE)
+  BASE_TOGGLE = DILEMMA_SAFE_RANGE,
+#else
+  BASE_TOGGLE = SAFE_RANGE,
+#endif // DILEMMA_SAFE_RANGE
+#if defined(MOUSE_TURBO_CLICK)
+  MS_TURBO,
+#endif // MOUSE_TURBO_CLICK
+  NEW_SAFE_RANGE,
+};
+
 
 #if defined(USE_LAYOUT_3x5) || defined(USE_LAYOUT_3x5_3)
 /**
@@ -72,14 +89,6 @@ enum gagregrog_3x5_layers {
   LAYER_NUM,
   LAYER_UTIL,
   LAYER_SETTINGS,
-};
-
-enum custom_keycodes {
-#if defined(DILEMMA_SAFE_RANGE)
-  BASE_TOGGLE = DILEMMA_SAFE_RANGE,
-#else
-  BASE_TOGGLE = SAFE_RANGE,  
-#endif // DILEMMA_SAFE_RANGE
 };
 
 // custom keys
