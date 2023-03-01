@@ -25,3 +25,5 @@ ifeq ($(strip $(MOUSE_TURBO_CLICK)), yes)
         MOUSEKEY_ENABLE = yes
     endif
 endif
+
+CAPS_WORD_ENABLE = yes
