@@ -84,16 +84,6 @@ enum layers {
 #define CMD_ESC   LGUI_T(KC_ESC)
 #define VOICE     LGUI(KC_F5)
 
-#define MV_UL     HYPR(KC_UP)
-#define MV_U      LCAG(KC_UP)
-#define MV_UR     HYPR(KC_RIGHT)
-#define MV_R      LCAG(KC_RIGHT)
-#define MV_C      HYPR(KC_ENT)
-#define MV_L      LCAG(KC_LEFT)
-#define MV_DL     HYPR(KC_LEFT)
-#define MV_D      LCAG(KC_DOWN)
-#define MV_DR     HYPR(KC_DOWN)
-
 #define SCRN_S    LGUI(LSFT(KC_4))
 #define SCRN_C    LCTL(SCRN_S)
 #define DUP       LGUI(LSFT(KC_D))
@@ -130,19 +120,7 @@ enum layers {
 #define ALT_6     LALT_T(KC_6)
 #define CTRL_PLS  RCTL_T(KC_PMNS)
 
-#define TRACKPT KC_NO
-
 uint32_t last_light_mode;
-
-enum custom_keycodes {
-  MOUSE_SCROLL_PRESS = NEW_SAFE_RANGE,
-  MOUSE_SCROLL_LOCK,
-  MOUSE_TOGGLE,
-};
-
-#define MS_SCL_P MOUSE_SCROLL_PRESS
-#define MS_SCL_L MOUSE_SCROLL_LOCK
-#define MS_TGGL  MOUSE_TOGGLE
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Base (colmak dh mod)
@@ -442,103 +420,6 @@ tap_dance_action_t tap_dance_actions[] = {
   [T_DL_HS]  = ACTION_TAP_DANCE_DOUBLE(KC_DLR, KC_HASH),
   [T_SCOPE]  = ACTION_TAP_DANCE_FN_ADVANCED(NULL, scope_finished, scope_reset),
 };
-
-bool msScrollPress = false;
-bool msScrollLock = false;
-bool msEnabled = true;
-uint8_t mouseCount = 0;
-uint8_t mouseDebounce = 3;
-bool firstMouseReportIgnored = false;
-
-void rotate_mouse_report(report_mouse_t *mouse_report) {
-  // https://doubleroot.in/lessons/coordinate-geometry-basics/rotation-of-axes/
-  // theta = -pi/4
-  const double cos_theta = 0.7071067811865475;
-  const double sin_theta = -0.7071067811865475;
-  double x_cos = cos_theta * mouse_report->x;
-  double y_cos = cos_theta * mouse_report->y;
-  double x_sin = sin_theta * mouse_report->x;
-  double y_sin = sin_theta * mouse_report->y;
-  double x = x_cos - y_sin;
-  double y = x_sin + y_cos;
-  mouse_report->x = (mouse_xy_report_t) x;
-  mouse_report->y = (mouse_xy_report_t) y;
-}
-
-void ignoreMouseReport(report_mouse_t *mouse_report) {
-  mouse_report->x = 0;
-  mouse_report->y = 0;
-  mouse_report->h = 0;
-  mouse_report->v = 0;
-  mouse_report->buttons = 0;
-}
-
-void ps2_mouse_moved_user(report_mouse_t *mouse_report) {
-  if (!firstMouseReportIgnored) {
-    // first report always does a right click and jumps the cursor,
-    // so let's ignore it
-    firstMouseReportIgnored = true;
-    ignoreMouseReport(mouse_report);
-    return;
-  }
-
-  if (!msEnabled) {
-    ignoreMouseReport(mouse_report);
-    return;
-  }
-
-  // rotate_mouse_report(mouse_report);
-
-  // process special mouse mode whether pressed or locked
-  bool lockActive = msScrollLock && !msScrollPress;
-  bool pressActive = !msScrollLock && msScrollPress;
-  bool mouseScrollActive = (lockActive || pressActive);
-
-  // only handle special mouse modes when enabled by press or lock
-  if (!mouseScrollActive) {
-    return;
-  }
-
-  // debounce mouse mode actions so it is more controllable
-  if (mouseCount > mouseDebounce) {
-    mouseCount = 0;
-  }
-
-  // only register mouse mode behavior once every mouseDebounce times
-  if (!mouseCount) {
-    // reassign normal mouse movement to scroll movement
-    mouse_report->h = mouse_report->x / -3;
-    mouse_report->v = mouse_report->y / -3;
-  }
-  
-  // disable normal mouse movement
-  // must happen after reassigning the movement above
-  mouse_report->x = 0;
-  mouse_report->y = 0;
-
-  // increment counter to limit scroll processing
-  mouseCount++;
-}
-
-bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-    case MOUSE_SCROLL_PRESS:
-      msScrollPress = record->event.pressed;
-      return false; // Skip all further processing of this key
-    case MOUSE_SCROLL_LOCK:
-      if (record->event.pressed) {
-        msScrollLock = !msScrollLock;
-      }
-      return false;
-    case MOUSE_TOGGLE:
-      if (record->event.pressed) {
-        msEnabled = !msEnabled;
-      }
-      return false;
-    default:
-      return true; // Process all other keycodes normally
-  }
-}
 
 void matrix_scan_user(void) {
   if (bf_scope_timer && timer_elapsed(bf_scope_timer) > 200) {

@@ -33,9 +33,20 @@ enum gagregrog_keycodes {
 #if defined(MOUSE_TURBO_CLICK)
   MS_TURBO,
 #endif // MOUSE_TURBO_CLICK
+#if defined(TRACKPOINT_ENABLE)
+  MOUSE_SCROLL_PRESS,
+  MOUSE_SCROLL_LOCK,
+  MOUSE_TOGGLE,
+#endif // TRACKPOINT_ENABLE
   NEW_SAFE_RANGE,
 };
 
+#if defined(TRACKPOINT_ENABLE)
+  #define TRACKPT KC_NO
+  #define MS_SCL_P MOUSE_SCROLL_PRESS
+  #define MS_SCL_L MOUSE_SCROLL_LOCK
+  #define MS_TGGL  MOUSE_TOGGLE
+#endif // TRACKPOINT_ENABLE
 
 #if defined(USE_LAYOUT_3x5) || defined(USE_LAYOUT_3x5_3)
 /**
