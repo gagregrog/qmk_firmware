@@ -155,18 +155,30 @@ void surprise(void) {
   SEND_STRING("Happy Birthday, Jeroen!");
 };
 
+#define SCRN_C    LCTL(SGUI(KC_4))
+
+// left key
+// tap once     - copy
+// hold         - cut
+// tap twice    - undo
+// tap and hold - take screenshot
 void one_finished(tap_dance_state_t *state, void *user_data) {
-  finished_quad(ACTION_TAP_DANCE_QUAD(ACTION_TAP_DANCE_CONFIG_KEY(KC_A), ACTION_TAP_DANCE_CONFIG_KEY(KC_B), ACTION_TAP_DANCE_CONFIG_FN(sendPw), ACTION_TAP_DANCE_CONFIG_FN(surprise)), &one_tap_state, state, user_data);
+  finished_quad(ACTION_TAP_DANCE_QUAD(ACTION_TAP_DANCE_CONFIG_KEY(LGUI(KC_C)), ACTION_TAP_DANCE_CONFIG_KEY(LGUI(KC_X)), ACTION_TAP_DANCE_CONFIG_KEY(LGUI(KC_Z)), ACTION_TAP_DANCE_CONFIG_KEY(SCRN_C)), &one_tap_state, state, user_data);
 }
 void one_reset(tap_dance_state_t *state, void *user_data) {
-  reset_quad(ACTION_TAP_DANCE_QUAD(ACTION_TAP_DANCE_CONFIG_KEY(KC_A), ACTION_TAP_DANCE_CONFIG_KEY(KC_B), ACTION_TAP_DANCE_CONFIG_FN(sendPw), ACTION_TAP_DANCE_CONFIG_FN(surprise)), &one_tap_state, state, user_data);
+  reset_quad(ACTION_TAP_DANCE_QUAD(ACTION_TAP_DANCE_CONFIG_KEY(LGUI(KC_C)), ACTION_TAP_DANCE_CONFIG_KEY(LGUI(KC_X)), ACTION_TAP_DANCE_CONFIG_KEY(LGUI(KC_Z)), ACTION_TAP_DANCE_CONFIG_KEY(SCRN_C)), &one_tap_state, state, user_data);
 }
 
+// right key
+// tap once     - paste
+// hold         - send pw
+// tap twice    - redo
+// tap and hold - surprise
 void two_finished(tap_dance_state_t *state, void *user_data) {
-  finished_quad(ACTION_TAP_DANCE_QUAD(ACTION_TAP_DANCE_CONFIG_KEY(KC_A), ACTION_TAP_DANCE_CONFIG_KEY(KC_B), ACTION_TAP_DANCE_CONFIG_FN(sendPw), ACTION_TAP_DANCE_CONFIG_FN(surprise)), &two_tap_state, state, user_data);
+  finished_quad(ACTION_TAP_DANCE_QUAD(ACTION_TAP_DANCE_CONFIG_KEY(LGUI(KC_V)), ACTION_TAP_DANCE_CONFIG_FN(sendPw), ACTION_TAP_DANCE_CONFIG_KEY(SGUI(KC_Z)), ACTION_TAP_DANCE_CONFIG_FN(surprise)), &two_tap_state, state, user_data);
 }
 void two_reset(tap_dance_state_t *state, void *user_data) {
-  reset_quad(ACTION_TAP_DANCE_QUAD(ACTION_TAP_DANCE_CONFIG_KEY(KC_A), ACTION_TAP_DANCE_CONFIG_KEY(KC_B), ACTION_TAP_DANCE_CONFIG_FN(sendPw), ACTION_TAP_DANCE_CONFIG_FN(surprise)), &two_tap_state, state, user_data);
+  reset_quad(ACTION_TAP_DANCE_QUAD(ACTION_TAP_DANCE_CONFIG_KEY(LGUI(KC_V)), ACTION_TAP_DANCE_CONFIG_FN(sendPw), ACTION_TAP_DANCE_CONFIG_KEY(SGUI(KC_Z)), ACTION_TAP_DANCE_CONFIG_FN(surprise)), &two_tap_state, state, user_data);
 }
 
 tap_dance_action_t tap_dance_actions[] = {
