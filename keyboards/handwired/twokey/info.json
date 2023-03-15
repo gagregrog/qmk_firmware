@@ -1,0 +1,21 @@
+{
+    "manufacturer": "gagregrog",
+    "url": "",
+    "maintainer": "gagregrog",
+    "usb": {
+        "vid": "0xBEED",
+        "pid": "0x6466",
+        "device_version": "0.0.1"
+    },
+    "diode_direction": "ROW2COL",
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
+    "layouts": {
+        "LAYOUT_1x2": {
+            "layout": [
+                { "x": 0, "y": 0 },
+                { "x": 1, "y": 1 }
+            ]
+        }
+    }
+}
