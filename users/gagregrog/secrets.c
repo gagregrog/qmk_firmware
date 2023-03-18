@@ -30,13 +30,17 @@ static const char * const secrets[] = {
 
 #pragma message "\n\n\n[WARN] Including Secrets in build!\n\n"
 
+void send_secret(uint16_t keycode) {
+  clear_mods();
+  clear_oneshot_mods();
+  send_string_with_delay(secrets[keycode - KC_SECRET_1], MACRO_TIMER);
+};
+
 bool process_record_secrets(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case KC_SECRET_1 ... KC_SECRET_5: // Secrets!  Externally defined strings, not stored in repo
       if (record->event.pressed) {
-        clear_mods();
-        clear_oneshot_mods();
-        send_string_with_delay(secrets[keycode - KC_SECRET_1], MACRO_TIMER);
+        send_secret(keycode);
       }
       return false;
       break;

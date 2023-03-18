@@ -95,7 +95,13 @@ static td_tap_t td_two_tap_state = {
 
 void handle_key_down(td_user_config key_config) {
   if (key_config.key > 0) {
-    register_code16(key_config.key);
+    switch (key_config.key) {
+      case KC_SECRET_1 ... KC_SECRET_5: 
+        send_secret(key_config.key);
+        break;
+      default:
+        register_code16(key_config.key);
+    }
   } else {
     key_config.fn();
   }
@@ -103,7 +109,10 @@ void handle_key_down(td_user_config key_config) {
 
 void handle_key_up(td_user_config key_config) {
   if (key_config.key > 0) {
-    unregister_code16(key_config.key);
+    switch (key_config.key) {
+      case KC_SECRET_1 ... KC_SECRET_5: break;
+      default: unregister_code16(key_config.key);
+    }
   }
 }
 
@@ -173,10 +182,10 @@ void sendGoodbye(void) {
 #define TD_TWO_CUSTOM ACTION_TAP_DANCE_CUSTOM( \
   ACTION_TAP_DANCE_CONFIG_FN(sendHello), \
   ACTION_TAP_DANCE_CONFIG_FN(sendGoodbye), \
-  ACTION_TAP_DANCE_CONFIG_KEY(KC_NO), \
-  ACTION_TAP_DANCE_CONFIG_KEY(KC_NO), \
-  ACTION_TAP_DANCE_CONFIG_KEY(KC_NO), \
-  ACTION_TAP_DANCE_CONFIG_KEY(KC_NO)  \
+  ACTION_TAP_DANCE_CONFIG_KEY(KC_SECRET_1), \
+  ACTION_TAP_DANCE_CONFIG_KEY(KC_SECRET_2), \
+  ACTION_TAP_DANCE_CONFIG_KEY(KC_SECRET_3), \
+  ACTION_TAP_DANCE_CONFIG_KEY(KC_SECRET_4)  \
 )
 
 // right key

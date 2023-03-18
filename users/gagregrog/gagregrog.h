@@ -48,6 +48,11 @@ enum gagregrog_keycodes {
   NEW_SAFE_RANGE,
 };
 
+#if defined(INCLUDE_SECRETS) && !defined(NO_SECRETS)
+  // define this so it can be used in tapdances
+  void send_secret(uint16_t keycode);
+#endif
+
 #if defined(TRACKPOINT_ENABLE)
   #define TRACKPT KC_NO
   #define MS_SCL_P MOUSE_SCROLL_PRESS
