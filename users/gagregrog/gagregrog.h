@@ -2,12 +2,16 @@
 #include QMK_KEYBOARD_H
 
 #if defined(OLED_ENABLE)
-#include "oled/oled_util.h"
+  #include "oled/oled_util.h"
 #endif // OLED_ENABLE
 
 #if defined(MOUSE_TURBO_CLICK)
-#include "mouse_turbo_click/mouse_turbo_click.h"
+  #include "mouse_turbo_click/mouse_turbo_click.h"
 #endif // MOUSE_TURBO_CLICK
+
+#if defined(TAP_DANCE_ENABLE)
+  #include "tap_dance/tap_dance_utils.h"
+#endif // TAP_DANCE_ENABLE
 
 // windowing shortcuts
 #define MV_UL     HYPR(KC_UP)

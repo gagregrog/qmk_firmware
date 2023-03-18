@@ -2,6 +2,8 @@
 
 SRC += gagregrog.c
 
+# Utilities to add automatically when certain features are enabled
+
 ifeq ($(strip $(OLED_ENABLE)), yes)
     SRC += $(USER_PATH)/oled/oled_util.c
 endif
@@ -10,7 +12,11 @@ ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
     SRC += $(USER_PATH)/led/led_util.c
 endif
 
-# Custom Features
+ifeq ($(strip $(TAP_DANCE_ENABLE)), yes)
+    SRC += $(USER_PATH)/tap_dance/tap_dance_utils.c
+endif
+
+# Custom Features that can be added
 
 ifeq ($(strip $(POINTING_DEVICE_INVERT_SCROLL)), yes)
     OPT_DEFS += -DPOINTING_DEVICE_INVERT_SCROLL
@@ -45,7 +51,7 @@ ifeq ($(strip $(INCLUDE_SECRETS)), yes)
     ifneq ($(strip $(NO_SECRETS)), yes)
         OPT_DEFS += -DINCLUDE_SECRETS
         ifneq ("$(wildcard $(USER_PATH)/secrets/secrets.c)","")
-            SRC += secrets/secrets.c
+            SRC += $(USER_PATH)/secrets/secrets.c
         endif
     endif
 endif
