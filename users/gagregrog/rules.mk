@@ -41,6 +41,18 @@ ifeq ($(strip $(MOUSE_TURBO_CLICK)), yes)
     endif
 endif
 
+ifeq ($(strip $(INCLUDE_SECRETS)), yes)
+    ifneq ($(strip $(NO_SECRETS)), yes)
+        OPT_DEFS += -DINCLUDE_SECRETS
+        ifneq ("$(wildcard $(USER_PATH)/secrets.c)","")
+            SRC += secrets.c
+        endif
+    endif
+endif
+
+ifeq ($(strip $(NO_SECRETS)), yes)
+    OPT_DEFS += -DNO_SECRETS
+endif
 
 # Always Features
 

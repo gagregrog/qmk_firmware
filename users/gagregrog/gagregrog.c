@@ -93,6 +93,15 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
   }
 #endif // TRACKPOINT_ENABLE
 
+#if defined(INCLUDE_SECRETS) && !defined(NO_SECRETS)
+
+__attribute__ ((weak))
+bool process_record_secrets(uint16_t keycode, keyrecord_t *record) {
+  return true;
+}
+
+#endif // INCLUDE_SECRETS
+
 
 __attribute__ ((weak))
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
@@ -138,7 +147,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         return false;
     #endif // TRACKPOINT_ENABLE
     default:
-      return process_record_keymap(keycode, record); 
+    #if defined(INCLUDE_SECRETS) && !defined(NO_SECRETS)
+      return process_record_keymap(keycode, record) && process_record_secrets(keycode, record);
+    #else
+      return process_record_keymap(keycode, record);
+    #endif
   }
 }
 

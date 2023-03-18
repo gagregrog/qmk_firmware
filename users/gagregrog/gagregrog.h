@@ -38,6 +38,13 @@ enum gagregrog_keycodes {
   MOUSE_SCROLL_LOCK,
   MOUSE_TOGGLE,
 #endif // TRACKPOINT_ENABLE
+#if defined(INCLUDE_SECRETS) && !defined(NO_SECRETS)
+  KC_SECRET_1,
+  KC_SECRET_2,
+  KC_SECRET_3,
+  KC_SECRET_4,
+  KC_SECRET_5,
+#endif
   NEW_SAFE_RANGE,
 };
 
