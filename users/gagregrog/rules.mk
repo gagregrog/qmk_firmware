@@ -44,8 +44,8 @@ endif
 ifeq ($(strip $(INCLUDE_SECRETS)), yes)
     ifneq ($(strip $(NO_SECRETS)), yes)
         OPT_DEFS += -DINCLUDE_SECRETS
-        ifneq ("$(wildcard $(USER_PATH)/secrets.c)","")
-            SRC += secrets.c
+        ifneq ("$(wildcard $(USER_PATH)/secrets/secrets.c)","")
+            SRC += secrets/secrets.c
         endif
     endif
 endif

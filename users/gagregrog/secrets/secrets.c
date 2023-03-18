@@ -4,7 +4,7 @@
 #define MACRO_TIMER 5
 
 /*
-To include secrets, add the rule "INCLUDE_SECRETS = yes" to rules.mk and create users/gagregrog/secrets.h as follows:
+To include secrets, add the rule "INCLUDE_SECRETS = yes" to rules.mk and create users/gagregrog/secrets/secrets.h as follows:
 
 static const char * secrets[] = {
   "real_secret_1",
