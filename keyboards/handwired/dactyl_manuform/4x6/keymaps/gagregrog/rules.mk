@@ -20,3 +20,5 @@ AUTO_SHIFT_ENABLE = no
 TAP_DANCE_ENABLE = yes
 LTO_ENABLE = yes
 MOUSE_TURBO_CLICK = yes
+
+SRC += tap_dances/tap_dances.c
