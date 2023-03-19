@@ -70,7 +70,9 @@ void handle_tap_dance_begin(td_user_config key_config) {
 void handle_tap_dance_end(td_user_config key_config) {
   if (key_config.key > 0) {
     switch (key_config.key) {
-      case KC_SECRET_1 ... KC_SECRET_5: break;
+      #if defined(INCLUDE_SECRETS) && !defined(NO_SECRETS)
+        case KC_SECRET_1 ... KC_SECRET_5: break;
+      #endif
       default: unregister_code16(key_config.key);
     }
   }
