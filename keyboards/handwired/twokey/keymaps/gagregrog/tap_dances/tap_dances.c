@@ -36,6 +36,10 @@ void one_reset(tap_dance_state_t *state, void *user_data) {
 }
 
 // --------------------------------- TD_TWO
+static td_tap_t td_two_tap_state = {
+  .is_press_action = true,
+  .state = TD_NONE
+};
 
 void sendHello(void) {
   SEND_STRING("hello");
