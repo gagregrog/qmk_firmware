@@ -47,11 +47,20 @@ ifeq ($(strip $(MOUSE_TURBO_CLICK)), yes)
     endif
 endif
 
+# support secrets cascading in order of precedence from:
+#   - keyboards/:keyboard/:keymap/secrets.h
+#   - keyboards/:keyboard/secrets.h
+#   - users/gagregrog/secrets/secrets.h
 ifeq ($(strip $(INCLUDE_SECRETS)), yes)
     ifneq ($(strip $(NO_SECRETS)), yes)
         OPT_DEFS += -DINCLUDE_SECRETS
-        ifneq ("$(wildcard $(USER_PATH)/secrets/secrets.c)","")
-            SRC += $(USER_PATH)/secrets/secrets.c
+        SRC += $(USER_PATH)/secrets/secrets.c
+        ifneq ("$(wildcard $(KEYMAP_PATH)/secrets.h)","")
+            OPT_DEFS += -DSECRETS_PATH=\"$(KEYMAP_PATH)/secrets.h\"
+        else ifneq ("$(wildcard keyboards/$(KEYBOARD)/secrets.h)","")
+            OPT_DEFS += -DSECRETS_PATH=\"keyboards/$(KEYBOARD)/secrets.h\"
+        else
+            OPT_DEFS += -DSECRETS_PATH=\"$(USER_PATH)/secrets/secrets.h\"
         endif
     endif
 endif

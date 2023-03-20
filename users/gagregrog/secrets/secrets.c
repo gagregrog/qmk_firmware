@@ -16,8 +16,8 @@ static const char * secrets[] = {
 
 */
 
-#if (__has_include("secrets.h") && !defined(NO_SECRETS))
-#include "secrets.h"
+#if (__has_include(SECRETS_PATH) && !defined(NO_SECRETS))
+#include SECRETS_PATH
 #else
 static const char * const secrets[] = {
   "default_secret_1",
