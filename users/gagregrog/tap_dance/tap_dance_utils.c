@@ -78,7 +78,12 @@ void handle_tap_dance_end(td_user_config key_config) {
   }
 }
 
-void tap_dance_begin(td_custom_config keys, td_tap_t *tap_state, tap_dance_state_t *state, void *user_data) {
+void tap_dance_begin(
+  td_custom_config keys,
+  td_tap_t *tap_state,
+  tap_dance_state_t *state,
+  void *user_data
+) {
   tap_state->state = decode_tap_dance_state(state);
   switch (tap_state->state) {
     case TD_SINGLE_TAP: handle_tap_dance_begin(keys.key_single_tap); break;
@@ -90,7 +95,12 @@ void tap_dance_begin(td_custom_config keys, td_tap_t *tap_state, tap_dance_state
     default: break;
   }
 }
-void tap_dance_end(td_custom_config keys, td_tap_t *tap_state, tap_dance_state_t *state, void *user_data) {
+void tap_dance_end(
+  td_custom_config keys,
+  td_tap_t *tap_state,
+  tap_dance_state_t *state,
+  void *user_data
+) {
   switch (tap_state->state) {
     case TD_SINGLE_TAP: handle_tap_dance_end(keys.key_single_tap); break;
     case TD_SINGLE_HOLD: handle_tap_dance_end(keys.key_single_hold); break;
