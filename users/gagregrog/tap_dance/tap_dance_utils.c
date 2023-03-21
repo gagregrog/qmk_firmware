@@ -14,6 +14,11 @@ td_user_config ACTION_TAP_DANCE_CONFIG_FN(td_user_fn_t fn)
   return (td_user_config) { .key = 0, .fn = fn, };
 }
 
+td_user_config ACTION_TAP_DANCE_NULL(void)
+{
+  return (td_user_config) { .key = 0, .fn = TD_NOOP, };
+}
+
 td_custom_config ACTION_TAP_DANCE_CUSTOM(
   td_user_config key_single_tap,
   td_user_config key_single_hold,
@@ -62,7 +67,7 @@ void handle_tap_dance_begin(td_user_config key_config) {
       default:
         register_code16(key_config.key);
     }
-  } else {
+  } else if (key_config.fn != TD_NOOP) {
     key_config.fn();
   }
 }
@@ -81,8 +86,7 @@ void handle_tap_dance_end(td_user_config key_config) {
 void tap_dance_begin(
   td_custom_config keys,
   td_tap_t *tap_state,
-  tap_dance_state_t *state,
-  void *user_data
+  tap_dance_state_t *state
 ) {
   tap_state->state = decode_tap_dance_state(state);
   switch (tap_state->state) {
@@ -98,8 +102,7 @@ void tap_dance_begin(
 void tap_dance_end(
   td_custom_config keys,
   td_tap_t *tap_state,
-  tap_dance_state_t *state,
-  void *user_data
+  tap_dance_state_t *state
 ) {
   switch (tap_state->state) {
     case TD_SINGLE_TAP: handle_tap_dance_end(keys.key_single_tap); break;

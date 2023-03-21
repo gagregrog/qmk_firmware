@@ -14,18 +14,17 @@ static td_tap_t scope_tap_state = {
 #define TD_SSPW_CUSTOM ACTION_TAP_DANCE_CUSTOM( \
   ACTION_TAP_DANCE_CONFIG_KEY(SCRN_C), \
   ACTION_TAP_DANCE_CONFIG_KEY(SCRN_S), \
-  ACTION_TAP_DANCE_CONFIG_KEY(KC_NO), \
-  ACTION_TAP_DANCE_CONFIG_KEY(KC_NO), \
-  ACTION_TAP_DANCE_CONFIG_KEY(KC_NO), \
-  ACTION_TAP_DANCE_CONFIG_KEY(KC_NO) \
+  ACTION_TAP_DANCE_NULL(), \
+  ACTION_TAP_DANCE_NULL(), \
+  ACTION_TAP_DANCE_NULL(), \
+  ACTION_TAP_DANCE_NULL() \
 )
 
 void sspw_finished(tap_dance_state_t *state, void *user_data) {
   tap_dance_begin(
     TD_SSPW_CUSTOM,
     &sspw_tap_state,
-    state,
-    user_data
+    state
   );
 }
 
@@ -33,8 +32,7 @@ void sspw_reset(tap_dance_state_t *state, void *user_data) {
   tap_dance_end(
     TD_SSPW_CUSTOM,
     &sspw_tap_state,
-    state,
-    user_data
+    state
   );
 }
 
@@ -52,16 +50,15 @@ void start_scope(void) {
   ACTION_TAP_DANCE_CONFIG_KEY(KC_DOT), \
   ACTION_TAP_DANCE_CONFIG_FN(start_scope), \
   ACTION_TAP_DANCE_CONFIG_KEY(KC_DOT), \
-  ACTION_TAP_DANCE_CONFIG_KEY(KC_NO), \
-  ACTION_TAP_DANCE_CONFIG_KEY(KC_NO) \
+  ACTION_TAP_DANCE_NULL(), \
+  ACTION_TAP_DANCE_NULL() \
 )
 
 void scope_finished(tap_dance_state_t *state, void *user_data) {
   tap_dance_begin(
     TD_SCOPE_CUSTOM,
     &scope_tap_state,
-    state,
-    user_data
+    state
   );
 }
 
@@ -69,8 +66,7 @@ void scope_reset(tap_dance_state_t *state, void *user_data) {
   tap_dance_end(
     TD_SCOPE_CUSTOM,
     &scope_tap_state,
-    state,
-    user_data
+    state
   );
 }
 

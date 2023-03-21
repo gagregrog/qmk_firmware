@@ -44,8 +44,8 @@ void myFunc(void) {
   ACTION_TAP_DANCE_CONFIG_KEY(KC_B), \
   ACTION_TAP_DANCE_CONFIG_FN(myFunc), \
   ACTION_TAP_DANCE_CONFIG_KEY(KC_SECRET_1), \
-  ACTION_TAP_DANCE_CONFIG_KEY(KC_NO), \
-  ACTION_TAP_DANCE_CONFIG_KEY(KC_NO) \
+  ACTION_TAP_DANCE_NULL(), \
+  ACTION_TAP_DANCE_NULL() \
 )
 ```
 
@@ -56,16 +56,14 @@ void my_td_finished(tap_dance_state_t *state, void *user_data) {
   tap_dance_begin(
     TD_MY_DANCE_CUSTOM, 
     &td_my_dance_state,
-    state,
-    user_data
+    state
   );
 }
 void my_td_reset(tap_dance_state_t *state, void *user_data) {
   tap_dance_end(
     TD_MY_DANCE_CUSTOM,
     &td_my_dance_state,
-    state,
-    user_data
+    states
   );
 }
 ```
