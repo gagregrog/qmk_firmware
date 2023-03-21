@@ -74,7 +74,12 @@ void two_reset(tap_dance_state_t *state, void *user_data) {
 
 // --------------------------------- TDS
 
+// tap_dance_action_t tap_dance_actions[] = {
+//   [T_ONE]  = ACTION_TAP_DANCE_FN_ADVANCED(NULL, one_finished, one_reset),
+//   [T_TWO]  = ACTION_TAP_DANCE_FN_ADVANCED(NULL, two_finished, two_reset),
+// };
+
 tap_dance_action_t tap_dance_actions[] = {
-  [T_ONE]  = ACTION_TAP_DANCE_FN_ADVANCED(NULL, one_finished, one_reset),
-  [T_TWO]  = ACTION_TAP_DANCE_FN_ADVANCED(NULL, two_finished, two_reset),
+  [T_ONE]  = ACTION_TAP_DANCE_WRAPPER(one_finished, one_reset),
+  [T_TWO]  = ACTION_TAP_DANCE_WRAPPER(two_finished, two_reset),
 };

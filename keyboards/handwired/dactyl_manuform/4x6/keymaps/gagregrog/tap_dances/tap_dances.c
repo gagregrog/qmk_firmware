@@ -71,8 +71,7 @@ void scope_reset(tap_dance_state_t *state, void *user_data) {
 }
 
 tap_dance_action_t tap_dance_actions[] = {
-  [T_SSPW]   = ACTION_TAP_DANCE_FN_ADVANCED(
-    NULL,
+  [T_SSPW]   = ACTION_TAP_DANCE_WRAPPER(
     sspw_finished,
     sspw_reset
   ),
@@ -80,8 +79,7 @@ tap_dance_action_t tap_dance_actions[] = {
     KC_DLR,
     KC_HASH
   ),
-  [T_SCOPE]  = ACTION_TAP_DANCE_FN_ADVANCED(
-    NULL,
+  [T_SCOPE]  = ACTION_TAP_DANCE_WRAPPER(
     scope_finished,
     scope_reset
   ),

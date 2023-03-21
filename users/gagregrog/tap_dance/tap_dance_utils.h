@@ -52,3 +52,16 @@ td_user_config ACTION_TAP_DANCE_CONFIG_KEY(uint16_t key);
 td_user_config ACTION_TAP_DANCE_CONFIG_FN(td_user_fn_t fn);
 
 td_user_config ACTION_TAP_DANCE_NULL(void);
+
+#define ACTION_TAP_DANCE_WRAPPER( \
+  user_fn_on_dance_finished, \
+  user_fn_on_dance_reset \
+) \
+  { \
+    .fn = { \
+      NULL, \
+      user_fn_on_dance_finished, \
+      user_fn_on_dance_reset \
+    }, \
+    .user_data = NULL, \
+  }

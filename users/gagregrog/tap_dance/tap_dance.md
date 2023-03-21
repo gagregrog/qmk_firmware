@@ -72,6 +72,6 @@ Finally, the last step is to define the global `tap_dance_actions` array.
 
 ```c
 tap_dance_action_t tap_dance_actions[] = {
-  [T_MY_DANCE]  = ACTION_TAP_DANCE_FN_ADVANCED(NULL, my_td_finished, my_td_reset),
+  [T_MY_DANCE]  = ACTION_TAP_DANCE_WRAPPER(my_td_finished, my_td_reset),
 };
 ```
