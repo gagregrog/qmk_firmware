@@ -2,7 +2,7 @@
 
 // screenshot to clipboard
 #define SCRN_C    LCTL(SGUI(KC_4))
-#define SCRN_O    SGUI(KC_4)
+#define SCRN_S    SGUI(KC_4)
 
 enum tap_dance_keys {
   T_ONE,

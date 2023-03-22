@@ -20,7 +20,7 @@ For each tap dance you will need to create a state container that looks like thi
 static td_tap_t td_my_dance_state = TD_INIT_STATE;
 ```
 
-Next, create an array to hold your tap dance actions. Each odd index will correspond to a tap action, and each even index will correspond to a hold action. The array must not be sparse, but there is a helper if you want to skip items. Use the helper macros to define your functinoality.
+Next, create an array to hold your tap dance actions. Each odd index will correspond to a tap action, and each even index will correspond to a hold action. Hold actions for regular `KC_` keycodes will remain held until released, and as such will continue to register with the host system. Taps, on the other hand, will only be sent once and cannot be held. The array must not be sparse, but there is a helper if you want to skip items. Use the helper macros to define your functinoality.
 
 For example:
 
