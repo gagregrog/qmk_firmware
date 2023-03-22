@@ -1,36 +1,26 @@
 #include "gagregrog.h"
 #include "tap_dances.h"
 
-static td_tap_t sspw_tap_state = {
-  .is_press_action = true,
-  .state = TD_NONE
+static td_tap_t sspw_tap_state = TD_INIT_STATE;
+
+td_action_config TD_SSPW_CUSTOM[] = {
+  ACTION_TAP_DANCE_CONFIG_KEY(SCRN_C),
+  ACTION_TAP_DANCE_CONFIG_KEY(SCRN_S),
 };
 
-static td_tap_t scope_tap_state = {
-  .is_press_action = true,
-  .state = TD_NONE
-};
-
-#define TD_SSPW_CUSTOM ACTION_TAP_DANCE_CUSTOM( \
-  ACTION_TAP_DANCE_CONFIG_KEY(SCRN_C), \
-  ACTION_TAP_DANCE_CONFIG_KEY(SCRN_S), \
-  ACTION_TAP_DANCE_NULL(), \
-  ACTION_TAP_DANCE_NULL(), \
-  ACTION_TAP_DANCE_NULL(), \
-  ACTION_TAP_DANCE_NULL() \
-)
-
-void sspw_finished(tap_dance_state_t *state, void *user_data) {
+void sspw_begin(tap_dance_state_t *state, void *user_data) {
   tap_dance_begin(
     TD_SSPW_CUSTOM,
+    2,
     &sspw_tap_state,
     state
   );
 }
 
-void sspw_reset(tap_dance_state_t *state, void *user_data) {
+void sspw_end(tap_dance_state_t *state, void *user_data) {
   tap_dance_end(
     TD_SSPW_CUSTOM,
+    2,
     &sspw_tap_state,
     state
   );
@@ -45,26 +35,28 @@ void start_scope(void) {
   }
 }
 
-#define TD_SCOPE_CUSTOM ACTION_TAP_DANCE_CUSTOM( \
-  ACTION_TAP_DANCE_CONFIG_FN(start_scope), \
-  ACTION_TAP_DANCE_CONFIG_KEY(KC_DOT), \
-  ACTION_TAP_DANCE_CONFIG_FN(start_scope), \
-  ACTION_TAP_DANCE_CONFIG_KEY(KC_DOT), \
-  ACTION_TAP_DANCE_NULL(), \
-  ACTION_TAP_DANCE_NULL() \
-)
+static td_tap_t scope_tap_state = TD_INIT_STATE;
 
-void scope_finished(tap_dance_state_t *state, void *user_data) {
+td_action_config TD_SCOPE_CUSTOM[] = {
+  ACTION_TAP_DANCE_CONFIG_FN(start_scope),
+  ACTION_TAP_DANCE_CONFIG_KEY(KC_DOT),
+  ACTION_TAP_DANCE_CONFIG_FN(start_scope),
+  ACTION_TAP_DANCE_CONFIG_KEY(KC_DOT)
+};
+
+void scope_begin(tap_dance_state_t *state, void *user_data) {
   tap_dance_begin(
     TD_SCOPE_CUSTOM,
+    4,
     &scope_tap_state,
     state
   );
 }
 
-void scope_reset(tap_dance_state_t *state, void *user_data) {
+void scope_end(tap_dance_state_t *state, void *user_data) {
   tap_dance_end(
     TD_SCOPE_CUSTOM,
+    4,
     &scope_tap_state,
     state
   );
@@ -72,16 +64,16 @@ void scope_reset(tap_dance_state_t *state, void *user_data) {
 
 tap_dance_action_t tap_dance_actions[] = {
   [T_SSPW]   = ACTION_TAP_DANCE_WRAPPER(
-    sspw_finished,
-    sspw_reset
+    sspw_begin,
+    sspw_end
   ),
   [T_DL_HS]  = ACTION_TAP_DANCE_DOUBLE(
     KC_DLR,
     KC_HASH
   ),
   [T_SCOPE]  = ACTION_TAP_DANCE_WRAPPER(
-    scope_finished,
-    scope_reset
+    scope_begin,
+    scope_end
   ),
 };
 

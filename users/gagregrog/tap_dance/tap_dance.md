@@ -1,10 +1,10 @@
 # Tap Dance
 
-When Tap Dances are enabled, these utilities will be exposed automatically. The setup is still pretty extensive, but these utilities will help. Currently it allows you to define key taps/holds for KC_ keycodes, user defined functions, and KC_Secrets.
+When Tap Dances are enabled, these utilities will be exposed automatically.  Currently, these utils allow you to define key taps/holds for `KC_` keycodes, `KC_SECRET_`S, and user-defined functions.
 
 ## Configuration
 
-In your `keymap.c`, first create an enum to hold all of your tap dances and then for convenience create defines for some new keycodes to use in your layout.
+In your `keymap.c`, create an enum to hold all of your tap dances. Then, for convenience, create defines for the new keycodes to use in your layout.
 
 ```c
 enum tap_dance_keys {
@@ -17,51 +17,42 @@ enum tap_dance_keys {
 For each tap dance you will need to create a state container that looks like this:
 
 ```c
-static td_tap_t td_my_dance_state = {
-  .is_press_action = true,
-  .state = TD_NONE
-};
+static td_tap_t td_my_dance_state = TD_INIT_STATE;
 ```
 
-And then create some defines that hold your tap dance configurations. For these, we expose the macros `ACTION_TAP_DANCE_CUSTOM` which accepts 6 different actions. The actions must be wrapped in either `ACTION_TAP_DANCE_CONFIG_KEY` or `ACTION_TAP_DANCE_CONFIG_FN`. `ACTION_TAP_DANCE_CONFIG_KEY` accepts a single 16 bit keycode, and `ACTION_TAP_DANCE_CONFIG_FN` accepts a void function. The actions will be called in order based on the following:
-
-- single tap
-- single hold
-- double tap
-- single tap and hold
-- triple tap
-- double tap and hold
+Next, create an array to hold your tap dance actions. Each odd index will correspond to a tap action, and each even index will correspond to a hold action. The array must not be sparse, but there is a helper if you want to skip items. Use the helper macros to define your functinoality.
 
 For example:
 
 ```c
-void myFunc(void) {
+static void myFunc(void) {
   SEND_STRING("hello tap dances!");
 };
 
-#define TD_MY_DANCE_CUSTOM ACTION_TAP_DANCE_CUSTOM( \
-  ACTION_TAP_DANCE_CONFIG_KEY(KC_A), \
-  ACTION_TAP_DANCE_CONFIG_KEY(KC_B), \
-  ACTION_TAP_DANCE_CONFIG_FN(myFunc), \
-  ACTION_TAP_DANCE_CONFIG_KEY(KC_SECRET_1), \
-  ACTION_TAP_DANCE_NULL(), \
-  ACTION_TAP_DANCE_NULL() \
-)
+static td_action_config my_actions[] = {
+  ACTION_TAP_DANCE_CONFIG_KEY(KC_1), // send 1 when tapped once
+  ACTION_TAP_DANCE_CONFIG_FN(myFunc), // call the function myFunc when held
+  ACTION_TAP_DANCE_CONFIG_NULL, // do nothing when double tapped
+  ACTION_TAP_DANCE_CONFIG_KEY(KC_SECRET_1), // send secret 1 when tapped once and then held
+  ACTION_TAP_DANCE_CONFIG_BOOT // put the keyboard into bootloader mode so you can flash new code to it when tapped 3 times
+};
 ```
 
-Next, create the functions we will pass to the QMK tap dance helpers. These will use some utilities that we expose.
+Next, create the functions we will pass to the QMK tap dance macros. These will use some utilities that we expose.
 
 ```c
-void my_td_finished(tap_dance_state_t *state, void *user_data) {
+void my_td_begin(tap_dance_state_t *state, void *user_data) {
   tap_dance_begin(
-    TD_MY_DANCE_CUSTOM, 
+    my_actions,
+    5, // number of items in actions array
     &td_my_dance_state,
     state
   );
 }
 void my_td_reset(tap_dance_state_t *state, void *user_data) {
   tap_dance_end(
-    TD_MY_DANCE_CUSTOM,
+    my_actions,
+    5,
     &td_my_dance_state,
     states
   );
@@ -72,6 +63,7 @@ Finally, the last step is to define the global `tap_dance_actions` array.
 
 ```c
 tap_dance_action_t tap_dance_actions[] = {
-  [T_MY_DANCE]  = ACTION_TAP_DANCE_WRAPPER(my_td_finished, my_td_reset),
+  [T_MY_DANCE]  = ACTION_TAP_DANCE_WRAPPER(my_td_begin, my_td_end),
+  // add as many tapdance configs as you want
 };
 ```
