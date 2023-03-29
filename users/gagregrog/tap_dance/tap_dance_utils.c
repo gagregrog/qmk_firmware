@@ -12,9 +12,9 @@ uint8_t get_action_index(tap_dance_state_t *state, td_tap_t *tap) {
 
 void tap_dance_begin(td_action_config actions[], uint8_t num_actions, td_tap_t *tap, tap_dance_state_t *state) {
   tap->pressed = state->pressed;
-  uint8_t index = get_action_index(state, tap);
-  if (index >= num_actions) { return; }
-  td_action_config action = actions[index];
+  uint8_t action_index = get_action_index(state, tap);
+  if (action_index >= num_actions) { return; }
+  td_action_config action = actions[action_index];
 
   if (action.key > 0) {
     switch (action.key) {
@@ -31,15 +31,19 @@ void tap_dance_begin(td_action_config actions[], uint8_t num_actions, td_tap_t *
         }
         break;
     }
+  } else if (action.layer < TD_MAX_LAYER) {
+    // if a layer action is used on a tap action, it will activate the layer indefinitely
+    // if a layer action is used on a hold action, it will activate the layer until the hold is released
+    layer_on(action.layer);
   } else if (action.fn != TD_NOOP) {
     action.fn();
   }
 }
 
 void tap_dance_end(td_action_config actions[], uint8_t num_actions, td_tap_t *tap, tap_dance_state_t *state) {
-  uint8_t index = get_action_index(state, tap);
-  if (index >= num_actions) { return; }
-  td_action_config action = actions[index];
+  uint8_t action_index = get_action_index(state, tap);
+  if (action_index >= num_actions) { return; }
+  td_action_config action = actions[action_index];
   if (action.key > 0) {
     switch (action.key) {
       #if defined(INCLUDE_SECRETS) && !defined(NO_SECRETS)
@@ -51,5 +55,8 @@ void tap_dance_end(td_action_config actions[], uint8_t num_actions, td_tap_t *ta
         }
       }
     }
+  } else if (action.layer < TD_MAX_LAYER && tap->pressed) {
+    // if the aciton is a hold, deactivate the layer now that the td key is released
+    layer_off(action.layer);
   }
 }
