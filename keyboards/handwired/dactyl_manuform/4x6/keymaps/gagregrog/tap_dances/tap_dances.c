@@ -1,29 +1,17 @@
 #include "gagregrog.h"
 #include "tap_dances.h"
 
-static td_tap_t sspw_tap_state = TD_INIT_STATE;
-
-td_action_config TD_SSPW_CUSTOM[] = {
+td_action_config ss_actions[] = {
   ACTION_TAP_DANCE_CONFIG_KEY(SCRN_C),
   ACTION_TAP_DANCE_CONFIG_KEY(SCRN_S),
 };
 
-void sspw_begin(tap_dance_state_t *state, void *user_data) {
-  tap_dance_begin(
-    TD_SSPW_CUSTOM,
-    2,
-    &sspw_tap_state,
-    state
-  );
+void sspw_begin(TD_ARGS) {
+  TAP_DANCE_BEGIN(ss_actions);
 }
 
-void sspw_end(tap_dance_state_t *state, void *user_data) {
-  tap_dance_end(
-    TD_SSPW_CUSTOM,
-    2,
-    &sspw_tap_state,
-    state
-  );
+void sspw_end(TD_ARGS) {
+  TAP_DANCE_END(ss_actions);
 }
 
 uint16_t bf_scope_timer = 0;
@@ -35,8 +23,6 @@ void start_scope(void) {
   }
 }
 
-static td_tap_t scope_tap_state = TD_INIT_STATE;
-
 td_action_config TD_SCOPE_CUSTOM[] = {
   ACTION_TAP_DANCE_CONFIG_FN(start_scope),
   ACTION_TAP_DANCE_CONFIG_KEY(KC_DOT),
@@ -44,37 +30,18 @@ td_action_config TD_SCOPE_CUSTOM[] = {
   ACTION_TAP_DANCE_CONFIG_KEY(KC_DOT)
 };
 
-void scope_begin(tap_dance_state_t *state, void *user_data) {
-  tap_dance_begin(
-    TD_SCOPE_CUSTOM,
-    4,
-    &scope_tap_state,
-    state
-  );
+void scope_begin(TD_ARGS) {
+  TAP_DANCE_BEGIN(TD_SCOPE_CUSTOM);
 }
 
-void scope_end(tap_dance_state_t *state, void *user_data) {
-  tap_dance_end(
-    TD_SCOPE_CUSTOM,
-    4,
-    &scope_tap_state,
-    state
-  );
+void scope_end(TD_ARGS) {
+  TAP_DANCE_END(TD_SCOPE_CUSTOM);
 }
 
 tap_dance_action_t tap_dance_actions[] = {
-  [T_SSPW]   = ACTION_TAP_DANCE_WRAPPER(
-    sspw_begin,
-    sspw_end
-  ),
-  [T_DL_HS]  = ACTION_TAP_DANCE_DOUBLE(
-    KC_DLR,
-    KC_HASH
-  ),
-  [T_SCOPE]  = ACTION_TAP_DANCE_WRAPPER(
-    scope_begin,
-    scope_end
-  ),
+  [T_SSPW]   = ACTION_TAP_DANCE_WRAPPER(sspw_begin, sspw_end),
+  [T_DL_HS]  = ACTION_TAP_DANCE_DOUBLE(KC_DLR, KC_HASH),
+  [T_SCOPE]  = ACTION_TAP_DANCE_WRAPPER(scope_begin, scope_end),
 };
 
 void matrix_scan_tap_dance(void) {

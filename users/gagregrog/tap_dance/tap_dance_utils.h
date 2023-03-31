@@ -12,20 +12,20 @@ typedef struct {
 
 typedef struct {
   bool pressed;
-} td_tap_t;
+} td_user_data;
 
 void tap_dance_begin(
   td_action_config actions[],
   uint8_t num_actions,
-  td_tap_t *tap,
-  tap_dance_state_t *state
+  tap_dance_state_t *state,
+  void *user_data
 );
 
 void tap_dance_end(
   td_action_config actions[],
   uint8_t num_actions,
-  td_tap_t *tap,
-  tap_dance_state_t *state
+  tap_dance_state_t *state,
+  void *user_data
 );
 
 void TD_NOOP(void);
@@ -53,14 +53,19 @@ void TD_NOOP(void);
  .layer = TD_MAX_LAYER, \
 }
 #define ACTION_TAP_DANCE_CONFIG_BOOT ACTION_TAP_DANCE_CONFIG_FN(reset_keyboard)
-#define TD_INIT_STATE { .pressed = false }
 
 #define ACTION_TAP_DANCE_WRAPPER( \
-  user_fn_on_dance_begin, \
-  user_fn_on_dance_end \
-) \
-  ACTION_TAP_DANCE_FN_ADVANCED( \
+  user_dance_begin, \
+  user_dance_end \
+) { \
+  .fn = { \
     NULL, \
-    user_fn_on_dance_begin, \
-    user_fn_on_dance_end \
-  )
+    (void *)user_dance_begin, \
+    (void *)user_dance_end \
+  }, \
+  .user_data = (void *)&((td_user_data) { .pressed = false }), \
+}
+
+#define TD_ARGS tap_dance_state_t *state, void *user_data
+#define TAP_DANCE_BEGIN(actions) tap_dance_begin(actions, ARRAY_SIZE(actions), state, user_data)
+#define TAP_DANCE_END(actions) tap_dance_end(actions, ARRAY_SIZE(actions), state, user_data)
