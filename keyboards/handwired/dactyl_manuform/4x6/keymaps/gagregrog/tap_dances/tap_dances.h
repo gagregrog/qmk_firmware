@@ -13,3 +13,5 @@ enum {
 #define TD_SCOPE     TD(T_SCOPE)
 
 void matrix_scan_tap_dance(void);
+void tap_dance_ss(TD_ARGS);
+void tap_dance_scope(TD_ARGS);

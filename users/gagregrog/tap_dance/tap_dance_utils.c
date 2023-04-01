@@ -10,6 +10,32 @@ uint8_t get_action_index(tap_dance_state_t *state, bool pressed) {
   return index;
 }
 
+void handle_tap_dance(
+  td_action_config actions[],
+  uint8_t num_actions,
+  tap_dance_state_t *state,
+  void *user_data
+) {
+  td_user_data *td_data = (td_user_data *)user_data;
+  if (!td_data->has_begun) {
+    td_data->has_begun = true;
+    tap_dance_begin(
+      actions,
+      num_actions,
+      state,
+      user_data
+    );
+  } else {
+    td_data->has_begun = false;
+    tap_dance_end(
+      actions,
+      num_actions,
+      state,
+      user_data
+    );
+  }
+}
+
 void tap_dance_begin(
   td_action_config actions[],
   uint8_t num_actions,

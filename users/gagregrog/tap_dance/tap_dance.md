@@ -42,14 +42,11 @@ static td_action_config my_actions[] = {
 };
 ```
 
-Next, create the functions we will pass to the QMK tap dance macros. These will use some utilities that we expose.
+Next, create the function we will pass to the QMK tap dance macros. These will use some utilities that we expose.
 
 ```c
-void my_td_begin(TD_ARGS) {
-  TAP_DANCE_BEGIN(my_actions);
-}
-void my_td_end(TD_ARGS) {
-  TAP_DANCE_END(my_actions);
+void handle_my_dance(TD_ARGS) {
+  HANDLE_TAP_DANCE(my_actions);
 }
 ```
 
@@ -57,7 +54,7 @@ Finally, the last step is to define the global `tap_dance_actions` array.
 
 ```c
 tap_dance_action_t tap_dance_actions[] = {
-  [T_MY_DANCE]  = ACTION_TAP_DANCE_WRAPPER(my_td_begin, my_td_end),
+  [T_MY_DANCE]  = ACTION_TAP_DANCE_WRAPPER(handle_my_dance),
   // add as many tapdance configs as you want!
 };
 ```
@@ -73,7 +70,7 @@ Let's create a basic tap dance with some macros, some secrets, a function, and a
 #include QMK_KEYBOARD_H
 #include "gagregrog.h"
 
-// we'll be defining two tap dance keys for a keyboard
+// we'll be defining two tap dance keys for our twokey keyboard
 enum tap_dance_keys {
   T_L1_K1,
   T_L1_K2,
@@ -93,11 +90,8 @@ static td_action_config actions_one[] = {
   ACTION_TAP_DANCE_CONFIG_NULL,               // do nothing when tapped twice
   ACTION_TAP_DANCE_CONFIG_BOOT                // reset the board for flashing when tapped then held
 };
-void one_begin(TD_ARGS) {
-  TAP_DANCE_BEGIN(actions_one);
-}
-void one_end(TD_ARGS) {
-  TAP_DANCE_END(actions_one);
+void handle_dance_one(TD_ARGS) {
+  HANDLE_TAP_DANCE(actions_one);
 }
 
 // - Setup for T_L1_K2
@@ -111,16 +105,13 @@ static td_action_config actions_two[] = {
   ACTION_TAP_DANCE_CONFIG_KEY(KC_SECRET_1), // send the first secret when tapped
   ACTION_TAP_DANCE_CONFIG_FN(commit_selected) // call this function when held
 };
-void two_begin(TD_ARGS) {
-  TAP_DANCE_BEGIN(actions_two);
-}
-void two_end(TD_ARGS) {
-  TAP_DANCE_END(actions_two);
+void handle_dance_two(TD_ARGS) {
+  HANDLE_TAP_DANCE(actions_two);
 }
 
 tap_dance_action_t tap_dance_actions[] = {
-  [T_L1_K1] = ACTION_TAP_DANCE_WRAPPER(one_begin, one_end),
-  [T_L1_K2] = ACTION_TAP_DANCE_WRAPPER(two_begin, two_end),
+  [T_L1_K1] = ACTION_TAP_DANCE_WRAPPER(handle_dance_one),
+  [T_L1_K2] = ACTION_TAP_DANCE_WRAPPER(handle_dance_two),
 };
 ```
 
@@ -129,6 +120,7 @@ tap_dance_action_t tap_dance_actions[] = {
 With this next one let's use tap dances with layer switches.
 
 ```c
+// keymap.c
 #include QMK_KEYBOARD_H
 #include "gagregrog.h"
 
@@ -173,11 +165,8 @@ static td_action_config actions_one[] = {
   ACTION_TAP_DANCE_CONFIG_LAYER(L3),          // activate layer 3 when tapped twice
   ACTION_TAP_DANCE_CONFIG_LAYER(L2),          // activate layer 2 while held when tapped and held
 };
-void one_begin(TD_ARGS) {
-  TAP_DANCE_BEGIN(actions_one);
-}
-void one_end(TD_ARGS) {
-  TAP_DANCE_END(actions_one);
+void handle_dance_one(TD_ARGS) {
+  HANDLE_TAP_DANCE(actions_one);
 }
 
 // - Setup for T_L2_K2
@@ -190,11 +179,8 @@ static td_action_config actions_two[] = {
   ACTION_TAP_DANCE_CONFIG_KEY(KC_SECRET_4), // send the fourth secret when tapped and then held
   ACTION_TAP_DANCE_CONFIG_KEY(KC_SECRET_5), // send the fifth secret when triple tapped
 };
-void two_begin(TD_ARGS) {
-  TAP_DANCE_BEGIN(actions_two);
-}
-void two_end(TD_ARGS) {
-  TAP_DANCE_END(actions_two);
+void handle_dance_two(TD_ARGS) {
+  HANDLE_TAP_DANCE(actions_two);
 }
 
 // - Setup for T_L3_K2
@@ -209,16 +195,13 @@ static td_action_config actions_three[] = {
   ACTION_TAP_DANCE_CONFIG_NULL,             // do nothing when triple tapped
   ACTION_TAP_DANCE_CONFIG_BOOT,             // enter bootloader when double tapped and held
 };
-void three_begin(TD_ARGS) {
-  TAP_DANCE_BEGIN(actions_three);
-}
-void three_end(TD_ARGS) {
-  TAP_DANCE_END(actions_three);
+void handle_dance_three(TD_ARGS) {
+  HANDLE_TAP_DANCE(actions_three);
 }
 
 tap_dance_action_t tap_dance_actions[] = {
-  [T_L1_K1] = ACTION_TAP_DANCE_WRAPPER(one_begin, one_end),
-  [T_L2_K2] = ACTION_TAP_DANCE_WRAPPER(two_begin, two_end),
-  [T_L3_K2] = ACTION_TAP_DANCE_WRAPPER(three_begin, three_end),
+  [T_L1_K1] = ACTION_TAP_DANCE_WRAPPER(handle_dance_one),
+  [T_L2_K2] = ACTION_TAP_DANCE_WRAPPER(handle_dance_two),
+  [T_L3_K2] = ACTION_TAP_DANCE_WRAPPER(handle_dance_three),
 };
 ```
