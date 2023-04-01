@@ -13,5 +13,5 @@ enum tap_dance_keys {
 #define TD_ONE     TD(T_ONE)
 #define TD_TWO     TD(T_TWO)
 
-void one_tap_handle(TD_ARGS);
-void two_tap_handle(TD_ARGS);
+void one_tap_handle(TD_ARGS_GAGREGROG);
+void two_tap_handle(TD_ARGS_GAGREGROG);

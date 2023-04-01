@@ -8,29 +8,29 @@ typedef struct {
   uint16_t key;
   td_user_fn_t *fn;
   uint8_t layer;
-} td_action_config;
+} td_actions_gagregrog_t;
 
 typedef struct {
   bool pressed;
   bool has_begun;
-} td_user_data;
+} td_data_gagregrog_t;
 
-void tap_dance_begin(
-  td_action_config actions[],
+void tap_dance_begin_gagregrog(
+  td_actions_gagregrog_t actions[],
   uint8_t num_actions,
   tap_dance_state_t *state,
   void *user_data
 );
 
-void tap_dance_end(
-  td_action_config actions[],
+void tap_dance_end_gagregrog(
+  td_actions_gagregrog_t actions[],
   uint8_t num_actions,
   tap_dance_state_t *state,
   void *user_data
 );
 
-void handle_tap_dance(
-  td_action_config actions[],
+void handle_tap_dance_gagregrog(
+  td_actions_gagregrog_t actions[],
   uint8_t num_actions,
   tap_dance_state_t *state,
   void *user_data
@@ -38,31 +38,31 @@ void handle_tap_dance(
 
 void TD_NOOP(void);
 
-#define TD_MAX_LAYER 255
+#define TD_MAX_LAYER_GAGREGROG 255
 
-#define ACTION_TAP_DANCE_CONFIG_KEY(KEY) { \
+#define KEY__TD_ACTION_GAGREGROG(KEY) { \
   .key = KEY, \
   .fn = TD_NOOP, \
-  .layer = TD_MAX_LAYER, \
+  .layer = TD_MAX_LAYER_GAGREGROG, \
 }
-#define ACTION_TAP_DANCE_CONFIG_FN(FN) { \
+#define FN__TD_ACTION_GAGREGROG(FN) { \
   .key = 0, \
   .fn = FN, \
-  .layer = TD_MAX_LAYER, \
+  .layer = TD_MAX_LAYER_GAGREGROG, \
 }
-#define ACTION_TAP_DANCE_CONFIG_LAYER(LAYER) { \
+#define LAYER__TD_ACTION_GAGREGROG(LAYER) { \
   .key = 0, \
   .fn = TD_NOOP, \
   .layer = LAYER, \
 }
-#define ACTION_TAP_DANCE_CONFIG_NULL { \
+#define NULL__TD_ACTION_GAGREGROG { \
  .key = 0, \
  .fn = TD_NOOP, \
- .layer = TD_MAX_LAYER, \
+ .layer = TD_MAX_LAYER_GAGREGROG, \
 }
-#define ACTION_TAP_DANCE_CONFIG_BOOT ACTION_TAP_DANCE_CONFIG_FN(reset_keyboard)
+#define BOOT__TD_ACTION_GAGREGROG FN__TD_ACTION_GAGREGROG(reset_keyboard)
 
-#define ACTION_TAP_DANCE_WRAPPER( \
+#define ACTION_TAP_DANCE_GAGREGROG( \
   user_dance_handler \
 ) { \
   .fn = { \
@@ -70,8 +70,8 @@ void TD_NOOP(void);
     (void *)user_dance_handler, \
     (void *)user_dance_handler \
   }, \
-  .user_data = (void *)&((td_user_data) { .pressed = false, .has_begun = false }), \
+  .user_data = (void *)&((td_data_gagregrog_t) { .pressed = false, .has_begun = false }), \
 }
 
-#define TD_ARGS tap_dance_state_t *state, void *user_data
-#define HANDLE_TAP_DANCE(actions) handle_tap_dance(actions, ARRAY_SIZE(actions), state, user_data)
+#define TD_ARGS_GAGREGROG tap_dance_state_t *state, void *user_data
+#define HANDLE_TAP_DANCE_GAGREGROG(actions) handle_tap_dance_gagregrog(actions, ARRAY_SIZE(actions), state, user_data)

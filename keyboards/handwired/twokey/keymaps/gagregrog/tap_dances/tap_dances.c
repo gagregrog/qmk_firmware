@@ -4,26 +4,26 @@
 // - All Tap Dances
 
 tap_dance_action_t tap_dance_actions[] = {
-  [T_ONE]  = ACTION_TAP_DANCE_WRAPPER(one_tap_handle),
-  [T_TWO]  = ACTION_TAP_DANCE_WRAPPER(two_tap_handle),
+  [T_ONE]  = ACTION_TAP_DANCE_GAGREGROG(one_tap_handle),
+  [T_TWO]  = ACTION_TAP_DANCE_GAGREGROG(two_tap_handle),
 };
 
 
 // - T_ONE
-static td_action_config actions_one[] = {
-  ACTION_TAP_DANCE_CONFIG_KEY(SCRN_C),
-  ACTION_TAP_DANCE_CONFIG_KEY(SCRN_S),
-  ACTION_TAP_DANCE_CONFIG_NULL,
-  ACTION_TAP_DANCE_CONFIG_KEY(KC_OS_LOCK),
-  ACTION_TAP_DANCE_CONFIG_NULL,
-  ACTION_TAP_DANCE_CONFIG_KEY(KC_SECRET_1),
-  ACTION_TAP_DANCE_CONFIG_NULL,
-  ACTION_TAP_DANCE_CONFIG_NULL,
-  ACTION_TAP_DANCE_CONFIG_BOOT,
-  ACTION_TAP_DANCE_CONFIG_BOOT
+static td_actions_gagregrog_t actions_one[] = {
+  KEY__TD_ACTION_GAGREGROG(SCRN_C),
+  KEY__TD_ACTION_GAGREGROG(SCRN_S),
+  NULL__TD_ACTION_GAGREGROG,
+  KEY__TD_ACTION_GAGREGROG(KC_OS_LOCK),
+  NULL__TD_ACTION_GAGREGROG,
+  KEY__TD_ACTION_GAGREGROG(KC_SECRET_1),
+  NULL__TD_ACTION_GAGREGROG,
+  NULL__TD_ACTION_GAGREGROG,
+  BOOT__TD_ACTION_GAGREGROG,
+  BOOT__TD_ACTION_GAGREGROG
 };
-void one_tap_handle(TD_ARGS) {
-  HANDLE_TAP_DANCE(actions_one);
+void one_tap_handle(TD_ARGS_GAGREGROG) {
+  HANDLE_TAP_DANCE_GAGREGROG(actions_one);
 }
 
 
@@ -33,11 +33,11 @@ void commit_selected(void) {
   wait_ms(50);
   tap_code16(LGUI(LALT(KC_S)));
 }
-static td_action_config actions_two[] = {
-  ACTION_TAP_DANCE_CONFIG_KEY(KC_SECRET_2),
-  ACTION_TAP_DANCE_CONFIG_KEY(KC_SECRET_3),
-  ACTION_TAP_DANCE_CONFIG_FN(commit_selected),
+static td_actions_gagregrog_t actions_two[] = {
+  KEY__TD_ACTION_GAGREGROG(KC_SECRET_2),
+  KEY__TD_ACTION_GAGREGROG(KC_SECRET_3),
+  FN__TD_ACTION_GAGREGROG(commit_selected),
 };
-void two_tap_handle(TD_ARGS) {
-  HANDLE_TAP_DANCE(actions_two);
+void two_tap_handle(TD_ARGS_GAGREGROG) {
+  HANDLE_TAP_DANCE_GAGREGROG(actions_two);
 }

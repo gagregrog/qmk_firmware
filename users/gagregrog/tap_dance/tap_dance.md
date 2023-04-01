@@ -31,22 +31,22 @@ static void myFunc(void) {
   SEND_STRING("hello tap dances!");
 };
 
-static td_action_config my_actions[] = {
-  ACTION_TAP_DANCE_CONFIG_KEY(KC_1), // send 1 when tapped once
-  ACTION_TAP_DANCE_CONFIG_FN(myFunc), // call the function myFunc when held
-  ACTION_TAP_DANCE_CONFIG_NULL, // do nothing when double tapped
-  ACTION_TAP_DANCE_CONFIG_KEY(KC_SECRET_1), // send secret 1 when tapped once and then held
-  ACTION_TAP_DANCE_CONFIG_BOOT, // put the keyboard into bootloader mode so you can flash new code to it when tapped 3 times
-  ACTION_TAP_DANCE_CONFIG_LAYER(L2), // since this is a hold action, activate layer L2 while key is held after 2 taps
-  ACTION_TAP_DANCE_CONFIG_LAYER(L3) // since this is a tap action, toggle layer L3 on or off, depending on its current state
+static td_actions_gagregrog_t my_actions[] = {
+  KEY__TD_ACTION_GAGREGROG(KC_1), // send 1 when tapped once
+  FN__TD_ACTION_GAGREGROG(myFunc), // call the function myFunc when held
+  NULL__TD_ACTION_GAGREGROG, // do nothing when double tapped
+  KEY__TD_ACTION_GAGREGROG(KC_SECRET_1), // send secret 1 when tapped once and then held
+  BOOT__TD_ACTION_GAGREGROG, // put the keyboard into bootloader mode so you can flash new code to it when tapped 3 times
+  LAYER__TD_ACTION_GAGREGROG(L2), // since this is a hold action, activate layer L2 while key is held after 2 taps
+  LAYER__TD_ACTION_GAGREGROG(L3) // since this is a tap action, toggle layer L3 on or off, depending on its current state
 };
 ```
 
 Next, create the function we will pass to the QMK tap dance macros. These will use some utilities that we expose.
 
 ```c
-void handle_my_dance(TD_ARGS) {
-  HANDLE_TAP_DANCE(my_actions);
+void handle_my_dance(TD_ARGS_GAGREGROG) {
+  HANDLE_TAP_DANCE_GAGREGROG(my_actions);
 }
 ```
 
@@ -54,7 +54,7 @@ Finally, the last step is to define the global `tap_dance_actions` array.
 
 ```c
 tap_dance_action_t tap_dance_actions[] = {
-  [T_MY_DANCE]  = ACTION_TAP_DANCE_WRAPPER(handle_my_dance),
+  [T_MY_DANCE]  = ACTION_TAP_DANCE_GAGREGROG(handle_my_dance),
   // add as many tapdance configs as you want!
 };
 ```
@@ -84,14 +84,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 // Setup for T_L1_K1
-static td_action_config actions_one[] = {
-  ACTION_TAP_DANCE_CONFIG_KEY(LGUI(KC_C)),    // Send Copy when tapped
-  ACTION_TAP_DANCE_CONFIG_KEY(LGUI(KC_V)),    // Send Paste when held
-  ACTION_TAP_DANCE_CONFIG_NULL,               // do nothing when tapped twice
-  ACTION_TAP_DANCE_CONFIG_BOOT                // reset the board for flashing when tapped then held
+static td_actions_gagregrog_t actions_one[] = {
+  KEY__TD_ACTION_GAGREGROG(LGUI(KC_C)),    // Send Copy when tapped
+  KEY__TD_ACTION_GAGREGROG(LGUI(KC_V)),    // Send Paste when held
+  NULL__TD_ACTION_GAGREGROG,               // do nothing when tapped twice
+  BOOT__TD_ACTION_GAGREGROG                // reset the board for flashing when tapped then held
 };
-void handle_dance_one(TD_ARGS) {
-  HANDLE_TAP_DANCE(actions_one);
+void handle_dance_one(TD_ARGS_GAGREGROG) {
+  HANDLE_TAP_DANCE_GAGREGROG(actions_one);
 }
 
 // - Setup for T_L1_K2
@@ -101,17 +101,17 @@ void commit_selected(void) {
   wait_ms(50);
   tap_code16(LGUI(LALT(KC_S)));
 };
-static td_action_config actions_two[] = {
-  ACTION_TAP_DANCE_CONFIG_KEY(KC_SECRET_1), // send the first secret when tapped
-  ACTION_TAP_DANCE_CONFIG_FN(commit_selected) // call this function when held
+static td_actions_gagregrog_t actions_two[] = {
+  KEY__TD_ACTION_GAGREGROG(KC_SECRET_1), // send the first secret when tapped
+  FN__TD_ACTION_GAGREGROG(commit_selected) // call this function when held
 };
-void handle_dance_two(TD_ARGS) {
-  HANDLE_TAP_DANCE(actions_two);
+void handle_dance_two(TD_ARGS_GAGREGROG) {
+  HANDLE_TAP_DANCE_GAGREGROG(actions_two);
 }
 
 tap_dance_action_t tap_dance_actions[] = {
-  [T_L1_K1] = ACTION_TAP_DANCE_WRAPPER(handle_dance_one),
-  [T_L1_K2] = ACTION_TAP_DANCE_WRAPPER(handle_dance_two),
+  [T_L1_K1] = ACTION_TAP_DANCE_GAGREGROG(handle_dance_one),
+  [T_L1_K2] = ACTION_TAP_DANCE_GAGREGROG(handle_dance_two),
 };
 ```
 
@@ -159,49 +159,49 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 // Setup for T_L1_K1
-static td_action_config actions_one[] = {
-  ACTION_TAP_DANCE_CONFIG_KEY(KC_A),          // Send A when tapped
-  ACTION_TAP_DANCE_CONFIG_KEY(KC_B),          // Send B when held
-  ACTION_TAP_DANCE_CONFIG_LAYER(L3),          // activate layer 3 when tapped twice
-  ACTION_TAP_DANCE_CONFIG_LAYER(L2),          // activate layer 2 while held when tapped and held
+static td_actions_gagregrog_t actions_one[] = {
+  KEY__TD_ACTION_GAGREGROG(KC_A),          // Send A when tapped
+  KEY__TD_ACTION_GAGREGROG(KC_B),          // Send B when held
+  LAYER__TD_ACTION_GAGREGROG(L3),          // activate layer 3 when tapped twice
+  LAYER__TD_ACTION_GAGREGROG(L2),          // activate layer 2 while held when tapped and held
 };
-void handle_dance_one(TD_ARGS) {
-  HANDLE_TAP_DANCE(actions_one);
+void handle_dance_one(TD_ARGS_GAGREGROG) {
+  HANDLE_TAP_DANCE_GAGREGROG(actions_one);
 }
 
 // - Setup for T_L2_K2
 // layer 2 is only accessible if you tap and hold key 1 on layer 1
 // that means these secrets are only accessible while that tap is active -- nice!
-static td_action_config actions_two[] = {
-  ACTION_TAP_DANCE_CONFIG_KEY(KC_SECRET_1), // send the first secret when tapped
-  ACTION_TAP_DANCE_CONFIG_KEY(KC_SECRET_2), // send the second secret when held
-  ACTION_TAP_DANCE_CONFIG_KEY(KC_SECRET_3), // send the third secret when double tapped
-  ACTION_TAP_DANCE_CONFIG_KEY(KC_SECRET_4), // send the fourth secret when tapped and then held
-  ACTION_TAP_DANCE_CONFIG_KEY(KC_SECRET_5), // send the fifth secret when triple tapped
+static td_actions_gagregrog_t actions_two[] = {
+  KEY__TD_ACTION_GAGREGROG(KC_SECRET_1), // send the first secret when tapped
+  KEY__TD_ACTION_GAGREGROG(KC_SECRET_2), // send the second secret when held
+  KEY__TD_ACTION_GAGREGROG(KC_SECRET_3), // send the third secret when double tapped
+  KEY__TD_ACTION_GAGREGROG(KC_SECRET_4), // send the fourth secret when tapped and then held
+  KEY__TD_ACTION_GAGREGROG(KC_SECRET_5), // send the fifth secret when triple tapped
 };
-void handle_dance_two(TD_ARGS) {
-  HANDLE_TAP_DANCE(actions_two);
+void handle_dance_two(TD_ARGS_GAGREGROG) {
+  HANDLE_TAP_DANCE_GAGREGROG(actions_two);
 }
 
 // - Setup for T_L3_K2
 // layer 3 can be activated after pressing key 2 on layer 1,
 // or by double tapping key 1 on layer 1
 // you could use additional layer actions here to activate higher layers
-static td_action_config actions_three[] = {
-  ACTION_TAP_DANCE_CONFIG_KEY(KC_1),        // send 1 when tapped
-  ACTION_TAP_DANCE_CONFIG_NULL,             // do nothing when held
-  ACTION_TAP_DANCE_CONFIG_LAYER(L3),        // deactivate this layer when double tapped
-  ACTION_TAP_DANCE_CONFIG_NULL,             // do nothing when tapped and then held
-  ACTION_TAP_DANCE_CONFIG_NULL,             // do nothing when triple tapped
-  ACTION_TAP_DANCE_CONFIG_BOOT,             // enter bootloader when double tapped and held
+static td_actions_gagregrog_t actions_three[] = {
+  KEY__TD_ACTION_GAGREGROG(KC_1),        // send 1 when tapped
+  NULL__TD_ACTION_GAGREGROG,             // do nothing when held
+  LAYER__TD_ACTION_GAGREGROG(L3),        // deactivate this layer when double tapped
+  NULL__TD_ACTION_GAGREGROG,             // do nothing when tapped and then held
+  NULL__TD_ACTION_GAGREGROG,             // do nothing when triple tapped
+  BOOT__TD_ACTION_GAGREGROG,             // enter bootloader when double tapped and held
 };
-void handle_dance_three(TD_ARGS) {
-  HANDLE_TAP_DANCE(actions_three);
+void handle_dance_three(TD_ARGS_GAGREGROG) {
+  HANDLE_TAP_DANCE_GAGREGROG(actions_three);
 }
 
 tap_dance_action_t tap_dance_actions[] = {
-  [T_L1_K1] = ACTION_TAP_DANCE_WRAPPER(handle_dance_one),
-  [T_L2_K2] = ACTION_TAP_DANCE_WRAPPER(handle_dance_two),
-  [T_L3_K2] = ACTION_TAP_DANCE_WRAPPER(handle_dance_three),
+  [T_L1_K1] = ACTION_TAP_DANCE_GAGREGROG(handle_dance_one),
+  [T_L2_K2] = ACTION_TAP_DANCE_GAGREGROG(handle_dance_two),
+  [T_L3_K2] = ACTION_TAP_DANCE_GAGREGROG(handle_dance_three),
 };
 ```
