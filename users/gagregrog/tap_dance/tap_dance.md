@@ -1,6 +1,6 @@
 # Tap Dance
 
-When Tap Dances are enabled, these utilities will be automatically included. These utils allow you to define key taps/hold behaviors for `KC_` keycodes, `KC_SECRET_`S, user-defined functions, and layer moves/toggles.
+When Tap Dances are enabled, these utilities will be automatically included. These utils allow you to define key taps/hold behaviors for `KC_` keycodes, `KC_SECRET_`S, user-defined functions, strings to send, and layer moves/toggles.
 
 ## Configuration
 
@@ -18,7 +18,7 @@ Next, create an array to hold your tap dance actions. Each even index (starting 
 
 Hold actions for regular `KC_` keycodes will remain held until released and as such will continue to register keypresses with the host system. Taps, on the other hand, will only be sent once and cannot be held. 
 
-`KC_SECRET_`s will only be sent once. Functions will also only be called once. Both of these will happen when the tap dance first registers a tap/hold.
+`KC_SECRET_`s and strings will only be sent once. Functions will also only be called once. Each of these will happen when the tap dance first registers a tap/hold.
 
 Layer actions will act as a layer toggle when mapped to a tap action, and will act as a momentary layer key while held when mapped to a hold action.
 
@@ -28,7 +28,9 @@ For example:
 
 ```c
 static void myFunc(void) {
-  SEND_STRING("hello tap dances!");
+  SEND_STRING("hello tap dances!\n");
+  wait_ms(500);
+  SEND_STRING("goodbye tap dances!");
 };
 
 static td_actions_gagregrog_t my_actions[] = {
@@ -38,7 +40,8 @@ static td_actions_gagregrog_t my_actions[] = {
   KEY__TD_ACTION_GAGREGROG(KC_SECRET_1), // send secret 1 when tapped once and then held
   BOOT__TD_ACTION_GAGREGROG, // put the keyboard into bootloader mode so you can flash new code to it when tapped 3 times
   LAYER__TD_ACTION_GAGREGROG(L2), // since this is a hold action, activate layer L2 while key is held after 2 taps
-  LAYER__TD_ACTION_GAGREGROG(L3) // since this is a tap action, toggle layer L3 on or off, depending on its current state
+  LAYER__TD_ACTION_GAGREGROG(L3), // since this is a tap action, toggle layer L3 on or off, depending on its current state, after 4 taps
+  STRING__TD_ACTION_GAGREGROG("have a nice day!") // send this nice message when tapped three times and then held
 };
 ```
 
@@ -178,6 +181,7 @@ static td_actions_gagregrog_t actions_two[] = {
   KEY__TD_ACTION_GAGREGROG(KC_SECRET_3), // send the third secret when double tapped
   KEY__TD_ACTION_GAGREGROG(KC_SECRET_4), // send the fourth secret when tapped and then held
   KEY__TD_ACTION_GAGREGROG(KC_SECRET_5), // send the fifth secret when triple tapped
+  STRING__TD_ACTION_GAGREGROG("Have a nice day!\n"), // send this message when tapped twice and then held
 };
 void handle_dance_two(TD_ARGS_GAGREGROG) {
   HANDLE_TAP_DANCE_GAGREGROG(actions_two);

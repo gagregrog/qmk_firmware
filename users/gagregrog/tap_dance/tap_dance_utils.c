@@ -63,6 +63,8 @@ void tap_dance_begin_gagregrog(
         }
         break;
     }
+  } else if (strcmp(action.string, TD_NULL) != 0) {
+      send_string(action.string);
   } else if (action.layer < TD_MAX_LAYER_GAGREGROG) {
     // if a layer action is used on a tap action, it will activate the layer indefinitely
     // if a layer action is used on a hold action, it will activate the layer until the hold is released
@@ -100,5 +102,5 @@ void tap_dance_end_gagregrog(
   } else if (action.layer < TD_MAX_LAYER_GAGREGROG && td_data->pressed) {
     // if the aciton is a hold, deactivate the layer now that the td key is released
     layer_off(action.layer);
-  }
+  } // no other layers get triggered when the key is released
 }

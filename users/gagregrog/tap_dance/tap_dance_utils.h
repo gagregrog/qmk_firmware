@@ -1,4 +1,5 @@
 #include "quantum.h"
+#include <string.h>
 
 #pragma once
 
@@ -8,6 +9,7 @@ typedef struct {
   uint16_t key;
   td_user_fn_t *fn;
   uint8_t layer;
+  char *string;
 } td_actions_gagregrog_t;
 
 typedef struct {
@@ -37,6 +39,7 @@ void handle_tap_dance_gagregrog(
 );
 
 void TD_NOOP(void);
+#define TD_NULL "TD_NULL"
 
 #define TD_MAX_LAYER_GAGREGROG 255
 
@@ -44,21 +47,31 @@ void TD_NOOP(void);
   .key = KEY, \
   .fn = TD_NOOP, \
   .layer = TD_MAX_LAYER_GAGREGROG, \
+  .string = TD_NULL \
 }
-#define FN__TD_ACTION_GAGREGROG(FN) { \
-  .key = 0, \
-  .fn = FN, \
-  .layer = TD_MAX_LAYER_GAGREGROG, \
+#define STRING__TD_ACTION_GAGREGROG(STR) { \
+ .key = 0, \
+ .fn = TD_NOOP, \
+ .layer = TD_MAX_LAYER_GAGREGROG, \
+ .string = STR \
 }
 #define LAYER__TD_ACTION_GAGREGROG(LAYER) { \
   .key = 0, \
   .fn = TD_NOOP, \
   .layer = LAYER, \
+  .string = TD_NULL \
+}
+#define FN__TD_ACTION_GAGREGROG(FN) { \
+  .key = 0, \
+  .fn = FN, \
+  .layer = TD_MAX_LAYER_GAGREGROG, \
+  .string = TD_NULL \
 }
 #define NULL__TD_ACTION_GAGREGROG { \
  .key = 0, \
  .fn = TD_NOOP, \
  .layer = TD_MAX_LAYER_GAGREGROG, \
+ .string = TD_NULL \
 }
 #define BOOT__TD_ACTION_GAGREGROG FN__TD_ACTION_GAGREGROG(reset_keyboard)
 
