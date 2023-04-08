@@ -120,13 +120,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   mod_state = get_mods();
 
   switch (keycode) {
+    // replace with better ifdef
     #ifdef USE_LAYOUT_3x5_3
       case TG_BASE:
         if (record->event.pressed) {
-          if (layer_state_is(LAYER_BASE_QWERTY)) {
-            layer_off(LAYER_BASE_QWERTY);
+          if (layer_state_is(_LAYER_QWERTY)) {
+            layer_off(_LAYER_QWERTY);
           } else {
-            layer_on(LAYER_BASE_QWERTY);
+            layer_on(_LAYER_QWERTY);
           }
         }
         return false;

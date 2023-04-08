@@ -19,28 +19,26 @@
 // include all common keycodes / macros
 #include "gagregrog.h"
 
-// clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [LAYER_BASE_COLEMAK_MOD_DH] = LAYOUT_wrapper(
-    HOME_ROW_MOD_CAGS_3x5(
-      LAYOUT_COLEMAK_MOD_DH_BASE
+  [_LAYER_COLEMAK_DH] = LAYOUT_wrapper(
+    HOME_ROW_MOD_CAGS(
+      LAYOUT_COLEMAK_DH
     )
   ),
-  [LAYER_BASE_QWERTY] = LAYOUT_wrapper(
-    HOME_ROW_MOD_CAGS_3x5(
-      LAYOUT_QWERTY_BASE
+  [_LAYER_QWERTY] = LAYOUT_wrapper(
+    HOME_ROW_MOD_CAGS(
+      LAYOUT_QWERTY
     )
   ),
-  [LAYER_NUM] = LAYOUT_wrapper(
-    HOME_ROW_MOD_CAGS_3x5(
+  [_LAYER_NUM] = LAYOUT_wrapper(
+    HOME_ROW_MOD_CAGS(
       LAYOUT_NUMERIC
     )
   ),
-  [LAYER_UTIL] = LAYOUT_wrapper(
+  [_LAYER_UTIL] = LAYOUT_wrapper(
     LAYOUT_UTILITY
   ),
-  [LAYER_SETTINGS] = LAYOUT_wrapper(
+  [_LAYER_SETTINGS] = LAYOUT_wrapper(
     LAYOUT_SETTINGS
   ),
 };
-// clang-format on
