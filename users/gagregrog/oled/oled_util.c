@@ -31,22 +31,28 @@ void render_layer_text(void) {
 
   switch (get_highest_layer(layer_state)) {
     case _LAYER_COLEMAK_DH:
-      oled_write_ln_P(PSTR("\n  Layer: Colemak DH  "), false);
+      oled_write_ln_P(PSTR("\n     Colemak DH     "), false);
+      break;
+    case _LAYER_COLEMAK_DH_HRM:
+      oled_write_ln_P(PSTR("\n  Colemak DH (HRM)  "), false);
       break;
     case _LAYER_QWERTY:
-      oled_write_ln_P(PSTR("\n    Layer: QWERTY    "), false);
+      oled_write_ln_P(PSTR("\n        QWERTY     "), false);
+      break;
+    case _LAYER_QWERTY_HRM:
+      oled_write_ln_P(PSTR("\n    QWERTY (HRM)    "), false);
       break;
     case _LAYER_NUM:
-      oled_write_ln_P(PSTR("\n   Layer: Numeric    "), false);
+      oled_write_ln_P(PSTR("\n       Numeric      "), false);
       break;
     case _LAYER_UTIL:
-      oled_write_ln_P(PSTR("\n   Layer: Utility    "), false);
+      oled_write_ln_P(PSTR("\n       Utility      "), false);
       break;
     case _LAYER_SETTINGS:
-      oled_write_ln_P(PSTR("\n   Layer: Settings   "), false);
+      oled_write_ln_P(PSTR("\n      Settings      "), false);
       break;
     default:
-      oled_write_ln_P(PSTR("\n   Layer: Undefined  "), false);
+      oled_write_ln_P(PSTR("\n    Layer Unknown   "), false);
   }
 }
 
@@ -69,6 +75,7 @@ bool oled_task_user(void) {
 #ifdef OLED_SHOW_DOGS
   render_dogs();
 #endif
+
   render_layer_text();
 
   return oled_task_keymap();

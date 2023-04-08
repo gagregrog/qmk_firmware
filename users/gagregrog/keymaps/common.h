@@ -2,7 +2,9 @@
 #pragma once
 
 enum userspace_layers {
-  _LAYER_COLEMAK_DH = 0,
+  _LAYER_COLEMAK_DH_HRM = 0,
+  _LAYER_COLEMAK_DH,
+  _LAYER_QWERTY_HRM,
   _LAYER_QWERTY,
   _LAYER_NUM,
   _LAYER_UTIL,
@@ -26,6 +28,7 @@ enum gagregrog_keycodes {
 #else
   BASE_TOGGLE = SAFE_RANGE,
 #endif // DILEMMA_SAFE_RANGE
+HRM_TOGGLE,
 #if defined(MOUSE_TURBO_CLICK)
   MS_TURBO,
 #endif // MOUSE_TURBO_CLICK
@@ -73,6 +76,7 @@ __VA_ARGS__
 #define HOME_ROW_MOD_CAGS(...) _HOME_ROW_MOD_CAGS(__VA_ARGS__)
 
 #define TG_BASE  BASE_TOGGLE
+#define TG_HRM   HRM_TOGGLE
 // layer switches
 #define NUM_GRV  LT(_LAYER_NUM, KC_GRV)
 #define UTIL_MN  LT(_LAYER_UTIL, KC_MINS)
@@ -133,11 +137,15 @@ __VA_ARGS__
         ______________COLEMAK_MOD_DH_L3____________,         ______________COLEMAK_MOD_DH_R3____________      \
 )
 
+#define LAYOUT_COLEMAK_DH_HRM HOME_ROW_MOD_CAGS(LAYOUT_COLEMAK_DH)
+
 #define LAYOUT_QWERTY LAYOUT_split_3x5_3_base(                                                                \
         _________________QWERTY_L1_________________,         _________________QWERTY_R1_________________,     \
         _________________QWERTY_L2_________________,         _________________QWERTY_R2_________________,     \
         _________________QWERTY_L3_________________,         _________________QWERTY_R3_________________      \
 )
+
+#define LAYOUT_QWERTY_HRM HOME_ROW_MOD_CAGS(LAYOUT_QWERTY)
 
 #define LAYOUT_NUMERIC                                                                                        \
         _________________NUMERIC_L1________________,          _________________NUMERIC_R1________________,    \
@@ -152,7 +160,7 @@ __VA_ARGS__
                           XXXXXXX, XXXXXXX, MO_SETS,          _______, XXXXXXX, XXXXXXX
 
 #define LAYOUT_SETTINGS                                                                                       \
-        QK_BOOT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, TG_BASE,    \
+        QK_BOOT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          TG_HRM,  XXXXXXX, XXXXXXX, XXXXXXX, TG_BASE,    \
         _________________NOPE_X5___________________,          _________________NOPE_X5___________________,    \
         _________________NOPE_X5___________________,          _________________NOPE_X5___________________,    \
                           XXXXXXX, XXXXXXX, _______,          _______, XXXXXXX, XXXXXXX

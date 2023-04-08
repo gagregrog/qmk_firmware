@@ -111,6 +111,7 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
 // Initialize variable holding the binary
 // representation of active modifiers.
 uint8_t mod_state;
+bool hrm_state = true;
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   #ifdef MOUSE_TURBO_CLICK
     if (!process_mouse_turbo_click(keycode, record, MS_TURBO)) { return false; }
@@ -124,11 +125,34 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     #ifdef USE_LAYOUT_3x5_3
       case TG_BASE:
         if (record->event.pressed) {
-          if (layer_state_is(_LAYER_QWERTY)) {
+          if (IS_LAYER_ON(_LAYER_QWERTY_HRM)) {
+            layer_off(_LAYER_QWERTY_HRM);
+          } else if (IS_LAYER_ON(_LAYER_QWERTY)) {
+            layer_on(_LAYER_COLEMAK_DH);
             layer_off(_LAYER_QWERTY);
-          } else {
+          } else if (IS_LAYER_ON(_LAYER_COLEMAK_DH)) {
             layer_on(_LAYER_QWERTY);
+            layer_off(_LAYER_COLEMAK_DH);
+          } else {
+            layer_on(_LAYER_QWERTY_HRM);
           }
+        }
+        return false;
+      case TG_HRM:
+        if (record->event.pressed) {
+          if (IS_LAYER_ON(_LAYER_QWERTY_HRM)) {
+            layer_on(_LAYER_QWERTY);
+            layer_off(_LAYER_QWERTY_HRM);
+          } else if (IS_LAYER_ON(_LAYER_QWERTY)) {
+            layer_on(_LAYER_QWERTY_HRM);
+            layer_off(_LAYER_QWERTY);
+          } else if (IS_LAYER_ON(_LAYER_COLEMAK_DH)) {
+            layer_off(_LAYER_COLEMAK_DH);
+          } else {
+            layer_on(_LAYER_COLEMAK_DH);
+          }
+
+          hrm_state = !hrm_state;
         }
         return false;
     #endif // USE_LAYOUT_3x5_3
