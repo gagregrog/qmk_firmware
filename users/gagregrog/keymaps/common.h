@@ -12,15 +12,47 @@ enum userspace_layers {
 };
 
 // windowing shortcuts
-#define MV_UL     HYPR(KC_UP)
-#define MV_U      LCAG(KC_UP)
-#define MV_UR     HYPR(KC_RIGHT)
-#define MV_R      LCAG(KC_RIGHT)
-#define MV_C      HYPR(KC_ENT)
-#define MV_L      LCAG(KC_LEFT)
-#define MV_DL     HYPR(KC_LEFT)
-#define MV_D      LCAG(KC_DOWN)
-#define MV_DR     HYPR(KC_DOWN)
+#define MV_UL         LCAG(KC_F17)
+#define MV_U          LCAG(KC_UP)
+#define MV_UR         LCAG(KC_F15)
+#define MV_R          LCAG(KC_RIGHT)
+#define MV_C          LCAG(KC_ENT)
+#define MV_L          LCAG(KC_LEFT)
+#define MV_DL         LCAG(KC_F18)
+#define MV_D          LCAG(KC_DOWN)
+#define MV_DR         LCAG(KC_F16)
+
+#define MV_UL_REV     HYPR(KC_F17)
+#define MV_U_REV      HYPR(KC_UP)
+#define MV_UR_REV     HYPR(KC_F15)
+#define MV_R_REV      HYPR(KC_RIGHT)
+#define MV_C_REV      HYPR(KC_ENT)
+#define MV_L_REV      HYPR(KC_LEFT)
+#define MV_DL_REV     HYPR(KC_F18)
+#define MV_D_REV      HYPR(KC_DOWN)
+#define MV_DR_REV     HYPR(KC_F16)
+
+enum window_tap_dances {
+  T_MV_UL,
+  T_MV_U,
+  T_MV_UR,
+  T_MV_R,
+  T_MV_C,
+  T_MV_L,
+  T_MV_DL,
+  T_MV_D,
+  T_MV_DR,
+};
+
+#define TD_MV_UL    TD(T_MV_UL)
+#define TD_MV_U     TD(T_MV_U)
+#define TD_MV_UR    TD(T_MV_UR)
+#define TD_MV_R     TD(T_MV_R)
+#define TD_MV_C     TD(T_MV_C)
+#define TD_MV_L     TD(T_MV_L)
+#define TD_MV_DL    TD(T_MV_DL)
+#define TD_MV_D     TD(T_MV_D)
+#define TD_MV_DR    TD(T_MV_DR)
 
 enum gagregrog_keycodes {
 #if defined(DILEMMA_SAFE_RANGE)
@@ -97,39 +129,39 @@ __VA_ARGS__
 
 #define LAYOUT_split_3x5_3_base(...) _LAYOUT_split_3x5_3_base(__VA_ARGS__)
 
-#define ______________COLEMAK_MOD_DH_L1____________       KC_Q,    KC_W,    KC_F,    KC_P,    KC_B
-#define ______________COLEMAK_MOD_DH_L2____________       KC_A,    KC_R,    KC_S,    KC_T,    KC_G
-#define ______________COLEMAK_MOD_DH_L3____________       KC_Z,    KC_X,    KC_C,    KC_D,    KC_V
+#define ______________COLEMAK_MOD_DH_L1____________       KC_Q,      KC_W,      KC_F,      KC_P,      KC_B
+#define ______________COLEMAK_MOD_DH_L2____________       KC_A,      KC_R,      KC_S,      KC_T,      KC_G
+#define ______________COLEMAK_MOD_DH_L3____________       KC_Z,      KC_X,      KC_C,      KC_D,      KC_V
 
-#define ______________COLEMAK_MOD_DH_R1____________       KC_J,    KC_L,    KC_U,    KC_Y,    KC_QUOT
-#define ______________COLEMAK_MOD_DH_R2____________       KC_M,    KC_N,    KC_E,    KC_I,    KC_O
-#define ______________COLEMAK_MOD_DH_R3____________       KC_K,    KC_H,    KC_COMM, KC_DOT,  KC_SLASH
+#define ______________COLEMAK_MOD_DH_R1____________       KC_J,      KC_L,      KC_U,      KC_Y,      KC_QUOT
+#define ______________COLEMAK_MOD_DH_R2____________       KC_M,      KC_N,      KC_E,      KC_I,      KC_O
+#define ______________COLEMAK_MOD_DH_R3____________       KC_K,      KC_H,      KC_COMM,   KC_DOT,    KC_SLASH
 
-#define _________________QWERTY_L1_________________       KC_Q,    KC_W,    KC_E,    KC_R,    KC_T
-#define _________________QWERTY_L2_________________       KC_A,    KC_S,    KC_D,    KC_F,    KC_G
-#define _________________QWERTY_L3_________________       KC_Z,    KC_X,    KC_C,    KC_V,    KC_B
+#define _________________QWERTY_L1_________________       KC_Q,      KC_W,      KC_E,      KC_R,      KC_T
+#define _________________QWERTY_L2_________________       KC_A,      KC_S,      KC_D,      KC_F,      KC_G
+#define _________________QWERTY_L3_________________       KC_Z,      KC_X,      KC_C,      KC_V,      KC_B
 
-#define _________________QWERTY_R1_________________       KC_Y,    KC_U,    KC_I,    KC_O,    KC_P
-#define _________________QWERTY_R2_________________       KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN
-#define _________________QWERTY_R3_________________       KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH
+#define _________________QWERTY_R1_________________       KC_Y,      KC_U,      KC_I,      KC_O,      KC_P
+#define _________________QWERTY_R2_________________       KC_H,      KC_J,      KC_K,      KC_L,      KC_SCLN
+#define _________________QWERTY_R3_________________       KC_N,      KC_M,      KC_COMM,   KC_DOT,    KC_SLSH
 
-#define _________________NUMERIC_L1________________       KC_TAB,  KC_NO,   KC_UP,   KC_NO,   KC_GRV
-#define _________________NUMERIC_L2________________       KC_ESC,  KC_LEFT, KC_DOWN, KC_RIGHT,KC_NO
-#define _________________NUMERIC_L3________________       KC_NO,   KC_BTN1, KC_BTN3, KC_BTN2, KC_NO
+#define _________________NUMERIC_L1________________       KC_TAB,    KC_F1,     KC_UP,     KC_F2,     KC_F3
+#define _________________NUMERIC_L2________________       KC_ESC,    KC_LEFT,   KC_DOWN,   KC_RIGHT,  KC_F4
+#define _________________NUMERIC_L3________________       KC_F5,     KC_F6,     KC_F7,     KC_F8,     KC_F9
 
-#define _________________NUMERIC_R1________________       KC_LPRN, KC_7,    KC_8,    KC_9,    KC_PIPE
-#define _________________NUMERIC_R2________________       KC_LBRC, KC_4,    KC_5,    KC_6,    KC_SCLN
-#define _________________NUMERIC_R3________________       KC_LCBR, KC_1,    KC_2,    KC_3,    KC_BSLS
+#define _________________NUMERIC_R1________________       KC_LPRN,   KC_7,      KC_8,      KC_9,      KC_PIPE
+#define _________________NUMERIC_R2________________       KC_LBRC,   KC_4,      KC_5,      KC_6,      KC_SCLN
+#define _________________NUMERIC_R3________________       KC_LCBR,   KC_1,      KC_2,      KC_3,      KC_BSLS
 
-#define _________________UTILITY_L1________________       KC_LCBR, XXXXXXX, XXXXXXX, KC_MPLY, KC_VOLU
-#define _________________UTILITY_L2________________       KC_LBRC, XXXXXXX, XXXXXXX, KC_MNXT, KC_VOLD
-#define _________________UTILITY_L3________________       KC_LPRN, XXXXXXX, XXXXXXX, KC_MPRV, KC_MUTE
+#define _________________UTILITY_L1________________       KC_LCBR,   XXXXXXX,   XXXXXXX,   KC_MPLY,   KC_VOLU
+#define _________________UTILITY_L2________________       KC_LBRC,   XXXXXXX,   XXXXXXX,   KC_MNXT,   KC_VOLD
+#define _________________UTILITY_L3________________       KC_LPRN,   XXXXXXX,   XXXXXXX,   KC_MPRV,   KC_MUTE
 
-#define _________________UTILITY_R1________________       XXXXXXX, MV_UL,   MV_U,    MV_UR,   KC_RCBR
-#define _________________UTILITY_R2________________       XXXXXXX, MV_L,    MV_C,    MV_R,    KC_RBRC
-#define _________________UTILITY_R3________________       XXXXXXX, MV_DL,   MV_D,    MV_DR,   KC_RPRN
+#define _________________UTILITY_R1________________       XXXXXXX,   TD_MV_UL,  TD_MV_U,  TD_MV_UR,  KC_RCBR
+#define _________________UTILITY_R2________________       XXXXXXX,   TD_MV_L,   TD_MV_C,  TD_MV_R,   KC_RBRC
+#define _________________UTILITY_R3________________       XXXXXXX,   TD_MV_DL,  TD_MV_D,  TD_MV_DR,  KC_RPRN
 
-#define _________________NOPE_X5___________________       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
+#define _________________NOPE_X5___________________       XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX
 
 #define LAYOUT_COLEMAK_DH LAYOUT_split_3x5_3_base(                                                            \
         ______________COLEMAK_MOD_DH_L1____________,         ______________COLEMAK_MOD_DH_R1____________,     \

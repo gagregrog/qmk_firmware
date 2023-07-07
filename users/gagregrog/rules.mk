@@ -2,6 +2,11 @@
 
 SRC += gagregrog.c
 
+# Always Features
+
+CAPS_WORD_ENABLE = yes
+TAP_DANCE_ENABLE = yes
+
 # Utilities to add automatically when certain features are enabled
 
 ifeq ($(strip $(OLED_ENABLE)), yes)
@@ -47,6 +52,11 @@ ifeq ($(strip $(MOUSE_TURBO_CLICK)), yes)
     endif
 endif
 
+ifeq ($(strip $(USE_DEFAULT_TD_ACTIONS)), yes)
+    OPT_DEFS += -DUSE_DEFAULT_TD_ACTIONS
+endif
+
+
 # support secrets cascading in order of precedence from:
 #   - keyboards/:keyboard/:keymap/secrets.h
 #   - keyboards/:keyboard/secrets.h
@@ -68,7 +78,3 @@ endif
 ifeq ($(strip $(NO_SECRETS)), yes)
     OPT_DEFS += -DNO_SECRETS
 endif
-
-# Always Features
-
-CAPS_WORD_ENABLE = yes

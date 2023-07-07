@@ -193,3 +193,17 @@ const key_override_t **key_overrides = (const key_override_t *[]){
 	NULL // Null terminate the array of overrides!
 };
 #endif
+
+#if defined(TAP_DANCE_ENABLE) && defined(USE_DEFAULT_TD_ACTIONS)
+  tap_dance_action_t tap_dance_actions[] = {
+    [T_MV_UL]   = ACTION_TAP_DANCE_DOUBLE(MV_UL, MV_UL_REV),
+    [T_MV_U]    = ACTION_TAP_DANCE_DOUBLE(MV_U, MV_U_REV),
+    [T_MV_UR]   = ACTION_TAP_DANCE_DOUBLE(MV_UR, MV_UR_REV),
+    [T_MV_R]    = ACTION_TAP_DANCE_DOUBLE(MV_R, MV_R_REV),
+    [T_MV_C]    = ACTION_TAP_DANCE_DOUBLE(MV_C, MV_C_REV),
+    [T_MV_L]    = ACTION_TAP_DANCE_DOUBLE(MV_L, MV_L_REV),
+    [T_MV_DL]   = ACTION_TAP_DANCE_DOUBLE(MV_DL, MV_DL_REV),
+    [T_MV_D]    = ACTION_TAP_DANCE_DOUBLE(MV_D, MV_D_REV),
+    [T_MV_DR]   = ACTION_TAP_DANCE_DOUBLE(MV_DR, MV_DR_REV),
+};
+#endif // TAP_DANCE_ENABLE
