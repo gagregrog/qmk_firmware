@@ -57,9 +57,11 @@ enum window_tap_dances {
 enum gagregrog_keycodes {
 #if defined(DILEMMA_SAFE_RANGE)
   BASE_TOGGLE = DILEMMA_SAFE_RANGE,
+#elif defined(CHARYBDIS_SAFE_RANGE)
+  BASE_TOGGLE = CHARYBDIS_SAFE_RANGE
 #else
   BASE_TOGGLE = SAFE_RANGE,
-#endif // DILEMMA_SAFE_RANGE
+#endif // SAFE_RANGE
 HRM_TOGGLE,
 #if defined(MOUSE_TURBO_CLICK)
   MS_TURBO,
