@@ -18,18 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-
-// wiring of each half
-#define MATRIX_ROW_PINS { F4, D7, E6, B4 }
-#define MATRIX_COL_PINS { F5, F6, F7, B1, B3, B2, B6 }
-
-#define DIODE_DIRECTION COL2ROW
-
-#define QMK_ESC_OUTPUT F5
-#define QMK_ESC_INPUT F4
-#define QMK_LED B0
-#define QMK_SPEAKER C6
-
 /* Split Defines */
 #define SPLIT_HAND_PIN D2
 
@@ -39,7 +27,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LOCKING_RESYNC_ENABLE
 
 /* ws2812 RGB LED */
-#define RGB_DI_PIN D3
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD
 #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
@@ -50,8 +37,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_EFFECT_RGB_TEST
 #define RGBLIGHT_EFFECT_ALTERNATING
 #define RGBLIGHT_EFFECT_TWINKLE
-#define RGBLED_NUM 14    // Number of LEDs
-#define RGBLED_SPLIT { 7, 7 }
 
 /*
  * Feature disable options
