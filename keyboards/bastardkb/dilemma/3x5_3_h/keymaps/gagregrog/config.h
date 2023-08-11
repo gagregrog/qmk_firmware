@@ -17,7 +17,6 @@
 
 #pragma once
 
-#define USE_LAYOUT_3x5_3
 #define OLED_FLIP_180
 #define OLED_SHOW_DOGS
 #define BASIC_BREATH

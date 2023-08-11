@@ -54,8 +54,8 @@
 #define SPLIT_HAND_PIN_LOW_IS_LEFT // High -> right, Low -> left.
 
 /* RGB settings. */
-#define RGB_DI_PIN GP10
-#define RGBLIGHT_LIMIT_VAL 200 /* The maximum brightness level */
+#define WS2812_DI_PIN GP10
+#define RGBLIGHT_LIMIT_VAL 250 /* The maximum brightness level */
 #define RGBLIGHT_SLEEP         /* RGB lighting will be switched off when the host goes to sleep */
 #define RGBLIGHT_DEFAULT_VAL 175
 
@@ -83,9 +83,6 @@
 #define TAPPING_TOGGLE 2
 // Home Row Mod settings
 #define TAPPING_TERM 175
-
-// ignore mod tap interrupt - don't trigger the mod tap right when a second key is pressed, instead wait for the tapping term to ensure the mod key is still pressed
-#define IGNORE_MOD_TAP_INTERRUPT
 
 // tapping force hold - disable key repeat on quick tap followed by a press for mod-tap keys
 #define TAPPING_FORCE_HOLD

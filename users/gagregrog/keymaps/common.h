@@ -116,7 +116,7 @@ __VA_ARGS__
 #define UTIL_MN  LT(_LAYER_UTIL, KC_MINS)
 #define MO_SETS  MO(_LAYER_SETTINGS)
 
-#if defined(USE_LAYOUT_3x5_3)
+#if defined(LAYOUT_split_3x5_3_h)
 
 #define LAYOUT_wrapper(...) LAYOUT_split_3x5_3_h(__VA_ARGS__)
 
@@ -200,4 +200,4 @@ __VA_ARGS__
         _________________NOPE_X5___________________,          _________________NOPE_X5___________________,    \
                           XXXXXXX, XXXXXXX, _______,          _______, XXXXXXX, XXXXXXX
 
-#endif // USE_LAYOUT_3x5_3
+#endif // LAYOUT_split_3x5_3_h
