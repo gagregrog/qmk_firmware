@@ -1,5 +1,6 @@
 #include "gagregrog.h"
 #include "tap_dances.h"
+#include "keymap.h"
 
 // - All Tap Dances
 
