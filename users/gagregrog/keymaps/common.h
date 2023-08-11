@@ -117,7 +117,8 @@ __VA_ARGS__
 #define MO_SETS  MO(_LAYER_SETTINGS)
 
 #if defined(USE_LAYOUT_3x5_3)
-#define LAYOUT_wrapper(...) LAYOUT_split_3x5_3(__VA_ARGS__)
+
+#define LAYOUT_wrapper(...) LAYOUT_split_3x5_3_h(__VA_ARGS__)
 
 #define _LAYOUT_split_3x5_3_base( \
   L00, L01, L02, L03, L04,     R05, R06, R07, R08, R09, \

@@ -1,5 +1,5 @@
 /**
- * Copyright 2023 Gary Gregory Rogers <gagregrog@gmail.com> (@gagregrog)
+ * Copyright 2022 Charly Delay <charly@codesink.dev> (@0xcharly)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,8 +17,24 @@
 
 #pragma once
 
-// use the more natural handwire matrix wiring
-#define DILEMMA_HANDWIRE_3x5_3
+/* Key matrix configuration. */
+#define MATRIX_ROW_PINS \
+    { GP4, GP5, GP27, GP26 }
+#define MATRIX_COL_PINS \
+    { GP8, GP9, GP7, GP6, GP28 }
+
+/* Handedness. */
+#define SPLIT_HAND_PIN GP29
+#define SPLIT_HAND_PIN_LOW_IS_LEFT // High -> right, Low -> left.
+
+/* CRC. */
+#define CRC8_USE_TABLE
+#define CRC8_OPTIMIZE_SPEED
+
+/* Reset. */
+#define RP2040_BOOTLOADER_DOUBLE_TAP_RESET
+#define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_LED GP17
+#define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_TIMEOUT 1000U
 
 /* serial.c configuration (for split keyboard). */
 #undef  SOFT_SERIAL_PIN
@@ -28,18 +44,10 @@
 #define DIODE_DIRECTION COL2ROW
 
 /* Cirque trackpad over SPI. */
-#undef  SPI_SCK_PIN
 #define SPI_SCK_PIN GP18
-#undef  SPI_MOSI_PIN
 #define SPI_MOSI_PIN GP19
-#undef  SPI_MISO_PIN
 #define SPI_MISO_PIN GP20
-#undef  POINTING_DEVICE_CS_PIN
 #define POINTING_DEVICE_CS_PIN GP1
-
-#undef I2C1_CLOCK_SPEED
-#undef I2C1_DUTY_CYCLE
-#undef OLED_DISPLAY_HEIGHT
 
 /* OLED Display over I2C*/
 #define OLED_DISPLAY_128X64
@@ -54,24 +62,16 @@
 // Home Row Mod settings
 #define TAPPING_TERM 175
 
-// ignore mod tap interrupt - don't trigger the mod tap right when a second key is pressed, instead wait for the tapping term to ensure the mod key is still pressed
-#define IGNORE_MOD_TAP_INTERRUPT
-
-// tapping force hold - disable key repeat on quick tap followed by a press for mod-tap keys
-#define TAPPING_FORCE_HOLD
-
 // permissive hold - pressing a mod-tap key and pressing/releasing a second key before the mod-tap key is released registers the mod-tap immediately, even if before the tapping term has been reached
 #define PERMISSIVE_HOLD
 
 #define CIRQUE_PINNACLE_TAP_ENABLE
 #define POINTING_DEVICE_GESTURES_CURSOR_GLIDE_ENABLE // enables inertial scroll
 
-#undef  RGBLED_SPLIT
 #undef  RGBLED_NUM
 #define RGBLED_NUM 2
 
-#undef  RGB_DI_PIN
-#define RGB_DI_PIN GP17
+#define WS2812_DI_PIN GP17
 #define RGBLIGHT_SLEEP
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_DEFAULT_MODE RGBLIGHT_MODE_BREATHING
@@ -79,7 +79,3 @@
 
 #define SPLIT_LAYER_STATE_ENABLE
 
-#define USE_LAYOUT_3x5_3
-#define OLED_FLIP_180
-#define OLED_SHOW_DOGS
-#define BASIC_BREATH
