@@ -17,30 +17,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #pragma once
 
-
-#define DIODE_DIRECTION COL2ROW
-
-
-// wiring of each half
-#define MATRIX_ROW_PINS { F4, F5, B1, B3, D1, D0, D7, E6 }
-#define MATRIX_COL_PINS { D3, D2, B4, F6, F7, B2 }
-
-#define QMK_ESC_OUTPUT D3
-#define QMK_ESC_INPUT B1
-
 #define PHYSICAL_LEDS_ENABLE
 
-#ifdef BACKLIGHT_ENABLE
-#define BACKLIGHT_PIN C6
-#define BACKLIGHT_LEVELS 5
-#define BACKLIGHT_BREATHING //not working with splits right now
-#define BREATHING_PERIOD 6
-#endif
-
 /* ws2812 RGB LED */
-#define RGB_DI_PIN D4
 #define RGBLIGHT_TIMER
-#define RGBLED_NUM 7    // Number of LEDs
 #define RGBLIGHT_EFFECT_BREATHING
 #define RGBLIGHT_EFFECT_RAINBOW_MOOD
 #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
@@ -51,9 +31,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_EFFECT_RGB_TEST
 #define RGBLIGHT_EFFECT_ALTERNATING
 #define RGBLIGHT_EFFECT_TWINKLE
-
-#define RGBLIGHT_SLEEP
-#define RGBLIGHT_SPLIT
 
 #ifndef IOS_DEVICE_ENABLE
 #if RGBLED_NUM <= 6
@@ -70,8 +47,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 #define RGBLIGHT_VAL_STEP 4
 #endif
-#define RGBLIGHT_HUE_STEP 10
-#define RGBLIGHT_SAT_STEP 17
 
 #if defined(RGBLIGHT_ENABLE) && !defined(IOS_DEVICE_ENABLE)
 #define USB_MAX_POWER_CONSUMPTION 400

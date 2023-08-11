@@ -59,9 +59,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // Home Row Mod settings
 #define TAPPING_TERM 175
 
-// ignore mod tap interrupt - don't trigger the mod tap right when a second key is pressed, instead wait for the tapping term to ensure the mod key is still pressed
-#define IGNORE_MOD_TAP_INTERRUPT
-
 // tapping force hold - disable key repeat on quick tap followed by a press for mod-tap keys
 #define TAPPING_FORCE_HOLD
 

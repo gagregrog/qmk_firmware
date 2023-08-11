@@ -1,0 +1,104 @@
+{
+    "manufacturer": "Bastard Keyboards",
+    "keyboard_name": "bastardkb/dilemma/3x5_3_h",
+    "maintainer": "Quentin Lebastard",
+    "bootloader": "rp2040",
+    "bootmagic": {
+        "enabled": true
+    },
+    "diode_direction": "COL2ROW",
+    "features": {
+        "audio": false,
+        "backlight": false,
+        "bootmagic": true,
+        "command": false,
+        "console": false,
+        "extrakey": true,
+        "key_override": true,
+        "mousekey": true,
+        "nkro": false,
+        "oled": true,
+        "pointing_device": true,
+        "rgb_matrix": false,
+        "rgblight": true
+    },
+    "keyboard_folder": "bastardkb/dilemma/3x5_3_h",
+    "matrix_pins": {
+        "cols": ["GP8", "GP9", "GP7", "GP6", "GP28"],
+        "rows": ["GP4", "GP5", "GP27", "GP26"]
+    },
+    "mouse_key": {
+        "enabled": true
+    },
+    "processor": "RP2040",
+    "rgblight": {
+        "led_count": 2,
+        "sleep": true
+    },
+    "split": {
+        "enabled": true,
+        "soft_serial_pin": "GP0",
+        "transport": {
+            "protocol": "serial"
+        }
+    },
+    "tapping": {
+        "permissive_hold": false,
+        "term": 175,
+        "toggle": 2
+    },
+    "url": "https://bastardkb.com",
+    "usb": {
+        "vid": "0xA8F8",
+        "device_version": "2.0.0",
+        "pid": "0x1835"
+    },
+    "ws2812": {
+        "pin": "GP17",
+        "driver": "vendor"
+    },
+    "layouts": {
+        "LAYOUT_split_3x5_3_h": {
+            "c_macro": true,
+            "json_layout": true,
+            "layout": [
+                {"label": "k00", "matrix": [0, 0], "x": 0, "y": 0},
+                {"label": "k01", "matrix": [0, 1], "x": 1, "y": 0},
+                {"label": "k02", "matrix": [0, 2], "x": 2, "y": 0},
+                {"label": "k03", "matrix": [0, 3], "x": 3, "y": 0},
+                {"label": "k04", "matrix": [0, 4], "x": 4, "y": 0},
+                {"label": "k44", "matrix": [4, 4], "x": 5, "y": 0},
+                {"label": "k43", "matrix": [4, 3], "x": 6, "y": 0},
+                {"label": "k42", "matrix": [4, 2], "x": 7, "y": 0},
+                {"label": "k41", "matrix": [4, 1], "x": 8, "y": 0},
+                {"label": "k40", "matrix": [4, 0], "x": 9, "y": 0},
+                {"label": "k10", "matrix": [1, 0], "x": 10, "y": 0},
+                {"label": "k11", "matrix": [1, 1], "x": 11, "y": 0},
+                {"label": "k12", "matrix": [1, 2], "x": 12, "y": 0},
+                {"label": "k13", "matrix": [1, 3], "x": 13, "y": 0},
+                {"label": "k14", "matrix": [1, 4], "x": 14, "y": 0},
+                {"label": "k54", "matrix": [5, 4], "x": 15, "y": 0},
+                {"label": "k53", "matrix": [5, 3], "x": 16, "y": 0},
+                {"label": "k52", "matrix": [5, 2], "x": 17, "y": 0},
+                {"label": "k51", "matrix": [5, 1], "x": 18, "y": 0},
+                {"label": "k50", "matrix": [5, 0], "x": 19, "y": 0},
+                {"label": "k20", "matrix": [2, 0], "x": 20, "y": 0},
+                {"label": "k21", "matrix": [2, 1], "x": 21, "y": 0},
+                {"label": "k22", "matrix": [2, 2], "x": 22, "y": 0},
+                {"label": "k23", "matrix": [2, 3], "x": 23, "y": 0},
+                {"label": "k24", "matrix": [2, 4], "x": 24, "y": 0},
+                {"label": "k64", "matrix": [6, 4], "x": 25, "y": 0},
+                {"label": "k63", "matrix": [6, 3], "x": 26, "y": 0},
+                {"label": "k62", "matrix": [6, 2], "x": 27, "y": 0},
+                {"label": "k61", "matrix": [6, 1], "x": 28, "y": 0},
+                {"label": "k60", "matrix": [6, 0], "x": 29, "y": 0},
+                {"label": "k32", "matrix": [3, 2], "x": 30, "y": 0},
+                {"label": "k33", "matrix": [3, 3], "x": 31, "y": 0},
+                {"label": "k34", "matrix": [3, 4], "x": 32, "y": 0},
+                {"label": "k74", "matrix": [7, 4], "x": 33, "y": 0},
+                {"label": "k73", "matrix": [7, 3], "x": 34, "y": 0},
+                {"label": "k72", "matrix": [7, 2], "x": 35, "y": 0}
+            ]
+        }
+    }
+}
