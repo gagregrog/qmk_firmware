@@ -19,6 +19,18 @@
 // include all common keycodes / macros
 #include "gagregrog.h"
 
+#ifdef RGBLIGHT_ENABLE
+  const uint8_t RGBLED_RAINBOW_SWIRL_INTERVALS[] PROGMEM = {25, 12, 5};
+#endif
+
+#ifdef RGB_MATRIX_ENABLE
+void keyboard_post_init_user(void) {
+  rgblight_mode_noeeprom(RGB_MATRIX_SOLID_REACTIVE);
+  rgblight_sethsv(HSV_ORANGE);
+  // rgblight_mode_noeeprom(RGB_MATRIX_DUAL_BEACON);
+}
+#endif
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_LAYER_COLEMAK_DH_HRM] = LAYOUT_wrapper(
     LAYOUT_COLEMAK_DH_HRM

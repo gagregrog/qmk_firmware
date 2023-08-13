@@ -28,7 +28,11 @@
 #ifdef RGB_MATRIX_ENABLE
 #    define RGB_MATRIX_LED_COUNT 36
 #    define RGB_MATRIX_SPLIT \
-        { 18, 18 }
+    { 18, 18 }
+#define RGB_MATRIX_KEYPRESSES
+#undef RGB_MATRIX_DEFAULT_VAL
+#define RGB_MATRIX_DEFAULT_VAL 175
+#define RGB_TRIGGER_ON_KEYDOWN
 #endif
 
 #define CHARYBDIS_MINIMUM_DEFAULT_DPI 800
@@ -54,7 +58,7 @@
 #define SPLIT_HAND_PIN_LOW_IS_LEFT // High -> right, Low -> left.
 
 /* RGB settings. */
-#define WS2812_DI_PIN GP10
+#define WS2812_DI_PIN GP29
 #define RGBLIGHT_LIMIT_VAL 250 /* The maximum brightness level */
 #define RGBLIGHT_SLEEP         /* RGB lighting will be switched off when the host goes to sleep */
 #define RGBLIGHT_DEFAULT_VAL 175
@@ -72,7 +76,7 @@
 #undef SPI_MISO_PIN
 #define SPI_MISO_PIN GP20
 #undef POINTING_DEVICE_CS_PIN
-#define POINTING_DEVICE_CS_PIN GP29
+#define POINTING_DEVICE_CS_PIN GP10
 
 /* PMW3389 settings. */
 // #define PMW33XX_CS_DIVISOR 64
@@ -89,3 +93,15 @@
 
 // permissive hold - pressing a mod-tap key and pressing/releasing a second key before the mod-tap key is released registers the mod-tap immediately, even if before the tapping term has been reached
 #define PERMISSIVE_HOLD
+
+#ifdef RGBLIGHT_ENABLE
+    #undef  RGBLED_NUM
+    #define RGBLED_NUM 36
+
+    #define RGBLIGHT_SPLIT
+    #define RGBLED_SPLIT { 18, 18 }
+
+    #define RGBLIGHT_SLEEP
+    #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+    #define RGBLIGHT_DEFAULT_MODE RGBLIGHT_MODE_RAINBOW_SWIRL
+#endif
