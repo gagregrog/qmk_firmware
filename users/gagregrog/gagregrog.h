@@ -1,5 +1,6 @@
 #pragma once
 #include QMK_KEYBOARD_H
+#include "keymaps/common.h"
 
 #if defined(OLED_ENABLE)
   #include "oled/oled_util.h"
@@ -22,4 +23,3 @@ report_mouse_t pointing_device_task_keymap(report_mouse_t mouse_report);
   void send_secret(uint16_t keycode);
 #endif
 
-#include "keymaps/common.h"

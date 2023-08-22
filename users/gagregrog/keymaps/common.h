@@ -8,7 +8,8 @@ enum userspace_layers {
   _LAYER_QWERTY,
   _LAYER_NUM,
   _LAYER_UTIL,
-  _LAYER_SETTINGS
+  _LAYER_SETTINGS,
+  _LAYER_AUTOMOUSE
 };
 
 // windowing shortcuts
@@ -164,6 +165,10 @@ __VA_ARGS__
 #define _________________UTILITY_R2________________       XXXXXXX,   TD_MV_L,   TD_MV_C,  TD_MV_R,   KC_RBRC
 #define _________________UTILITY_R3________________       XXXXXXX,   TD_MV_DL,  TD_MV_D,  TD_MV_DR,  KC_RPRN
 
+#define _________________MOUSE_THUMB_L_____________       KC_BTN3,   KC_BTN1,   KC_BTN2
+#define _________________MOUSE_THUMB_R_____________       KC_BTN2,   KC_BTN1,   KC_BTN3
+
+#define _________________TRNS_X5___________________       KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS
 #define _________________NOPE_X5___________________       XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX
 
 #define LAYOUT_COLEMAK_DH LAYOUT_split_3x5_3_base(                                                            \
@@ -193,6 +198,14 @@ __VA_ARGS__
         _________________UTILITY_L2________________,          _________________UTILITY_R2________________,    \
         _________________UTILITY_L3________________,          _________________UTILITY_R3________________,    \
                           XXXXXXX, XXXXXXX, MO_SETS,          _______, XXXXXXX, XXXXXXX
+
+#ifdef POINTING_DEVICE_ENABLE
+#define LAYOUT_AUTOMOUSE                                                                                      \
+        _________________TRNS_X5___________________,          _________________TRNS_X5___________________,    \
+        _________________TRNS_X5___________________,          _________________TRNS_X5___________________,    \
+        _________________TRNS_X5___________________,          _________________TRNS_X5___________________,    \
+        _________________MOUSE_THUMB_L_____________,          _________________MOUSE_THUMB_R_____________
+#endif // POINTING_DEVICE_ENABLE
 
 #define LAYOUT_SETTINGS                                                                                       \
         QK_BOOT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          TG_HRM,  XXXXXXX, XXXXXXX, XXXXXXX, TG_BASE,    \

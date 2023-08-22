@@ -55,4 +55,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_LAYER_SETTINGS] = LAYOUT_wrapper(
     LAYOUT_SETTINGS
   ),
+  [_LAYER_AUTOMOUSE] = LAYOUT_wrapper(
+    LAYOUT_AUTOMOUSE
+  ),
 };
+
+void pointing_device_init_user(void) {
+    set_auto_mouse_layer(_LAYER_AUTOMOUSE); // only required if AUTO_MOUSE_DEFAULT_LAYER is not set to index of <mouse_layer>
+    set_auto_mouse_enable(true);         // always required before the auto mouse feature will work
+    // pointing_device_set_cpi_on_side(true, 500); //Set cpi on left side to a low value for slower scrolling.
+    // pointing_device_set_cpi_on_side(false, 10000); //Set cpi on right side to a reasonable value for mousing.
+}
+
+report_mouse_t pointing_device_task_combined_user(report_mouse_t left_report, report_mouse_t right_report) {
+    left_report.h = -left_report.x / 25;
+    left_report.v = left_report.y / 25;
+    left_report.x = 0;
+    left_report.y = 0;
+    right_report.x = right_report.x * 2;
+    right_report.y = right_report.y * 2;
+    return pointing_device_combine_reports(left_report, right_report);
+}
