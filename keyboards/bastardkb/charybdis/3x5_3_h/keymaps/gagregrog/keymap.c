@@ -23,14 +23,6 @@
   const uint8_t RGBLED_RAINBOW_SWIRL_INTERVALS[] PROGMEM = {25, 12, 5};
 #endif
 
-#ifdef RGB_MATRIX_ENABLE
-void keyboard_post_init_user(void) {
-  rgblight_mode_noeeprom(RGB_MATRIX_SOLID_REACTIVE);
-  rgblight_sethsv(HSV_ORANGE);
-  // rgblight_mode_noeeprom(RGB_MATRIX_DUAL_BEACON);
-}
-#endif
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_LAYER_COLEMAK_DH_HRM] = LAYOUT_wrapper(
     LAYOUT_COLEMAK_DH_HRM
@@ -60,19 +52,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 };
 
-void pointing_device_init_user(void) {
-    set_auto_mouse_layer(_LAYER_AUTOMOUSE); // only required if AUTO_MOUSE_DEFAULT_LAYER is not set to index of <mouse_layer>
-    set_auto_mouse_enable(true);         // always required before the auto mouse feature will work
-    // pointing_device_set_cpi_on_side(true, 500); //Set cpi on left side to a low value for slower scrolling.
-    // pointing_device_set_cpi_on_side(false, 10000); //Set cpi on right side to a reasonable value for mousing.
+void keyboard_post_init_user(void) {
+#ifdef RGB_MATRIX_ENABLE
+  rgblight_mode_noeeprom(RGB_MATRIX_SOLID_REACTIVE);
+  rgblight_sethsv(HSV_ORANGE);
+  // rgblight_mode_noeeprom(RGB_MATRIX_DUAL_BEACON);
+#endif
+
+  set_auto_mouse_layer(_LAYER_AUTOMOUSE); // only required if AUTO_MOUSE_DEFAULT_LAYER is not set to index of <mouse_layer>
+  set_auto_mouse_enable(true);         // always required before the auto mouse feature will work
+  pointing_device_set_cpi_on_side(true, 50); //Set cpi on left side to a low value for slower scrolling.
+  pointing_device_set_cpi_on_side(false, 10000); //Set cpi on right side to a reasonable value for mousing.
 }
 
 report_mouse_t pointing_device_task_combined_user(report_mouse_t left_report, report_mouse_t right_report) {
-    left_report.h = -left_report.x / 25;
-    left_report.v = left_report.y / 25;
+    left_report.h = -left_report.x / 5;
+    left_report.v = -left_report.y / 5;
     left_report.x = 0;
     left_report.y = 0;
-    right_report.x = right_report.x * 2;
-    right_report.y = right_report.y * 2;
+
     return pointing_device_combine_reports(left_report, right_report);
 }
