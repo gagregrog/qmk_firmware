@@ -129,7 +129,7 @@ __VA_ARGS__
     L00,     L01,     L02,     L03,     L04,               R05,     R06,     R07,     R08,     R09, \
     L10,     L11,     L12,     L13,     L14,               R15,     R16,     R17,     R18,     R19, \
     L20,     L21,     L22,     L23,     L24,               R25,     R26,     R27,     R28,     R29, \
-                      KC_SPC,  KC_BSPC, NUM_GRV,           UTIL_MN, KC_DLR,  KC_ENT
+                      KC_BSPC, KC_SPC,  NUM_GRV,           UTIL_MN, KC_BSPC, KC_ENT
 
 #define LAYOUT_split_3x5_3_base(...) _LAYOUT_split_3x5_3_base(__VA_ARGS__)
 
