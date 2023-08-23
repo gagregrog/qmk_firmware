@@ -197,12 +197,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 const key_override_t lcbr_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_LCBR, KC_RCBR);
 const key_override_t lbrc_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_LBRC, KC_RBRC);
 const key_override_t lprn_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_LPRN, KC_RPRN);
+const key_override_t spc_gui_key_override = ko_make_basic(MOD_BIT_RGUI, KC_SPC, LGUI(KC_BSPC));
+const key_override_t spc_alt_key_override = ko_make_basic(MOD_MASK_ALT, KC_SPC, LALT(KC_BSPC));
+const key_override_t spc_shift_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_SPC, KC_BSPC);
 
 // This globally defines all key overrides to be used
 const key_override_t **key_overrides = (const key_override_t *[]){
 	&lcbr_key_override,
   &lbrc_key_override,
   &lprn_key_override,
+  &spc_gui_key_override,
+  &spc_alt_key_override,
+  &spc_shift_key_override,
 	NULL // Null terminate the array of overrides!
 };
 #endif
@@ -218,7 +224,19 @@ const key_override_t **key_overrides = (const key_override_t *[]){
     [T_MV_DL]   = ACTION_TAP_DANCE_DOUBLE(MV_DL, MV_DL_REV),
     [T_MV_D]    = ACTION_TAP_DANCE_DOUBLE(MV_D, MV_D_REV),
     [T_MV_DR]   = ACTION_TAP_DANCE_DOUBLE(MV_DR, MV_DR_REV),
-};
+  };
+
+uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+    case LGUI_T(KC_S):
+    case RGUI_T(KC_E):
+    case LSFT_T(KC_T):
+    case RSFT_T(KC_N):
+        return 130;
+    default:
+        return TAPPING_TERM;
+  }
+}
 #endif // TAP_DANCE_ENABLE
 
 #if defined(CONSOLE_ENABLE) && defined(RGB_MATRIX_ENABLE)
