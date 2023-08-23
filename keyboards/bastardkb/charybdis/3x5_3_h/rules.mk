@@ -26,7 +26,7 @@ SPLIT_KEYBOARD = yes
 POINTING_DEVICE_ENABLE = yes # Enable trackball
 POINTING_DEVICE_DRIVER = pmw3389
 
-# MOUSE_SHARED_EP = yes # Unify multiple HID interfaces into a single Endpoint
+MOUSE_SHARED_EP = yes # Unify multiple HID interfaces into a single Endpoint
 # KEYBOARD_SHARED_EP = yes
 
 # EEPROM_DRIVER = spi
