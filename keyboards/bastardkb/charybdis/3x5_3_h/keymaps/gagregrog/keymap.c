@@ -19,6 +19,10 @@
 // include all common keycodes / macros
 #include "gagregrog.h"
 
+#ifdef CONSOLE_ENABLE
+#include "print.h"
+#endif
+
 #ifdef RGBLIGHT_ENABLE
   const uint8_t RGBLED_RAINBOW_SWIRL_INTERVALS[] PROGMEM = {25, 12, 5};
 #endif
@@ -65,10 +69,35 @@ void keyboard_post_init_user(void) {
 }
 
 report_mouse_t pointing_device_task_combined_user(report_mouse_t left_report, report_mouse_t right_report) {
-    left_report.h = -left_report.x;
-    left_report.v = -left_report.y;
-    left_report.x = 0;
-    left_report.y = 0;
+  static int8_t scroll_debounce_x = 0;
+  static int8_t scroll_debounce_y = 0;
 
-    return pointing_device_combine_reports(left_report, right_report);
+#ifdef CONSOLE_ENABLE
+  if (left_report.y != 0 || left_report.x != 0) {
+    xprintf("L - x: %d, y: %d\n", left_report.x, left_report.y);
+  }
+#endif
+
+  scroll_debounce_x += left_report.x;
+  scroll_debounce_y += left_report.y;
+
+  left_report.x = 0;
+  left_report.y = 0;
+
+  if (abs(scroll_debounce_x) > 100) {
+#ifdef CONSOLE_ENABLE
+    xprintf("scroll_debounce_x: %d\n", scroll_debounce_x);
+#endif
+    left_report.h = scroll_debounce_x > 0 ? -1 : 1;
+    scroll_debounce_x = 0;
+  }
+  if (abs(scroll_debounce_y) > 100) {
+#ifdef CONSOLE_ENABLE
+    xprintf("scroll_debounce_y: %d\n", scroll_debounce_y);
+#endif
+    left_report.v = scroll_debounce_y > 0 ? -1 : 1;
+    scroll_debounce_y = 0;
+  }
+
+  return pointing_device_combine_reports(left_report, right_report);
 }
