@@ -1,7 +1,6 @@
 #pragma once
 
 #define POINTING_DEVICE_AUTO_MOUSE_ENABLE
-#define AUTO_MOUSE_TIME 500
-// #define PMW33XX_CPI 100
+#define AUTO_MOUSE_TIME 750
 #define SCROLL_CPI 2000
 #define MOUSE_CPI 2000
