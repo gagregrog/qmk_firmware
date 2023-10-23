@@ -207,10 +207,11 @@ __VA_ARGS__
         _________________MOUSE_THUMB_L_____________,          _________________MOUSE_THUMB_R_____________
 #endif // POINTING_DEVICE_ENABLE
 
-#define LAYOUT_SETTINGS                                                                                       \
-        QK_BOOT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          TG_HRM,  XXXXXXX, XXXXXXX, XXXXXXX, TG_BASE,    \
+#define LAYOUT_SETTINGS HOME_ROW_MOD_CAGS(                                                                    \
+        QK_BOOT, XXXXXXX, XXXXXXX, XXXXXXX, QK_MAKE,          TG_HRM,  XXXXXXX, XXXXXXX, XXXXXXX, TG_BASE,    \
         _________________NOPE_X5___________________,          RGB_TOG, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    \
         _________________NOPE_X5___________________,          RGB_MOD, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    \
-                          XXXXXXX, XXXXXXX, _______,          _______, XXXXXXX, XXXXXXX
+                          XXXXXXX, XXXXXXX, _______,          _______, XXXXXXX, XXXXXXX                       \
+)
 
 #endif // LAYOUT_split_3x5_3_h
