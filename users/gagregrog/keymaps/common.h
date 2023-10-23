@@ -216,4 +216,34 @@ __VA_ARGS__
                           XXXXXXX, XXXXXXX, _______,          _______, XXXXXXX, XXXXXXX                       \
 )
 
+#define USE_GAGREGROG_KEYMAP                                         \
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {   \
+  [_LAYER_COLEMAK_DH_HRM] = LAYOUT_wrapper(                      \
+    LAYOUT_COLEMAK_DH_HRM                                        \
+  ),                                                             \
+  [_LAYER_COLEMAK_DH] = LAYOUT_wrapper(                          \
+    LAYOUT_COLEMAK_DH                                            \
+  ),                                                             \
+  [_LAYER_QWERTY_HRM] = LAYOUT_wrapper(                          \
+    LAYOUT_QWERTY_HRM                                            \
+  ),                                                             \
+  [_LAYER_QWERTY] = LAYOUT_wrapper(                              \
+    LAYOUT_QWERTY                                                \
+  ),                                                             \
+  [_LAYER_NUM] = LAYOUT_wrapper(                                 \
+    HOME_ROW_MOD_CAGS(                                           \
+      LAYOUT_NUMERIC                                             \
+    )                                                            \
+  ),                                                             \
+  [_LAYER_UTIL] = LAYOUT_wrapper(                                \
+    LAYOUT_UTILITY                                               \
+  ),                                                             \
+  [_LAYER_SETTINGS] = LAYOUT_wrapper(                            \
+    LAYOUT_SETTINGS                                              \
+  ),                                                             \
+  [_LAYER_AUTOMOUSE] = LAYOUT_wrapper(                           \
+    LAYOUT_AUTOMOUSE                                             \
+  ),                                                             \
+};
+
 #endif // LAYOUT_split_3x5_3_h

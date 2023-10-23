@@ -107,6 +107,71 @@ bool process_record_secrets(uint16_t keycode, keyrecord_t *record) {
 
 #endif // INCLUDE_SECRETS
 
+__attribute__ ((weak))
+void keyboard_post_init_keymap(void) {}
+
+void keyboard_post_init_user(void) {
+  #if defined(POINTING_DEVICE_AUTO_MOUSE_ENABLE)
+    // only required if AUTO_MOUSE_DEFAULT_LAYER is not set to index of <mouse_layer>
+    set_auto_mouse_layer(_LAYER_AUTOMOUSE);
+    // always required before the auto mouse feature will work
+    set_auto_mouse_enable(true);
+    #if defined(POINTING_DEVICE_COMBINED)
+      // flash each side so cpi is set for each
+      pmw33xx_set_cpi(0, is_keyboard_left() ?  SCROLL_CPI : MOUSE_CPI);
+    #endif // POINTING_DEVICE_COMBINED
+  #endif  // POINTING_DEVICE_AUTO_MOUSE_ENABLE
+
+  keyboard_post_init_keymap();
+}
+
+// CIRQUE defines its own auto_mouse_activation, so skip if in use
+#if defined(POINTING_DEVICE_AUTO_MOUSE_ENABLE) && !CIRQUE_PINNACLE_POSITION_MODE
+  // require 8 mouse movements in a row to trigger an auto mouse layer
+  #define AUTO_MOUSE_BUFFER_TARGET 0b11111111
+
+  uint8_t auto_mouse_buffer = 0;
+  bool auto_mouse_activation(report_mouse_t mouse_report) {
+    bool has_movement = mouse_report.x != 0 || mouse_report.y != 0;
+    // shift the LSB to make space for the latest 
+    auto_mouse_buffer <<= 1;
+    // fill the LSB with 1 or 0 if there was any mouse movement
+    auto_mouse_buffer |= (uint8_t)has_movement;  
+    // only keep the 8 LSBS
+    auto_mouse_buffer &= AUTO_MOUSE_BUFFER_TARGET;
+    // only count it as a move if the buffer is filled
+    bool is_mouse_move = auto_mouse_buffer == AUTO_MOUSE_BUFFER_TARGET;
+      
+    return is_mouse_move;
+  }
+#endif // POINTING_DEVICE_AUTO_MOUSE_ENABLE
+
+#if defined(POINTING_DEVICE_COMBINED)
+report_mouse_t pointing_device_task_combined_user(report_mouse_t left_report, report_mouse_t right_report) {
+  static int8_t scroll_debounce_x = 0;
+  static int8_t scroll_debounce_y = 0;
+
+  scroll_debounce_x += left_report.x;
+  scroll_debounce_y += left_report.y;
+
+  left_report.x = 0;
+  left_report.y = 0;
+
+  if (abs(scroll_debounce_x) > 100) {
+    left_report.h = scroll_debounce_x > 0 ? -1 : 1;
+    scroll_debounce_x = 0;
+  }
+  if (abs(scroll_debounce_y) > 100) {
+    left_report.v = scroll_debounce_y > 0 ? -1 : 1;
+    scroll_debounce_y = 0;
+  }
+
+  // disable horizontal scrolling (require shift)
+  left_report.h = 0;
+
+  return pointing_device_combine_reports(left_report, right_report);
+}
+#endif // POINTING_DEVICE_COMBINED
 
 __attribute__ ((weak))
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
@@ -265,8 +330,6 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
 #endif // TAP_DANCE_ENABLE
 
 #if defined(CONSOLE_ENABLE) && defined(RGB_MATRIX_ENABLE)
-#include "print.h"
-
 void debug_rgb_matrix(bool useNextMode) {
   uint8_t mode = rgb_matrix_get_mode();
   HSV hsv = rgb_matrix_get_hsv();

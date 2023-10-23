@@ -203,7 +203,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   return state;
 }
 
-void keyboard_post_init_user(void) {
+void keyboard_post_init_keymap(void) {
   rgblight_mode_noeeprom(RGBLIGHT_MODE_RAINBOW_SWIRL);
   rgblight_sethsv(HSV_ORANGE);
   last_light_mode = RGBLIGHT_MODE_RAINBOW_SWIRL;
