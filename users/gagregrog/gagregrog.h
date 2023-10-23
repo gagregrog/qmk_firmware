@@ -27,3 +27,6 @@ report_mouse_t pointing_device_task_keymap(report_mouse_t mouse_report);
   void send_secret(uint16_t keycode);
 #endif
 
+#ifdef CONSOLE_ENABLE
+  #include "print.h"
+#endif
