@@ -184,6 +184,31 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
         return false;
     #endif // TRACKPOINT_ENABLE
+    #ifdef POINTING_DEVICE_AUTO_MOUSE_ENABLE
+      case AM_TOGGLE:
+        if(record->event.pressed) {
+            auto_mouse_layer_off(); // disable target layer if needed
+            set_auto_mouse_enable((AUTO_MOUSE_ENABLED) ^ 1);
+            #ifdef CONSOLE_ENABLE
+            xprintf("Toggling Auto Mouse: %d\n", AUTO_MOUSE_ENABLED);
+            #endif
+        }
+        return false;
+      case AM_KILL:
+        if(record->event.pressed) {
+            auto_mouse_layer_off();
+        }
+        return false;
+      case KC_BTN1:
+      case KC_BTN2:
+        if(mod_state & MOD_MASK_SHIFT) {
+          // runs on both press and release since otherwise this is treated
+          // as a mouse key and reactivates the mouse layer
+          auto_mouse_layer_off();
+          return false;
+        }
+        return true;
+    #endif // POINTING_DEVICE_AUTO_MOUSE_ENABLE
     default:
     #if defined(INCLUDE_SECRETS) && !defined(NO_SECRETS)
       return process_record_keymap(keycode, record) && process_record_secrets(keycode, record);

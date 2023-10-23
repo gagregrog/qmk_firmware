@@ -79,6 +79,8 @@ HRM_TOGGLE,
   KC_SECRET_4,
   KC_SECRET_5,
 #endif
+  AM_TOGGLE,
+  AM_KILL,
   NEW_SAFE_RANGE,
 };
 
@@ -165,8 +167,8 @@ __VA_ARGS__
 #define _________________UTILITY_R2________________       XXXXXXX,   TD_MV_L,   TD_MV_C,  TD_MV_R,   KC_RBRC
 #define _________________UTILITY_R3________________       XXXXXXX,   TD_MV_DL,  TD_MV_D,  TD_MV_DR,  KC_RPRN
 
-#define _________________MOUSE_THUMB_L_____________       KC_BTN3,   KC_BTN1,   KC_BTN2
-#define _________________MOUSE_THUMB_R_____________       KC_BTN2,   KC_BTN1,   KC_BTN3
+#define _________________MOUSE_THUMB_L_____________       AM_KILL,   KC_BTN1,   KC_BTN2
+#define _________________MOUSE_THUMB_R_____________       KC_BTN2,   KC_BTN1,   AM_KILL
 
 #define _________________TRNS_X5___________________       KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS
 #define _________________NOPE_X5___________________       XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX
@@ -210,7 +212,7 @@ __VA_ARGS__
 #define LAYOUT_SETTINGS HOME_ROW_MOD_CAGS(                                                                    \
         QK_BOOT, XXXXXXX, XXXXXXX, XXXXXXX, QK_MAKE,          TG_HRM,  XXXXXXX, XXXXXXX, XXXXXXX, TG_BASE,    \
         _________________NOPE_X5___________________,          RGB_TOG, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    \
-        _________________NOPE_X5___________________,          RGB_MOD, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    \
+        _________________NOPE_X5___________________,          RGB_MOD, XXXXXXX, XXXXXXX, XXXXXXX, AM_TOGGLE,  \
                           XXXXXXX, XXXXXXX, _______,          _______, XXXXXXX, XXXXXXX                       \
 )
 
