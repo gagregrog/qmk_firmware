@@ -12,10 +12,24 @@ report_mouse_t pointing_device_task_keymap(report_mouse_t mouse_report) {
 }
 
 report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
-#ifdef POINTING_DEVICE_INVERT_SCROLL
-  mouse_report.h *= -1;
-  mouse_report.v *= -1;
-#endif
+  if (mouse_report.x | mouse_report.y | mouse_report.h | mouse_report.v) {
+    #ifdef POINTING_DEVICE_INVERT_SCROLL
+      mouse_report.h *= -1;
+      mouse_report.v *= -1;
+    #endif
+
+    #ifdef IS_CIRQUE
+      // activate drag scroll on dilemma if any of these mods are active
+      bool is_active = get_mods() & (MOD_MASK_GUI | MOD_MASK_SHIFT | MOD_MASK_ALT);
+      bool drag_scroll_enabled = dilemma_get_pointer_dragscroll_enabled();
+
+      if (!drag_scroll_enabled && is_active) {
+        dilemma_set_pointer_dragscroll_enabled(true);
+      } else if (drag_scroll_enabled && !is_active) {
+        dilemma_set_pointer_dragscroll_enabled(false);
+      }
+    #endif // IS_CIRQUE
+  }
 
   return pointing_device_task_keymap(mouse_report);
 }
@@ -168,7 +182,6 @@ report_mouse_t pointing_device_task_combined_user(report_mouse_t left_report, re
 
   // disable horizontal scrolling (require shift)
   left_report.h = 0;
-
   return pointing_device_combine_reports(left_report, right_report);
 }
 #endif // POINTING_DEVICE_COMBINED
@@ -180,15 +193,13 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
 
 // Initialize variable holding the binary
 // representation of active modifiers.
-uint8_t mod_state;
-bool hrm_state = true;
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   #ifdef MOUSE_TURBO_CLICK
     if (!process_mouse_turbo_click(keycode, record, MS_TURBO)) { return false; }
   #endif // MOUSE_TURBO_CLICK
 
   // Store the current modifier state in the variable for later reference
-  mod_state = get_mods();
+  uint8_t mod_state = get_mods();
 
   switch (keycode) {
     #if defined(CONSOLE_ENABLE) && defined(RGB_MATRIX_ENABLE)
@@ -229,8 +240,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           } else {
             layer_on(_LAYER_COLEMAK_DH);
           }
-
-          hrm_state = !hrm_state;
         }
         return false;
     #endif // LAYOUT_split_3x5_3_h

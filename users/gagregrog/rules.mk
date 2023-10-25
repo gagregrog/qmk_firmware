@@ -27,6 +27,12 @@ ifeq ($(strip $(POINTING_DEVICE_INVERT_SCROLL)), yes)
     OPT_DEFS += -DPOINTING_DEVICE_INVERT_SCROLL
 endif
 
+ifeq ($(strip $(POINTING_DEVICE_DRIVER)), cirque_pinnacle_spi)
+    OPT_DEFS += -DIS_CIRQUE
+else ifeq ($(strip $(POINTING_DEVICE_DRIVER)), cirque_pinnacle_i2c)
+    OPT_DEFS += -DIS_CIRQUE
+endif
+
 ifeq ($(strip $(TRACKPOINT_ENABLE)), yes)
     OPT_DEFS += -DTRACKPOINT_ENABLE
     ifneq ($(strip $(PS2_MOUSE_ENABLE)), yes)
