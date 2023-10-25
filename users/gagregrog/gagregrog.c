@@ -274,6 +274,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
         return true;
     #endif // POINTING_DEVICE_AUTO_MOUSE_ENABLE
+    // mod mac lock is on the right home row mod index key,
+    // so we have to check for the kap wrapped in the matching macro
+    case RSFT_T(KC_MOD_MAC_LOCK):
+      // only trigger the lock on tap, not on hold
+      if (record->event.pressed && record->tap.count) {
+        tap_code16(KC_MAC_LOCK);
+        return false;
+      }
+      // process the hold mod as normal, but don't process taps further
+      return !record->tap.count;
     default:
     #if defined(INCLUDE_SECRETS) && !defined(NO_SECRETS)
       return process_record_keymap(keycode, record) && process_record_secrets(keycode, record);

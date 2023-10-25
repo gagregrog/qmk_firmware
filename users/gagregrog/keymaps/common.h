@@ -81,8 +81,14 @@ HRM_TOGGLE,
 #endif
   AM_TOGGLE,
   AM_KILL,
+  KC_MOD_MAC_LOCK,
   NEW_SAFE_RANGE,
 };
+
+// lock mac screen
+#define KC_MAC_LOCK LGUI(LCTL(KC_Q))
+#define KC_MACL KC_MAC_LOCK
+#define KC_MMLK KC_MOD_MAC_LOCK 
 
 #if defined(TRACKPOINT_ENABLE)
   #define TRACKPT KC_NO
@@ -211,7 +217,7 @@ __VA_ARGS__
 
 #define LAYOUT_SETTINGS HOME_ROW_MOD_CAGS(                                                                    \
         QK_BOOT, XXXXXXX, XXXXXXX, XXXXXXX, QK_MAKE,          TG_HRM,  XXXXXXX, XXXXXXX, XXXXXXX, TG_BASE,    \
-        _________________NOPE_X5___________________,          RGB_TOG, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    \
+        _________________NOPE_X5___________________,          RGB_TOG, KC_MMLK,  XXXXXXX, XXXXXXX, XXXXXXX,   \
         _________________NOPE_X5___________________,          RGB_MOD, XXXXXXX, XXXXXXX, XXXXXXX, AM_TOGGLE,  \
                           XXXXXXX, XXXXXXX, _______,          _______, XXXXXXX, XXXXXXX                       \
 )
