@@ -137,7 +137,7 @@ __VA_ARGS__
     L00,     L01,     L02,     L03,     L04,               R05,     R06,     R07,     R08,     R09, \
     L10,     L11,     L12,     L13,     L14,               R15,     R16,     R17,     R18,     R19, \
     L20,     L21,     L22,     L23,     L24,               R25,     R26,     R27,     R28,     R29, \
-                      KC_BSPC, KC_SPC,  NUM_GRV,           UTIL_MN, KC_BSPC, KC_ENT
+                      XXXXXXX, KC_SPC,  NUM_GRV,           UTIL_MN, KC_BSPC, KC_ENT
 
 #define LAYOUT_split_3x5_3_base(...) _LAYOUT_split_3x5_3_base(__VA_ARGS__)
 
@@ -154,24 +154,24 @@ __VA_ARGS__
 #define _________________QWERTY_L3_________________       KC_Z,      KC_X,      KC_C,      KC_V,      KC_B
 
 #define _________________QWERTY_R1_________________       KC_Y,      KC_U,      KC_I,      KC_O,      KC_P
-#define _________________QWERTY_R2_________________       KC_H,      KC_J,      KC_K,      KC_L,      KC_SCLN
+#define _________________QWERTY_R2_________________       KC_H,      KC_J,      KC_K,      KC_L,      KC_QUOT
 #define _________________QWERTY_R3_________________       KC_N,      KC_M,      KC_COMM,   KC_DOT,    KC_SLSH
 
-#define _________________NUMERIC_L1________________       KC_TAB,    KC_F1,     KC_UP,     KC_F2,     KC_F3
-#define _________________NUMERIC_L2________________       KC_ESC,    KC_LEFT,   KC_DOWN,   KC_RIGHT,  KC_F4
+#define _________________NUMERIC_L1________________       KC_TAB,    KC_F1,     KC_UP,     KC_F2,     KC_PGUP
+#define _________________NUMERIC_L2________________       KC_ESC,    KC_LEFT,   KC_DOWN,   KC_RIGHT,  KC_PGDN
 #define _________________NUMERIC_L3________________       KC_F5,     KC_F6,     KC_F7,     KC_F8,     KC_F9
 
 #define _________________NUMERIC_R1________________       KC_LPRN,   KC_7,      KC_8,      KC_9,      KC_PIPE
-#define _________________NUMERIC_R2________________       KC_LBRC,   KC_4,      KC_5,      KC_6,      KC_SCLN
-#define _________________NUMERIC_R3________________       KC_LCBR,   KC_1,      KC_2,      KC_3,      KC_BSLS
+#define _________________NUMERIC_R2________________       KC_LCBR,   KC_4,      KC_5,      KC_6,      KC_SCLN
+#define _________________NUMERIC_R3________________       KC_LBRC,   KC_1,      KC_2,      KC_3,      KC_BSLS
 
-#define _________________UTILITY_L1________________       KC_LCBR,   XXXXXXX,   XXXXXXX,   KC_MPLY,   KC_VOLU
-#define _________________UTILITY_L2________________       KC_LBRC,   XXXXXXX,   XXXXXXX,   KC_MNXT,   KC_VOLD
-#define _________________UTILITY_L3________________       KC_LPRN,   XXXXXXX,   XXXXXXX,   KC_MPRV,   KC_MUTE
+#define _________________UTILITY_L1________________       XXXXXXX,   XXXXXXX,   KC_VOLU,   XXXXXXX,   XXXXXXX
+#define _________________UTILITY_L2________________       XXXXXXX,   KC_MPRV,   KC_VOLD,   KC_MNXT,   XXXXXXX
+#define _________________UTILITY_L3________________       XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX
 
-#define _________________UTILITY_R1________________       XXXXXXX,   TD_MV_UL,  TD_MV_U,  TD_MV_UR,  KC_RCBR
-#define _________________UTILITY_R2________________       XXXXXXX,   TD_MV_L,   TD_MV_C,  TD_MV_R,   KC_RBRC
-#define _________________UTILITY_R3________________       XXXXXXX,   TD_MV_DL,  TD_MV_D,  TD_MV_DR,  KC_RPRN
+#define _________________UTILITY_R1________________       XXXXXXX,   TD_MV_UL,  TD_MV_U,  TD_MV_UR,  XXXXXXX
+#define _________________UTILITY_R2________________       XXXXXXX,   TD_MV_L,   TD_MV_C,  TD_MV_R,   XXXXXXX
+#define _________________UTILITY_R3________________       XXXXXXX,   TD_MV_DL,  TD_MV_D,  TD_MV_DR,  XXXXXXX
 
 #define _________________MOUSE_THUMB_L_____________       AM_KILL,   KC_BTN1,   KC_BTN2
 #define _________________MOUSE_THUMB_R_____________       KC_BTN2,   KC_BTN1,   AM_KILL
@@ -217,12 +217,12 @@ __VA_ARGS__
 
 #define LAYOUT_SETTINGS HOME_ROW_MOD_CAGS(                                                                    \
         QK_BOOT, XXXXXXX, XXXXXXX, XXXXXXX, QK_MAKE,          TG_HRM,  XXXXXXX, XXXXXXX, XXXXXXX, TG_BASE,    \
-        _________________NOPE_X5___________________,          RGB_TOG, KC_MMLK,  XXXXXXX, XXXXXXX, XXXXXXX,   \
+        _________________NOPE_X5___________________,          RGB_TOG, KC_MMLK, XXXXXXX, XXXXXXX, XXXXXXX,    \
         _________________NOPE_X5___________________,          RGB_MOD, XXXXXXX, XXXXXXX, XXXXXXX, AM_TOGGLE,  \
                           XXXXXXX, XXXXXXX, _______,          _______, XXXXXXX, XXXXXXX                       \
 )
 
-#define USE_GAGREGROG_KEYMAP                                         \
+#define USE_GAGREGROG_KEYMAP                                     \
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {   \
   [_LAYER_COLEMAK_DH_HRM] = LAYOUT_wrapper(                      \
     LAYOUT_COLEMAK_DH_HRM                                        \

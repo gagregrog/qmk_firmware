@@ -328,6 +328,8 @@ const key_override_t lprn_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_LPRN, 
 const key_override_t spc_gui_key_override = ko_make_basic(MOD_BIT_RGUI, KC_SPC, LGUI(KC_BSPC));
 const key_override_t spc_alt_key_override = ko_make_basic(MOD_MASK_ALT, KC_SPC, LALT(KC_BSPC));
 const key_override_t spc_shift_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_SPC, KC_BSPC);
+const key_override_t vol_up_shift_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_VOLU, KC_MPLY);
+const key_override_t vol_down_shift_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_VOLD, KC_MUTE);
 
 // This globally defines all key overrides to be used
 const key_override_t **key_overrides = (const key_override_t *[]){
@@ -337,6 +339,8 @@ const key_override_t **key_overrides = (const key_override_t *[]){
   &spc_gui_key_override,
   &spc_alt_key_override,
   &spc_shift_key_override,
+  &vol_up_shift_key_override,
+  &vol_down_shift_key_override,
 	NULL // Null terminate the array of overrides!
 };
 #endif
