@@ -68,7 +68,7 @@
 #define PERMISSIVE_HOLD
 
 #define CIRQUE_PINNACLE_TAP_ENABLE
-#define POINTING_DEVICE_GESTURES_CURSOR_GLIDE_ENABLE // enables inertial scroll
+// #define POINTING_DEVICE_GESTURES_CURSOR_GLIDE_ENABLE // enables inertial movements
 
 #undef  RGBLED_NUM
 #define RGBLED_NUM 2
