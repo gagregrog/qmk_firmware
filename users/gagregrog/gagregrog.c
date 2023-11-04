@@ -18,17 +18,36 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
       mouse_report.v *= -1;
     #endif
 
-    #ifdef IS_CIRQUE
-      // activate drag scroll on dilemma if any of these mods are active
-      bool is_active = get_mods() & (MOD_MASK_GUI | MOD_MASK_SHIFT | MOD_MASK_ALT);
-      bool drag_scroll_enabled = dilemma_get_pointer_dragscroll_enabled();
+    #if defined(KB_DILEMMA) || defined(KB_CHARYBDIS)
+      uint8_t mods = get_mods();
+      bool is_snipe_modifier_active = mods & MOD_MASK_CTRL;
 
-      if (!drag_scroll_enabled && is_active) {
-        dilemma_set_pointer_dragscroll_enabled(true);
-      } else if (drag_scroll_enabled && !is_active) {
-        dilemma_set_pointer_dragscroll_enabled(false);
-      }
-    #endif // IS_CIRQUE
+      #if defined(KB_DILEMMA)
+        // activate drag scroll on dilemma if any of these mods are active
+        bool is_drag_modifier_active = mods & (MOD_MASK_GUI | MOD_MASK_SHIFT | MOD_MASK_ALT);
+        bool drag_scroll_enabled = dilemma_get_pointer_dragscroll_enabled();
+
+        if (!drag_scroll_enabled && is_drag_modifier_active) {
+          dilemma_set_pointer_dragscroll_enabled(true);
+        } else if (drag_scroll_enabled && !is_drag_modifier_active) {
+          dilemma_set_pointer_dragscroll_enabled(false);
+        }
+
+        bool is_sniping_enabled = dilemma_get_pointer_sniping_enabled();
+        if (!is_sniping_enabled && is_snipe_modifier_active) {
+          dilemma_set_pointer_sniping_enabled(true);
+        } else if (is_sniping_enabled && !is_snipe_modifier_active) {
+          dilemma_set_pointer_sniping_enabled(false);
+        }
+      #elif defined(KB_CHARYBDIS)
+        bool is_sniping_enabled = charybdis_get_pointer_sniping_enabled();
+        if (!is_sniping_enabled && is_snipe_modifier_active) {
+          charybdis_set_pointer_sniping_enabled(true);
+        } else if (is_sniping_enabled && !is_snipe_modifier_active) {
+          charybdis_set_pointer_sniping_enabled(false);
+        }
+      #endif
+    #endif // defined(KB_DILEMMA) || defined(KB_CHARYBDIS)
   }
 
   return pointing_device_task_keymap(mouse_report);

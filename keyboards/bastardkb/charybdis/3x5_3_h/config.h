@@ -18,6 +18,8 @@
 
 #pragma once
 
+#define KB_CHARYBDIS
+
 #undef DIODE_DIRECTION
 #define DIODE_DIRECTION ROW2COL
 

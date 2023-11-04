@@ -17,6 +17,8 @@
 
 #pragma once
 
+#define KB_DILEMMA
+
 /* Key matrix configuration. */
 #define MATRIX_ROW_PINS \
     { GP4, GP5, GP27, GP26 }
