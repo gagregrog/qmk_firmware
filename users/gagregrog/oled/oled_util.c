@@ -75,9 +75,17 @@ bool oled_task_keymap(void) {
 }
 
 bool oled_task_user(void) {
-#ifdef OLED_SHOW_DOGS
-  render_dogs();
-#endif
+  #ifdef WPM_ENABLE
+    uint8_t wpm = get_current_wpm();
+    if (wpm > 0) {
+      oled_set_cursor(8, 0);
+      oled_write(get_u8_str(wpm, ' '), false);
+    }
+  #endif // WPM_ENABLE
+
+  #ifdef OLED_SHOW_DOGS
+    render_dogs();
+  #endif // OLED_SHOW_DOGS
 
   render_layer_text();
 
