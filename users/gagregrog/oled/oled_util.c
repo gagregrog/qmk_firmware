@@ -51,6 +51,9 @@ void render_layer_text(void) {
     case _LAYER_SETTINGS:
       oled_write_ln_P(PSTR("\n      Settings      "), false);
       break;
+    case _LAYER_AUTOMOUSE:
+      oled_write_ln_P(PSTR("\n      AutoMouse     "), false);
+      break;
     default:
       oled_write_ln_P(PSTR("\n    Layer Unknown   "), false);
   }
