@@ -13,47 +13,15 @@ enum userspace_layers {
 };
 
 // windowing shortcuts
-#define MV_UL         LCAG(KC_F17)
-#define MV_U          LCAG(KC_UP)
-#define MV_UR         LCAG(KC_F15)
-#define MV_R          LCAG(KC_RIGHT)
-#define MV_C          LCAG(KC_ENT)
-#define MV_L          LCAG(KC_LEFT)
-#define MV_DL         LCAG(KC_F18)
-#define MV_D          LCAG(KC_DOWN)
-#define MV_DR         LCAG(KC_F16)
-
-#define MV_UL_REV     HYPR(KC_F17)
-#define MV_U_REV      HYPR(KC_UP)
-#define MV_UR_REV     HYPR(KC_F15)
-#define MV_R_REV      HYPR(KC_RIGHT)
-#define MV_C_REV      HYPR(KC_ENT)
-#define MV_L_REV      HYPR(KC_LEFT)
-#define MV_DL_REV     HYPR(KC_F18)
-#define MV_D_REV      HYPR(KC_DOWN)
-#define MV_DR_REV     HYPR(KC_F16)
-
-enum window_tap_dances {
-  T_MV_UL,
-  T_MV_U,
-  T_MV_UR,
-  T_MV_R,
-  T_MV_C,
-  T_MV_L,
-  T_MV_DL,
-  T_MV_D,
-  T_MV_DR,
-};
-
-#define TD_MV_UL    TD(T_MV_UL)
-#define TD_MV_U     TD(T_MV_U)
-#define TD_MV_UR    TD(T_MV_UR)
-#define TD_MV_R     TD(T_MV_R)
-#define TD_MV_C     TD(T_MV_C)
-#define TD_MV_L     TD(T_MV_L)
-#define TD_MV_DL    TD(T_MV_DL)
-#define TD_MV_D     TD(T_MV_D)
-#define TD_MV_DR    TD(T_MV_DR)
+#define KC_MV_UL         LCAG(KC_F17)
+#define KC_MV_U          LCAG(KC_UP)
+#define KC_MV_UR         LCAG(KC_F15)
+#define KC_MV_R          LCAG(KC_RIGHT)
+#define KC_MV_C          LCAG(KC_ENT)
+#define KC_MV_L          LCAG(KC_LEFT)
+#define KC_MV_DL         LCAG(KC_F18)
+#define KC_MV_D          LCAG(KC_DOWN)
+#define KC_MV_DR         LCAG(KC_F16)
 
 enum gagregrog_keycodes {
 #if defined(DILEMMA_SAFE_RANGE)
@@ -63,7 +31,7 @@ enum gagregrog_keycodes {
 #else
   BASE_TOGGLE = SAFE_RANGE,
 #endif // SAFE_RANGE
-HRM_TOGGLE,
+  HRM_TOGGLE,
 #if defined(MOUSE_TURBO_CLICK)
   MS_TURBO,
 #endif // MOUSE_TURBO_CLICK
@@ -81,14 +49,21 @@ HRM_TOGGLE,
 #endif
   AM_TOGGLE,
   AM_KILL,
-  KC_MOD_MAC_LOCK,
+  KC_HRM_MAC_LOCK,
+  KC_HRM_MV_R,
+  KC_HRM_MV_C,
+  KC_HRM_MV_L,
   NEW_SAFE_RANGE,
 };
 
 // lock mac screen
 #define KC_MAC_LOCK LGUI(LCTL(KC_Q))
-#define KC_MACL KC_MAC_LOCK
-#define KC_MMLK KC_MOD_MAC_LOCK 
+#define HR_MACL KC_HRM_MAC_LOCK
+
+// hrm movement keys
+#define HR_MV_R  KC_HRM_MV_R
+#define HR_MV_C  KC_HRM_MV_C
+#define HR_MV_L  KC_HRM_MV_L
 
 #if defined(TRACKPOINT_ENABLE)
   #define TRACKPT KC_NO
@@ -128,6 +103,7 @@ __VA_ARGS__
 #if defined(LAYOUT_split_3x5_3_h)
 
 #define LAYOUT_wrapper(...) LAYOUT_split_3x5_3_h(__VA_ARGS__)
+#define LAYOUT_HRM_wrapper(...) LAYOUT_wrapper(HOME_ROW_MOD_CAGS(__VA_ARGS__))
 
 #define _LAYOUT_split_3x5_3_base( \
   L00, L01, L02, L03, L04,     R05, R06, R07, R08, R09, \
@@ -169,9 +145,9 @@ __VA_ARGS__
 #define _________________UTILITY_L2________________       XXXXXXX,   KC_MPRV,   KC_VOLD,   KC_MNXT,   XXXXXXX
 #define _________________UTILITY_L3________________       XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX
 
-#define _________________UTILITY_R1________________       XXXXXXX,   TD_MV_UL,  TD_MV_U,  TD_MV_UR,  XXXXXXX
-#define _________________UTILITY_R2________________       XXXXXXX,   TD_MV_L,   TD_MV_C,  TD_MV_R,   XXXXXXX
-#define _________________UTILITY_R3________________       XXXXXXX,   TD_MV_DL,  TD_MV_D,  TD_MV_DR,  XXXXXXX
+#define _________________UTILITY_R1________________       XXXXXXX,   KC_MV_UL,  KC_MV_U,   KC_MV_UR,  XXXXXXX
+#define _________________UTILITY_R2________________       XXXXXXX,   HR_MV_L,   HR_MV_C,   HR_MV_R,   XXXXXXX
+#define _________________UTILITY_R3________________       XXXXXXX,   KC_MV_DL,  KC_MV_D,   KC_MV_DR,  XXXXXXX
 
 #define _________________MOUSE_THUMB_L_____________       AM_KILL,   KC_BTN1,   KC_BTN2
 #define _________________MOUSE_THUMB_R_____________       KC_BTN2,   KC_BTN1,   AM_KILL
@@ -185,15 +161,11 @@ __VA_ARGS__
         ______________COLEMAK_MOD_DH_L3____________,         ______________COLEMAK_MOD_DH_R3____________      \
 )
 
-#define LAYOUT_COLEMAK_DH_HRM HOME_ROW_MOD_CAGS(LAYOUT_COLEMAK_DH)
-
 #define LAYOUT_QWERTY LAYOUT_split_3x5_3_base(                                                                \
         _________________QWERTY_L1_________________,         _________________QWERTY_R1_________________,     \
         _________________QWERTY_L2_________________,         _________________QWERTY_R2_________________,     \
         _________________QWERTY_L3_________________,         _________________QWERTY_R3_________________      \
 )
-
-#define LAYOUT_QWERTY_HRM HOME_ROW_MOD_CAGS(LAYOUT_QWERTY)
 
 #define LAYOUT_NUMERIC                                                                                        \
         _________________NUMERIC_L1________________,          _________________NUMERIC_R1________________,    \
@@ -201,7 +173,7 @@ __VA_ARGS__
         _________________NUMERIC_L3________________,          _________________NUMERIC_R3________________,    \
                           KC_NO,   KC_NO,   _______,          KC_EQL,  KC_0,    KC_PDOT                       \
 
-#define LAYOUT_UTILITY                                                                                        \
+#define LAYOUT_UTILITY                                                                    \
         _________________UTILITY_L1________________,          _________________UTILITY_R1________________,    \
         _________________UTILITY_L2________________,          _________________UTILITY_R2________________,    \
         _________________UTILITY_L3________________,          _________________UTILITY_R3________________,    \
@@ -215,36 +187,33 @@ __VA_ARGS__
         _________________MOUSE_THUMB_L_____________,          _________________MOUSE_THUMB_R_____________
 #endif // POINTING_DEVICE_ENABLE
 
-#define LAYOUT_SETTINGS HOME_ROW_MOD_CAGS(                                                                    \
+#define LAYOUT_SETTINGS                                                                   \
         QK_BOOT, XXXXXXX, XXXXXXX, XXXXXXX, QK_MAKE,          TG_HRM,  XXXXXXX, XXXXXXX, XXXXXXX, TG_BASE,    \
-        _________________NOPE_X5___________________,          RGB_TOG, KC_MMLK, XXXXXXX, XXXXXXX, XXXXXXX,    \
+        _________________NOPE_X5___________________,          RGB_TOG, HR_MACL, XXXXXXX, XXXXXXX, XXXXXXX,    \
         _________________NOPE_X5___________________,          RGB_MOD, XXXXXXX, XXXXXXX, XXXXXXX, AM_TOGGLE,  \
-                          XXXXXXX, XXXXXXX, _______,          _______, XXXXXXX, XXXXXXX                       \
-)
+                          XXXXXXX, XXXXXXX, _______,          _______, XXXXXXX, XXXXXXX
 
 #define USE_GAGREGROG_KEYMAP                                     \
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {   \
-  [_LAYER_COLEMAK_DH_HRM] = LAYOUT_wrapper(                      \
-    LAYOUT_COLEMAK_DH_HRM                                        \
+  [_LAYER_COLEMAK_DH_HRM] = LAYOUT_HRM_wrapper(                  \
+    LAYOUT_COLEMAK_DH                                            \
   ),                                                             \
   [_LAYER_COLEMAK_DH] = LAYOUT_wrapper(                          \
     LAYOUT_COLEMAK_DH                                            \
   ),                                                             \
-  [_LAYER_QWERTY_HRM] = LAYOUT_wrapper(                          \
-    LAYOUT_QWERTY_HRM                                            \
+  [_LAYER_QWERTY_HRM] = LAYOUT_HRM_wrapper(                      \
+    LAYOUT_QWERTY                                                \
   ),                                                             \
   [_LAYER_QWERTY] = LAYOUT_wrapper(                              \
     LAYOUT_QWERTY                                                \
   ),                                                             \
-  [_LAYER_NUM] = LAYOUT_wrapper(                                 \
-    HOME_ROW_MOD_CAGS(                                           \
-      LAYOUT_NUMERIC                                             \
-    )                                                            \
+  [_LAYER_NUM] = LAYOUT_HRM_wrapper(                             \
+    LAYOUT_NUMERIC                                               \
   ),                                                             \
-  [_LAYER_UTIL] = LAYOUT_wrapper(                                \
+  [_LAYER_UTIL] = LAYOUT_HRM_wrapper(                            \
     LAYOUT_UTILITY                                               \
   ),                                                             \
-  [_LAYER_SETTINGS] = LAYOUT_wrapper(                            \
+  [_LAYER_SETTINGS] = LAYOUT_HRM_wrapper(                        \
     LAYOUT_SETTINGS                                              \
   ),                                                             \
   [_LAYER_AUTOMOUSE] = LAYOUT_wrapper(                           \

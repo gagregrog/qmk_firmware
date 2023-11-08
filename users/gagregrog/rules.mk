@@ -5,7 +5,6 @@ SRC += gagregrog.c
 # Always Features
 
 CAPS_WORD_ENABLE = yes
-TAP_DANCE_ENABLE = yes
 
 # Utilities to add automatically when certain features are enabled
 

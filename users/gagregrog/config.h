@@ -67,3 +67,8 @@
 #define AUTO_MOUSE_TIME 750
 #define SCROLL_CPI 2000
 #define MOUSE_CPI 2000
+
+#define TAPPING_TERM_PER_KEY
+#ifndef TAPPING_TERM
+  #define TAPPING_TERM 175
+#endif

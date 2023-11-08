@@ -210,6 +210,16 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
   return true; // Process all other keycodes normally
 }
 
+bool process_record_hrm(uint16_t keycode, keyrecord_t *record) {
+  // only trigger the keycode on tap, not on hold
+  if (record->event.pressed && record->tap.count) {
+    tap_code16(keycode);
+    return false;
+  }
+  // process the hold mod as normal, but don't process taps further
+  return !record->tap.count;
+}
+
 // Initialize variable holding the binary
 // representation of active modifiers.
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -302,16 +312,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
         return true;
     #endif // POINTING_DEVICE_AUTO_MOUSE_ENABLE
-    // mod mac lock is on the right home row mod index key,
-    // so we have to check for the kap wrapped in the matching macro
-    case RSFT_T(KC_MOD_MAC_LOCK):
-      // only trigger the lock on tap, not on hold
-      if (record->event.pressed && record->tap.count) {
-        tap_code16(KC_MAC_LOCK);
-        return false;
-      }
-      // process the hold mod as normal, but don't process taps further
-      return !record->tap.count;
+    // for any advanced keycodes with HRM we must check for the matched key
+    // and then manually send the advanced keycode
+    case RSFT_T(KC_HRM_MAC_LOCK):
+      return process_record_hrm(KC_MAC_LOCK, record);
+    case RSFT_T(KC_HRM_MV_L):
+      return process_record_hrm(KC_MV_L, record);
+    case RGUI_T(KC_HRM_MV_C):
+      return process_record_hrm(KC_MV_C, record);
+    case LALT_T(KC_HRM_MV_R):
+      return process_record_hrm(KC_MV_R, record);
     default:
     #if defined(INCLUDE_SECRETS) && !defined(NO_SECRETS)
       return process_record_keymap(keycode, record) && process_record_secrets(keycode, record);
@@ -345,19 +355,6 @@ const key_override_t **key_overrides = (const key_override_t *[]){
 };
 #endif
 
-#if defined(TAP_DANCE_ENABLE) && defined(USE_DEFAULT_TD_ACTIONS)
-  tap_dance_action_t tap_dance_actions[] = {
-    [T_MV_UL]   = ACTION_TAP_DANCE_DOUBLE(MV_UL, MV_UL_REV),
-    [T_MV_U]    = ACTION_TAP_DANCE_DOUBLE(MV_U, MV_U_REV),
-    [T_MV_UR]   = ACTION_TAP_DANCE_DOUBLE(MV_UR, MV_UR_REV),
-    [T_MV_R]    = ACTION_TAP_DANCE_DOUBLE(MV_R, MV_R_REV),
-    [T_MV_C]    = ACTION_TAP_DANCE_DOUBLE(MV_C, MV_C_REV),
-    [T_MV_L]    = ACTION_TAP_DANCE_DOUBLE(MV_L, MV_L_REV),
-    [T_MV_DL]   = ACTION_TAP_DANCE_DOUBLE(MV_DL, MV_DL_REV),
-    [T_MV_D]    = ACTION_TAP_DANCE_DOUBLE(MV_D, MV_D_REV),
-    [T_MV_DR]   = ACTION_TAP_DANCE_DOUBLE(MV_DR, MV_DR_REV),
-  };
-
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case LGUI_T(KC_S):
@@ -369,7 +366,6 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
         return TAPPING_TERM;
   }
 }
-#endif // TAP_DANCE_ENABLE
 
 #if defined(CONSOLE_ENABLE) && defined(RGB_MATRIX_ENABLE)
 void debug_rgb_matrix(bool useNextMode) {

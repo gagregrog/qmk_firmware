@@ -12,10 +12,6 @@
 
 #if defined(TAP_DANCE_ENABLE)
   #include "tap_dance/tap_dance_utils.h"
-  #define TAPPING_TERM_PER_KEY
-  #ifndef TAPPING_TERM
-    #define TAPPING_TERM 175
-  #endif
 #endif // TAP_DANCE_ENABLE
 
 #if defined(POINTING_DEVICE_ENABLE)
