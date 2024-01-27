@@ -178,8 +178,5 @@
 // Home Row Mod settings
 #define TAPPING_TERM 175
 
-// tapping force hold - disable key repeat on quick tap followed by a press for mod-tap keys
-#define TAPPING_FORCE_HOLD
-
 // permissive hold - pressing a mod-tap key and pressing/releasing a second key before the mod-tap key is released registers the mod-tap immediately, even if before the tapping term has been reached
 #define PERMISSIVE_HOLD
