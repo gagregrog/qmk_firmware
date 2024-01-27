@@ -81,8 +81,5 @@
 #        define ENABLE_RGB_MATRIX_MULTISPLASH
 #        define ENABLE_RGB_MATRIX_SOLID_SPLASH
 #        define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
-#        define ENABLE_RGB_MATRIX_PIXEL_FRACTAL
-#        define ENABLE_RGB_MATRIX_PIXEL_FLOW
-#        define ENABLE_RGB_MATRIX_PIXEL_RAIN
 #    endif // !__arm__
 #endif
