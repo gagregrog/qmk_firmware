@@ -17,7 +17,7 @@ RGBLIGHT_SUPPORTED = no     # RGB underglow is supported, but not enabled by def
 RGB_MATRIX_ENABLE = no     # Enable keyboard RGB matrix functionality
 
 OLED_ENABLE = yes
-OLED_DRIVER = SSD1306
+OLED_DRIVER = ssd1306
 
 OPT_DEFS += -DHAL_USE_I2C=TRUE
 
