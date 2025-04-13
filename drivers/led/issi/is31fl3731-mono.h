@@ -23,33 +23,6 @@
 #include "progmem.h"
 #include "util.h"
 
-// ======== DEPRECATED DEFINES - DO NOT USE ========
-#ifdef LED_DRIVER_ADDR_1
-#    define IS31FL3731_I2C_ADDRESS_1 LED_DRIVER_ADDR_1
-#endif
-#ifdef LED_DRIVER_ADDR_2
-#    define IS31FL3731_I2C_ADDRESS_2 LED_DRIVER_ADDR_2
-#endif
-#ifdef LED_DRIVER_ADDR_3
-#    define IS31FL3731_I2C_ADDRESS_3 LED_DRIVER_ADDR_3
-#endif
-#ifdef LED_DRIVER_ADDR_4
-#    define IS31FL3731_I2C_ADDRESS_4 LED_DRIVER_ADDR_4
-#endif
-#ifdef ISSI_TIMEOUT
-#    define IS31FL3731_I2C_TIMEOUT ISSI_TIMEOUT
-#endif
-#ifdef ISSI_PERSISTENCE
-#    define IS31FL3731_I2C_PERSISTENCE ISSI_PERSISTENCE
-#endif
-#ifdef ISSI_3731_DEGHOST
-#    define IS31FL3731_DEGHOST ISSI_3731_DEGHOST
-#endif
-
-#define is31_led is31fl3731_led_t
-#define g_is31_leds g_is31fl3731_leds
-// ========
-
 #define IS31FL3731_REG_COMMAND 0xFD
 #define IS31FL3731_COMMAND_FRAME_1 0x00
 #define IS31FL3731_COMMAND_FRAME_2 0x01
@@ -105,9 +78,9 @@ typedef struct is31fl3731_led_t {
 extern const is31fl3731_led_t PROGMEM g_is31fl3731_leds[IS31FL3731_LED_COUNT];
 
 void is31fl3731_init_drivers(void);
-void is31fl3731_init(uint8_t addr);
-void is31fl3731_write_register(uint8_t addr, uint8_t reg, uint8_t data);
-void is31fl3731_select_page(uint8_t addr, uint8_t page);
+void is31fl3731_init(uint8_t index);
+void is31fl3731_write_register(uint8_t index, uint8_t reg, uint8_t data);
+void is31fl3731_select_page(uint8_t index, uint8_t page);
 
 void is31fl3731_set_value(int index, uint8_t value);
 void is31fl3731_set_value_all(uint8_t value);
@@ -118,8 +91,8 @@ void is31fl3731_set_led_control_register(uint8_t index, bool value);
 // (eg. from a timer interrupt).
 // Call this while idle (in between matrix scans).
 // If the buffer is dirty, it will update the driver with the buffer.
-void is31fl3731_update_pwm_buffers(uint8_t addr, uint8_t index);
-void is31fl3731_update_led_control_registers(uint8_t addr, uint8_t index);
+void is31fl3731_update_pwm_buffers(uint8_t index);
+void is31fl3731_update_led_control_registers(uint8_t index);
 
 void is31fl3731_flush(void);
 

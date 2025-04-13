@@ -20,6 +20,14 @@
 #include "wait.h"
 #include "timer.h"
 #include <stdlib.h>
+#include "pointing_device_internal.h"
+
+const pointing_device_driver_t analog_joystick_pointing_device_driver = {
+    .init       = analog_joystick_init,
+    .get_report = analog_joystick_get_report,
+    .set_cpi    = NULL,
+    .get_cpi    = NULL,
+};
 
 // Set Parameters
 #ifndef ANALOG_JOYSTICK_AUTO_AXIS
@@ -122,14 +130,17 @@ report_analog_joystick_t analog_joystick_read(void) {
         report.y   = axisToMouseComponent(ANALOG_JOYSTICK_Y_AXIS_PIN, yOrigin, maxCursorSpeed, 1);
     }
 #ifdef ANALOG_JOYSTICK_CLICK_PIN
-    report.button = !readPin(ANALOG_JOYSTICK_CLICK_PIN);
+    report.button = !gpio_read_pin(ANALOG_JOYSTICK_CLICK_PIN);
 #endif
     return report;
 }
 
 void analog_joystick_init(void) {
+    gpio_set_pin_input_high(ANALOG_JOYSTICK_X_AXIS_PIN);
+    gpio_set_pin_input_high(ANALOG_JOYSTICK_Y_AXIS_PIN);
+
 #ifdef ANALOG_JOYSTICK_CLICK_PIN
-    setPinInputHigh(ANALOG_JOYSTICK_CLICK_PIN);
+    gpio_set_pin_input_high(ANALOG_JOYSTICK_CLICK_PIN);
 #endif
     // Account for drift
     xOrigin = analogReadPin(ANALOG_JOYSTICK_X_AXIS_PIN);
@@ -141,4 +152,17 @@ void analog_joystick_init(void) {
     maxAxisValues[0] = xOrigin + 100;
     maxAxisValues[1] = yOrigin + 100;
 #endif
+}
+
+report_mouse_t analog_joystick_get_report(report_mouse_t mouse_report) {
+    report_analog_joystick_t data = analog_joystick_read();
+
+    pd_dprintf("Raw ] X: %d, Y: %d\n", data.x, data.y);
+
+    mouse_report.x = data.x;
+    mouse_report.y = data.y;
+
+    mouse_report.buttons = pointing_device_handle_buttons(mouse_report.buttons, data.button, POINTING_DEVICE_BUTTON1);
+
+    return mouse_report;
 }
