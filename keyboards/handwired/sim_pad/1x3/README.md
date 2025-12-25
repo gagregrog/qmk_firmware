@@ -23,14 +23,22 @@ FPC Cable: [12 pin 0.5mm pitch FPC cable](amazon.com/uxcell-Flexible-Ribbon-Play
 
 ## Wiring
 
+![Xiao Pinout](https://files.seeedstudio.com/wiki/XIAO-RP2040/img/xinpin.jpg)
+
 ### Cirque -> Xiao RP2040
 
 FPC B/O # -> Pin Name -> RP2040 Digital Pin (GPIO)
+
 1 -> SCK -> D8 (GP2)
+
 2 -> MISO -> D9 (GP4)
+
 3 -> CS -> D7 (GP1)
+
 5 -> MOSI -> D10 (GP3)
+
 11 -> GND -> GND
+
 12 -> VCC -> 3.3v
 
 ### Buttons
@@ -39,6 +47,8 @@ All buttons are direct wired, meaning one leg goes to GND and the other goes to 
 
 There is no matrix, and no diodes are needed
 
-BTN1 -> D0 (GP26)
-BTN2 -> D1 (GP27)
-BTN3 -> D2 (GP28)
+BTN1 -> D4 (GP6)
+
+BTN2 -> D5 (GP7)
+
+BTN3 -> D6 (GP0)

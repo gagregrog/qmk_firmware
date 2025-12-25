@@ -26,7 +26,8 @@
 #define POINTING_DEVICE_TASK_THROTTLE_MS 10
 
 // Adjust trackpad rotation.
-#define POINTING_DEVICE_ROTATION_90
+#define POINTING_DEVICE_ROTATION_270
+// #define POINTING_DEVICE_INVERT_Y
 
 // Configure for the Cirque model used on the Dilemma.
 #define CIRQUE_PINNACLE_DIAMETER_MM 35
@@ -35,7 +36,7 @@
 
 /* Direct pins for 3 buttons */
 #define DIRECT_PINS { \
-    { GP26, GP27, GP28 } \
+    { GP6, GP7, GP0 } \
 }
 #define DIRECT_PINS_INPUT_MODE INPUT_PULLUP
 
@@ -45,5 +46,3 @@
 /* Optional Cirque settings */
 #define CIRQUE_PINNACLE_TAP_ENABLE
 #define CIRQUE_PINNACLE_SECONDARY_TAP_ENABLE
-
-#define DEBUG_POINTING_DEVICE

@@ -9,7 +9,7 @@
   },
   "matrix_pins": {
     "direct": [
-      ["GP26", "GP27", "GP28"]
+      ["GP6", "GP7", "GP0"]
     ]
   },
   "features": {
