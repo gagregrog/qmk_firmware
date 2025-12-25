@@ -112,6 +112,11 @@ void btn_tap_dance_finished(tap_dance_state_t *state, void *user_data) {
         register_code(KC_BTN1);
         btn_timer = timer_read();
         btn_hold_active = true;
+    } else if (state->count == 3) {
+        if (state->pressed) {
+            // enter bootloader mode for flashing
+            reset_keyboard();
+        } 
     }
 }
 
