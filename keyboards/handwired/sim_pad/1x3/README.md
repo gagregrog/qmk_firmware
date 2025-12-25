@@ -14,6 +14,16 @@ qmk flash -kb handwired/sim_pad_1x3 -km default
 
 Edit [keymap.c](./keymaps/default/keymap.c) to change button behaviors.
 
+As implemented, the three keys are mapped, in order, to `Escape`, `Return`, and `Left Click`.
+
+Each key is implemented as a tap dance with the following behavior:
+
+-   Tap once for a regular tap/release
+-   Hold for a regular hold
+-   Double tap to auto-hold the key for X seconds (default is 6 seconds)
+
+Note: If you double tap and hold the third key then the board will enter bootloader mode for flashing.
+
 ## Parts
 
 MCU: [Seeed Xiao RP2040](https://wiki.seeedstudio.com/XIAO-RP2040/#hardware-overview)
