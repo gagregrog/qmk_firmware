@@ -46,3 +46,5 @@
 /* Optional Cirque settings */
 #define CIRQUE_PINNACLE_TAP_ENABLE
 #define CIRQUE_PINNACLE_SECONDARY_TAP_ENABLE
+
+#define TAPPING_TERM 200

@@ -1,35 +1,26 @@
 #include QMK_KEYBOARD_H
 
-#define ESC_DURATION 10000
+#define ESC_DURATION 6000
 
 enum custom_keycodes {
     ESC_HOLD = SAFE_RANGE,
 };
 
+enum {
+    TD_ESC_SPECIAL,
+};
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT(
-        ESC_HOLD,
+        TD(TD_ESC_SPECIAL),
         KC_BTN1,
         KC_BTN2
     )
 };
 
 static bool esc_hold_active = false;
+static bool esc_physically_held = false;
 static uint16_t esc_timer = 0;
-
-bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case ESC_HOLD:
-            if (record->event.pressed && !esc_hold_active) {
-                // Press and hold Escape
-                register_code(KC_ESC);
-                esc_timer = timer_read();
-                esc_hold_active = true;
-            }
-            return false; // We handled it fully
-    }
-    return true;
-}
 
 void matrix_scan_kb(void) {
     if (esc_hold_active && timer_elapsed(esc_timer) > ESC_DURATION) {
@@ -37,3 +28,36 @@ void matrix_scan_kb(void) {
         esc_hold_active = false;
     }
 }
+
+void esc_tap_dance_finished(tap_dance_state_t *state, void *user_data) {
+    if (state->count == 1) {
+        if (state->pressed) {
+            // Press-and-hold: behave like a normal Esc hold
+            register_code(KC_ESC);
+            esc_physically_held = true;
+        } else {
+            // Single tap
+            tap_code(KC_ESC);
+        }
+    } else if (state->count == 2) {
+        // Double tap: hold Esc for ESC_DURATION seconds
+        register_code(KC_ESC);
+        esc_timer = timer_read();
+        esc_hold_active = true;
+    }
+}
+
+void esc_tap_dance_reset(tap_dance_state_t *state, void *user_data) {
+    if (esc_physically_held) {
+        unregister_code(KC_ESC);
+        esc_physically_held = false;
+    }
+}
+
+tap_dance_action_t tap_dance_actions[] = {
+    [TD_ESC_SPECIAL] = ACTION_TAP_DANCE_FN_ADVANCED(
+        NULL,
+        esc_tap_dance_finished,
+        esc_tap_dance_reset
+    ),
+};
