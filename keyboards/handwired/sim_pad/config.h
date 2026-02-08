@@ -34,14 +34,8 @@
 #define CIRQUE_PINNACLE_CURVED_OVERLAY
 #define POINTING_DEVICE_GESTURES_SCROLL_ENABLE // Circular scroll.
 
-/* Direct pins for 3 buttons */
-#define DIRECT_PINS { \
-    { GP6, GP7, GP0 } \
-}
+/* Direct pins input mode */
 #define DIRECT_PINS_INPUT_MODE INPUT_PULLUP
-
-#undef POINTING_DEVICE_ENABLE
-#define POINTING_DEVICE_ENABLE
 
 /* Optional Cirque settings */
 #define CIRQUE_PINNACLE_TAP_ENABLE

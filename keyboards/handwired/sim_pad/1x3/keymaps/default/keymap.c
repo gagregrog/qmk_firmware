@@ -42,7 +42,7 @@ void matrix_scan_kb(void) {
     }
 
     if (btn_hold_active && timer_elapsed(btn_timer) > BTN_DURATION) {
-        unregister_code(KC_BTN1);
+        unregister_code(MS_BTN1);
         btn_hold_active = false;
     }
 }
@@ -101,15 +101,15 @@ void btn_tap_dance_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1) {
         if (state->pressed) {
             // Press-and-hold: behave like a normal mouse button hold
-            register_code(KC_BTN1);
+            register_code(MS_BTN1);
             btn_physically_held = true;
         } else {
             // Single tap
-            tap_code(KC_BTN1);
+            tap_code(MS_BTN1);
         }
     } else if (state->count == 2) {
         // Double tap: hold mouse button for BTN_DURATION seconds
-        register_code(KC_BTN1);
+        register_code(MS_BTN1);
         btn_timer = timer_read();
         btn_hold_active = true;
     } else if (state->count == 3) {
@@ -122,7 +122,7 @@ void btn_tap_dance_finished(tap_dance_state_t *state, void *user_data) {
 
 void btn_tap_dance_reset(tap_dance_state_t *state, void *user_data) {
     if (btn_physically_held) {
-        unregister_code(KC_BTN1);
+        unregister_code(MS_BTN1);
         btn_physically_held = false;
     }
 }
