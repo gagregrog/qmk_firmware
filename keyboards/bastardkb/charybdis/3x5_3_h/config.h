@@ -175,8 +175,3 @@
 #define NO_ACTION_ONESHOT
 
 #define TAPPING_TOGGLE 2
-// Home Row Mod settings
-#define TAPPING_TERM 175
-
-// permissive hold - pressing a mod-tap key and pressing/releasing a second key before the mod-tap key is released registers the mod-tap immediately, even if before the tapping term has been reached
-#define PERMISSIVE_HOLD

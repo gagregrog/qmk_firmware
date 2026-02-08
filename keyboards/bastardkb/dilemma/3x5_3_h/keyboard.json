@@ -52,8 +52,6 @@
         }
     },
     "tapping": {
-        "permissive_hold": true,
-        "term": 175,
         "toggle": 2
     },
     "url": "https://bastardkb.com",
