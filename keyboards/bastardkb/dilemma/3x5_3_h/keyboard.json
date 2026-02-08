@@ -1,15 +1,70 @@
 {
     "manufacturer": "Bastard Keyboards",
-    "keyboard_name": "bastardkb/charybdis/3x5_3_h",
+    "keyboard_name": "bastardkb/dilemma/3x5_3_h",
     "maintainer": "Quentin Lebastard",
     "bootloader": "rp2040",
-    "keyboard_folder": "bastardkb/charybdis/3x5_3_h",
+    "bootmagic": {
+        "enabled": true
+    },
+    "diode_direction": "COL2ROW",
+    "features": {
+        "audio": false,
+        "backlight": false,
+        "bootmagic": true,
+        "command": false,
+        "console": false,
+        "extrakey": true,
+        "key_override": true,
+        "mousekey": true,
+        "nkro": false,
+        "oled": true,
+        "pointing_device": true,
+        "rgb_matrix": false,
+        "rgblight": true
+    },
+    "keyboard_folder": "bastardkb/dilemma/3x5_3_h",
+    "matrix_pins": {
+        "cols": ["GP8", "GP9", "GP7", "GP6", "GP28"],
+        "rows": ["GP4", "GP5", "GP27", "GP26"]
+    },
+    "mouse_key": {
+        "enabled": true
+    },
     "processor": "RP2040",
+    "rgblight": {
+        "default": {
+            "hue": 85
+        },
+        "led_count": 2,
+        "sleep": true
+    },
+    "split": {
+        "enabled": true,
+        "handedness": {
+            "pin": "GP29"
+        },
+        "soft_serial_pin": "GP0",
+        "transport": {
+            "protocol": "serial",
+            "sync": {
+                "layer_state": true
+            }
+        }
+    },
+    "tapping": {
+        "permissive_hold": true,
+        "term": 175,
+        "toggle": 2
+    },
     "url": "https://bastardkb.com",
     "usb": {
+        "vid": "0xA8F8",
         "device_version": "2.0.0",
-        "pid": "0x1832",
-        "vid": "0xA8F8"
+        "pid": "0x1835"
+    },
+    "ws2812": {
+        "pin": "GP17",
+        "driver": "vendor"
     },
     "layouts": {
         "LAYOUT_split_3x5_3_h": {
